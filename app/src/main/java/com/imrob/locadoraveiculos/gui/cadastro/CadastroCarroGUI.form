@@ -56,8 +56,8 @@
                       <Component id="txtPreco" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="txtPlaca" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="cbDisponivel" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbFabricante" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbModelo" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboFabricante" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboModelo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="100" max="32767" attributes="0"/>
               </Group>
@@ -77,12 +77,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -223,32 +223,28 @@
             <Property name="text" type="java.lang.String" value="Disponivel"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbFabricante">
+        <Component class="javax.swing.JComboBox" name="cboFabricante">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboFabricanteActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbModelo">
+        <Component class="javax.swing.JComboBox" name="cboModelo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboModeloActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -262,6 +258,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Fechar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFecharActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

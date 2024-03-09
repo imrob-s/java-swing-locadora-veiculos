@@ -1,23 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.imrob.locadoraveiculos.gui.cadastro;
 
+import static com.imrob.locadoraveiculos.App.serviceFabricante;
+import static com.imrob.locadoraveiculos.App.serviceModelo;
+import com.imrob.locadoraveiculos.entities.Carro;
+import com.imrob.locadoraveiculos.entities.Fabricante;
+import com.imrob.locadoraveiculos.entities.Modelo;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author imrob
  */
 public class CadastroCarroGUI extends javax.swing.JDialog {
-
+    private Carro carro = new Carro();
+    private Modelo modelo = new Modelo();
+    private Fabricante fabricante = new Fabricante();
+    private List<Fabricante> listaFabricante = new ArrayList<>();
+    private List<Modelo> listaModelo = new ArrayList<>();
     /**
      * Creates new form CadastroCarroGUI
      */
     public CadastroCarroGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        carregarComboBoxFabricante();
+    }
+    
+    private Long getIdFabricanteCombo(){
+        return listaFabricante.get(cboFabricante.getSelectedIndex()).getId();
+    }
+    
+    public void carregarComboBoxFabricante() {
+        List<Fabricante> lista = serviceFabricante.findAll();
+        cboFabricante.removeAllItems();
+        
+        for (Fabricante f : lista) {
+            cboFabricante.addItem(f.getNome());
+        }
+    }
+    
+
+    
+    public void carregarComboBoxModelo(){
+        List<Modelo> lista = serviceModelo.findAll();
+        cboModelo.removeAllItems();
+        
+        for (Modelo f : lista) {
+            cboModelo.addItem(f.getNome());
+        }
     }
 
     /**
@@ -43,8 +76,8 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         txtPreco = new javax.swing.JTextField();
         txtPlaca = new javax.swing.JTextField();
         cbDisponivel = new javax.swing.JCheckBox();
-        cbFabricante = new javax.swing.JComboBox<>();
-        cbModelo = new javax.swing.JComboBox<>();
+        cboFabricante = new javax.swing.JComboBox<>();
+        cboModelo = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
@@ -104,13 +137,26 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         cbDisponivel.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         cbDisponivel.setText("Disponivel");
 
-        cbFabricante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFabricante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboFabricanteActionPerformed(evt);
+            }
+        });
 
-        cbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboModeloActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
 
         btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout telaCadastroCarroLayout = new javax.swing.GroupLayout(telaCadastroCarro);
         telaCadastroCarro.setLayout(telaCadastroCarroLayout);
@@ -133,8 +179,8 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
                     .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbDisponivel)
-                    .addComponent(cbFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaCadastroCarroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,11 +196,11 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFabricante)
-                    .addComponent(cbFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblModelo)
-                    .addComponent(cbModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAno)
@@ -206,6 +252,18 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnoActionPerformed
 
+    private void cboFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFabricanteActionPerformed
+        carregarComboBoxModelo();
+    }//GEN-LAST:event_cboFabricanteActionPerformed
+
+    private void cboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboModeloActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -253,8 +311,8 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbDisponivel;
-    private javax.swing.JComboBox<String> cbFabricante;
-    private javax.swing.JComboBox<String> cbModelo;
+    private javax.swing.JComboBox<String> cboFabricante;
+    private javax.swing.JComboBox<String> cboModelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblCor;

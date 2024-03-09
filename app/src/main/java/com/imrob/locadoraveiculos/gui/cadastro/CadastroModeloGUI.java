@@ -4,6 +4,7 @@
  */
 package com.imrob.locadoraveiculos.gui.cadastro;
 
+import static com.imrob.locadoraveiculos.App.serviceFabricante;
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
@@ -15,15 +16,26 @@ import java.util.List;
  * @author imrob
  */
 public class CadastroModeloGUI extends javax.swing.JDialog {
-
+    
     /**
      * Creates new form CadastroModeloGUI
      */
     public CadastroModeloGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        carregarComboBoxFabricante();
+        
+        
     }
-
+    
+    public void carregarComboBoxFabricante() {
+        List<Fabricante> lista = serviceFabricante.findAll();
+        cboFabricante.removeAllItems();
+        
+        for (Fabricante f : lista) {
+            cboFabricante.addItem(f.getNome());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,15 +170,7 @@ public class CadastroModeloGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_cboFabricanteActionPerformed
 
     private void cboFabricanteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cboFabricanteAncestorAdded
-        FabricanteService service = new FabricanteService(
-                new FabricanteRepository(DatabaseConfig.createJdbcClient()));
         
-        List<Fabricante> lista = service.findAll();
-        cboFabricante.removeAllItems();
-        
-        for (Fabricante f : lista) {
-            cboFabricante.addItem(f.getNome());
-        }
     }//GEN-LAST:event_cboFabricanteAncestorAdded
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

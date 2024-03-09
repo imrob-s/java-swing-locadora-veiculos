@@ -40,7 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        lblLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rob\\Documents\\NetBeansProjects\\locadoraveiculos\\app\\src\\main\\java\\com\\imrob\\locadoraveiculos\\imgs\\locadoraCarro.jpg")); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/locadoraCarro.jpg"))); // NOI18N
 
         menuCadastro.setText("Cadastro");
 
