@@ -28,19 +28,23 @@ public class ModeloRepository {
                 .list();
     }
     
-    public Optional<Modelo> findBy(Long id) {
+    public Modelo findBy(Long id) {
     return jdbcClient
         .sql("SELECT id, nome FROM modelo WHERE id = :id")
         .param("id", id)
         .query(Modelo.class)
-        .optional();
+        .single();
   }
     
-    public void create(Modelo modelo) {
+    public void save(Modelo modelo) {
+        String sql = """
+                     INSERT INTO modelo (nome, fabricante_id) 
+                     VALUES (:nome, :fabricanteId)
+                     """;
         jdbcClient
-          .sql("INSERT INTO product (id, description) VALUES (:id, :nome)")
-          .param("id", modelo.getId())
+          .sql(sql)
           .param("nome", modelo.getNome())
+          .param("fabricanteId", modelo.getIdFabricante())
           .update();
     }
     

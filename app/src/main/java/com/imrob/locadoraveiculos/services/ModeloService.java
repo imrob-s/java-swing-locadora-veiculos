@@ -1,11 +1,8 @@
 package com.imrob.locadoraveiculos.services;
 
-import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
 import java.util.List;
-import java.util.Optional;
 
 public class ModeloService {
     private final ModeloRepository repository;
@@ -18,7 +15,19 @@ public class ModeloService {
         return repository.findAll();
     }
     
-    public Optional<Modelo> findById(long id) {
+    public Modelo findById(Long id) {
         return repository.findBy(id);
+    }
+    
+    public void save(Modelo modelo) {
+        repository.save(modelo);
+    }
+    
+    public void update(Modelo modelo) {
+        repository.update(modelo);
+    }
+    
+    public void delete(Long id) {
+        repository.delete(id);
     }
 }

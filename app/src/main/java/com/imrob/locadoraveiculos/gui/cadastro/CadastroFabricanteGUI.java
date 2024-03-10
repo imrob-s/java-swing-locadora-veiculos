@@ -10,12 +10,16 @@ import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.services.FabricanteService;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author imrob
  */
 public class CadastroFabricanteGUI extends javax.swing.JDialog {
+    private Fabricante fabricante = new Fabricante();
+    private FabricanteService service = new FabricanteService(
+            new FabricanteRepository(DatabaseConfig.jdbcClient()));
 
     /**
      * Creates new form CadastroModeloGUI
@@ -23,6 +27,7 @@ public class CadastroFabricanteGUI extends javax.swing.JDialog {
     public CadastroFabricanteGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**
@@ -91,6 +96,11 @@ public class CadastroFabricanteGUI extends javax.swing.JDialog {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pTelaCadastroFabricanteLayout = new javax.swing.GroupLayout(pTelaCadastroFabricante);
         pTelaCadastroFabricante.setLayout(pTelaCadastroFabricanteLayout);
@@ -159,12 +169,21 @@ public class CadastroFabricanteGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeFocusGained
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        FabricanteService service = new FabricanteService(
-                new FabricanteRepository(DatabaseConfig.jdbcClient()));
+        fabricante.setNome(txtNome.getText());
         
-        List<Fabricante> lista = service.findAll();
+        try{
+        service.save(fabricante);
+        JOptionPane.showMessageDialog(null, "Fabricante salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        txtNome.setText("");
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
