@@ -160,7 +160,7 @@ public class CadastroFabricanteGUI extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         FabricanteService service = new FabricanteService(
-                new FabricanteRepository(DatabaseConfig.createJdbcClient()));
+                new FabricanteRepository(DatabaseConfig.jdbcClient()));
         
         List<Fabricante> lista = service.findAll();
         

@@ -13,9 +13,9 @@ import javax.swing.UIManager;
 
 public class App {
     public static FabricanteService serviceFabricante = new FabricanteService(
-                new FabricanteRepository(DatabaseConfig.createJdbcClient()));
+                new FabricanteRepository(DatabaseConfig.jdbcClient()));
     public static ModeloService serviceModelo = new ModeloService(
-                new ModeloRepository(DatabaseConfig.createJdbcClient()));
+                new ModeloRepository(DatabaseConfig.jdbcClient()));
 
     public static void main(String[] args) {
         setLookAndFeel();

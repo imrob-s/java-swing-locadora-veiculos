@@ -20,6 +20,7 @@ dependencies {
     implementation 'com.formdev:flatlaf:3.4'
     implementation 'com.formdev:flatlaf-intellij-themes:3.4'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.3'
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

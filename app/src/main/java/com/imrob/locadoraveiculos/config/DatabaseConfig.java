@@ -1,5 +1,6 @@
 package com.imrob.locadoraveiculos.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -10,10 +11,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  */
 public class DatabaseConfig {
 
- public static DataSource createDataSource() {
-        String url = "jdbc:postgresql://***REMOVED***/robson_locadora";
-        String username = "postgres";
-        String password = "***REMOVED***";
+ public static DataSource dataSource() {
+     /* Obs: Crie um arquivo ".env" na raiz do projeto e coloque os valores
+     das variaveis de ambiente dentro dele.
+     */
+        Dotenv dotenv = Dotenv.load();
+        String url = dotenv.get("JDBC_URL", "jdbc:postgresql://localhost:5432/postgres");
+        String username = dotenv.get("DB_USER", "postgres");
+        String password = dotenv.get("DB_PASSWORD", "postgres");
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
@@ -23,8 +28,8 @@ public class DatabaseConfig {
         return dataSource;
     }
 
-    public static JdbcClient createJdbcClient() {
-        return JdbcClient.create(createDataSource());
+    public static JdbcClient jdbcClient() {
+        return JdbcClient.create(dataSource());
     }
     
 }
