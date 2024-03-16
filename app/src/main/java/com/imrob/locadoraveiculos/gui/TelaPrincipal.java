@@ -1,17 +1,30 @@
 package com.imrob.locadoraveiculos.gui;
 
+import com.imrob.locadoraveiculos.components.CardComponent;
+import com.imrob.locadoraveiculos.config.DatabaseConfig;
+import com.imrob.locadoraveiculos.entities.Carro;
+import com.imrob.locadoraveiculos.entities.Modelo;
+import com.imrob.locadoraveiculos.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.FabricanteGUI;
+import com.imrob.locadoraveiculos.repositories.CarroRepository;
+import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.ModeloRepository;
+import com.imrob.locadoraveiculos.services.CarroService;
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import java.util.List;
 
 public class TelaPrincipal extends javax.swing.JFrame {
+    private CatalogoVeiculos catalogo;
 
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        jpConteudo.add(new CatalogoVeiculos());
     }
 
     /**
@@ -23,55 +36,122 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSair = new javax.swing.JButton();
-        lblLogo = new javax.swing.JLabel();
+        jpConteudo = new javax.swing.JPanel();
         menuBarPrincipal = new javax.swing.JMenuBar();
-        menuCadastro = new javax.swing.JMenu();
-        menuItemCadastroFabricante = new javax.swing.JMenuItem();
-        menuItemCadastroModelo = new javax.swing.JMenuItem();
-        menuItemCadastroCarro = new javax.swing.JMenuItem();
+        menuReservas = new javax.swing.JMenu();
+        menuReservasAdicionar = new javax.swing.JMenuItem();
+        menuReservasVisualizar = new javax.swing.JMenuItem();
+        menuReservasCancelar = new javax.swing.JMenuItem();
+        menuVeiculos = new javax.swing.JMenu();
+        menuVeiculosCatalogo = new javax.swing.JMenuItem();
+        menuVeiculosLocacoes = new javax.swing.JMenuItem();
+        menuVeiculosCadastrar = new javax.swing.JMenuItem();
+        menuVeiculosRemover = new javax.swing.JMenuItem();
+        menuVeiculosAtualizar = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenu();
+        menuClientesVisualizar = new javax.swing.JMenuItem();
+        menuClientesAdicionar = new javax.swing.JMenuItem();
+        menuClientesRemover = new javax.swing.JMenuItem();
+        menuClientesAtualizar = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        menuRelatorioReservas = new javax.swing.JMenuItem();
+        menuRelatorioFaturamento = new javax.swing.JMenuItem();
+        menuConfiguracoes = new javax.swing.JMenu();
+        menuConfiguracoesTema = new javax.swing.JMenuItem();
+        menuAjuda = new javax.swing.JMenu();
+        menuAjudaSuporte = new javax.swing.JMenuItem();
+        menuAjudaSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 700));
 
-        btnSair.setText("Fechar");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
+        jpConteudo.setPreferredSize(new java.awt.Dimension(600, 600));
+        jpConteudo.setLayout(new java.awt.CardLayout());
+
+        menuReservas.setText("Reservas");
+
+        menuReservasAdicionar.setText("Fazer Nova Reserva");
+        menuReservas.add(menuReservasAdicionar);
+
+        menuReservasVisualizar.setText("Visualizar Reservas Atuais");
+        menuReservas.add(menuReservasVisualizar);
+
+        menuReservasCancelar.setText("Cancelar Reserva");
+        menuReservas.add(menuReservasCancelar);
+
+        menuBarPrincipal.add(menuReservas);
+
+        menuVeiculos.setText("Veículos");
+
+        menuVeiculosCatalogo.setText("Catálogo de Veículos");
+        menuVeiculos.add(menuVeiculosCatalogo);
+
+        menuVeiculosLocacoes.setText("Veículos Locados");
+        menuVeiculos.add(menuVeiculosLocacoes);
+
+        menuVeiculosCadastrar.setText("Cadastrar Veículo");
+        menuVeiculosCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
+                menuVeiculosCadastrarActionPerformed(evt);
             }
         });
+        menuVeiculos.add(menuVeiculosCadastrar);
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/locadoraCarro.jpg"))); // NOI18N
+        menuVeiculosRemover.setText("Remover Veículo");
+        menuVeiculos.add(menuVeiculosRemover);
 
-        menuCadastro.setText("Cadastro");
+        menuVeiculosAtualizar.setText("Atualizar Veículo");
+        menuVeiculos.add(menuVeiculosAtualizar);
 
-        menuItemCadastroFabricante.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menuItemCadastroFabricante.setText("Fabricante");
-        menuItemCadastroFabricante.addActionListener(new java.awt.event.ActionListener() {
+        menuBarPrincipal.add(menuVeiculos);
+
+        menuClientes.setText("Clientes");
+
+        menuClientesVisualizar.setText("Visualizar Lista de Clientes");
+        menuClientesVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastroFabricanteActionPerformed(evt);
+                menuClientesVisualizarActionPerformed(evt);
             }
         });
-        menuCadastro.add(menuItemCadastroFabricante);
+        menuClientes.add(menuClientesVisualizar);
 
-        menuItemCadastroModelo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menuItemCadastroModelo.setText("Modelo");
-        menuItemCadastroModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastroModeloActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuItemCadastroModelo);
+        menuClientesAdicionar.setText("Adicionar Novo Cliente");
+        menuClientes.add(menuClientesAdicionar);
 
-        menuItemCadastroCarro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menuItemCadastroCarro.setText("Carro");
-        menuItemCadastroCarro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCadastroCarroActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuItemCadastroCarro);
+        menuClientesRemover.setText("Remover Cliente");
+        menuClientes.add(menuClientesRemover);
 
-        menuBarPrincipal.add(menuCadastro);
+        menuClientesAtualizar.setText("Atualizar Informações do Cliente");
+        menuClientes.add(menuClientesAtualizar);
+
+        menuBarPrincipal.add(menuClientes);
+
+        menuRelatorios.setText("Relatórios");
+
+        menuRelatorioReservas.setText("Reservas");
+        menuRelatorios.add(menuRelatorioReservas);
+
+        menuRelatorioFaturamento.setText("Faturamento");
+        menuRelatorios.add(menuRelatorioFaturamento);
+
+        menuBarPrincipal.add(menuRelatorios);
+
+        menuConfiguracoes.setText("Configurações");
+
+        menuConfiguracoesTema.setText("Alterar Tema");
+        menuConfiguracoes.add(menuConfiguracoesTema);
+
+        menuBarPrincipal.add(menuConfiguracoes);
+
+        menuAjuda.setText("Ajuda");
+
+        menuAjudaSuporte.setText("Suporte");
+        menuAjuda.add(menuAjudaSuporte);
+
+        menuAjudaSobre.setText("Sobre");
+        menuAjuda.add(menuAjudaSobre);
+
+        menuBarPrincipal.add(menuAjuda);
 
         setJMenuBar(menuBarPrincipal);
 
@@ -79,44 +159,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSair)
-                    .addComponent(lblLogo))
-                .addContainerGap())
+            .addComponent(jpConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSair)
-                .addContainerGap())
+            .addComponent(jpConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
+    private void menuClientesVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesVisualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuClientesVisualizarActionPerformed
 
-    private void menuItemCadastroFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroFabricanteActionPerformed
-        CadastroFabricanteGUI dialog = new CadastroFabricanteGUI(this, true);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_menuItemCadastroFabricanteActionPerformed
-
-    private void menuItemCadastroModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroModeloActionPerformed
-        CadastroModeloGUI dialog = new CadastroModeloGUI(this, true);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_menuItemCadastroModeloActionPerformed
-
-    private void menuItemCadastroCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastroCarroActionPerformed
+    private void menuVeiculosCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculosCadastrarActionPerformed
         new CadastroCarroGUI(this, true).setVisible(true);
-    }//GEN-LAST:event_menuItemCadastroCarroActionPerformed
+    }//GEN-LAST:event_menuVeiculosCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,12 +215,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSair;
-    private javax.swing.JLabel lblLogo;
+    private javax.swing.JPanel jpConteudo;
+    private javax.swing.JMenu menuAjuda;
+    private javax.swing.JMenuItem menuAjudaSobre;
+    private javax.swing.JMenuItem menuAjudaSuporte;
     private javax.swing.JMenuBar menuBarPrincipal;
-    private javax.swing.JMenu menuCadastro;
-    private javax.swing.JMenuItem menuItemCadastroCarro;
-    private javax.swing.JMenuItem menuItemCadastroFabricante;
-    private javax.swing.JMenuItem menuItemCadastroModelo;
+    private javax.swing.JMenu menuClientes;
+    private javax.swing.JMenuItem menuClientesAdicionar;
+    private javax.swing.JMenuItem menuClientesAtualizar;
+    private javax.swing.JMenuItem menuClientesRemover;
+    private javax.swing.JMenuItem menuClientesVisualizar;
+    private javax.swing.JMenu menuConfiguracoes;
+    private javax.swing.JMenuItem menuConfiguracoesTema;
+    private javax.swing.JMenuItem menuRelatorioFaturamento;
+    private javax.swing.JMenuItem menuRelatorioReservas;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuReservas;
+    private javax.swing.JMenuItem menuReservasAdicionar;
+    private javax.swing.JMenuItem menuReservasCancelar;
+    private javax.swing.JMenuItem menuReservasVisualizar;
+    private javax.swing.JMenu menuVeiculos;
+    private javax.swing.JMenuItem menuVeiculosAtualizar;
+    private javax.swing.JMenuItem menuVeiculosCadastrar;
+    private javax.swing.JMenuItem menuVeiculosCatalogo;
+    private javax.swing.JMenuItem menuVeiculosLocacoes;
+    private javax.swing.JMenuItem menuVeiculosRemover;
     // End of variables declaration//GEN-END:variables
 }

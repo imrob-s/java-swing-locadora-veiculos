@@ -6,7 +6,6 @@ package com.imrob.locadoraveiculos.repositories;
 
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 /**
@@ -22,7 +21,7 @@ public class FabricanteRepository {
     
     public List<Fabricante> findAll() {
         return jdbcClient
-                .sql("SELECT * FROM fabricante")
+                .sql("SELECT * FROM fabricante ORDER BY nome ASC")
                 .query(Fabricante.class)
                 .list();
     }
