@@ -17,7 +17,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     
     public CatalogoVeiculos() {
         initComponents();
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(900, 600));
         GridLayout gridLayout = new GridLayout(0, 4, 15, 15); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
         jpConteudo.setLayout(gridLayout);
 
@@ -26,7 +26,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     }
     
     public void carregarCatalogoCarros() {
-        List<Carro> lista = service.findAll();
+        List<Carro> lista = service.findAllWithIdNames();
         
         for (Carro c : lista) {
             jpConteudo.add(new CardComponent(c));
@@ -62,7 +62,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
 
         scroll.setViewportView(jpConteudo);
 
-        add(scroll, java.awt.BorderLayout.CENTER);
+        add(scroll, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
 
 

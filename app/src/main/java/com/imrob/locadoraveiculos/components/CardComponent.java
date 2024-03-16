@@ -1,24 +1,10 @@
 package com.imrob.locadoraveiculos.components;
 
-import com.imrob.locadoraveiculos.entities.CardCarro;
 import com.imrob.locadoraveiculos.entities.Carro;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
-/**
- *
- * @author Rob
- */
 public class CardComponent extends javax.swing.JPanel {
-
-    private boolean selected;
-    
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        repaint();
-    }
     
     public CardComponent() {
         initComponents();
@@ -32,11 +18,20 @@ public class CardComponent extends javax.swing.JPanel {
     }
     
     public void setData(Carro carro) {
-        txtModelo.setText(String.valueOf(carro.getIdModelo()));
+        txtModelo.setText(carro.getModelo());
         txtAno.setText(String.valueOf(carro.getAno()));
         txtCor.setText(carro.getCor());
         txtPlaca.setText(carro.getPlaca());
-        // lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/carro/" + carro.getIdModelo() +".png")));
+        // lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/carro/" + carro.getModeloId() +".png")));
+        String imagePath = "/imgs/carro/" + carro.getModeloId() + ".png";
+        URL imageURL = getClass().getResource(imagePath);
+
+        if (imageURL != null) {
+            lblImg.setIcon(new ImageIcon(imageURL));
+        } else {
+            lblImg.setIcon(new ImageIcon(getClass().getResource("/imgs/img_carrodefault.png")));
+        }
+
     }
     
     @SuppressWarnings("unchecked")
@@ -51,13 +46,13 @@ public class CardComponent extends javax.swing.JPanel {
         txtAno = new javax.swing.JLabel();
         txtCor = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JLabel();
+        txtDisponivel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
         setForeground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(200, 250));
         setMinimumSize(new java.awt.Dimension(200, 250));
-
-        lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/carro/img_carro.png"))); // NOI18N
 
         txtModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(51, 51, 51));
@@ -84,20 +79,26 @@ public class CardComponent extends javax.swing.JPanel {
         txtPlaca.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtPlaca.setText("ABC1234");
 
+        txtDisponivel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtDisponivel.setText("Indisponivel");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtDisponivel))
+                    .addComponent(lblImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPlaca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(txtPlaca))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblCor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblAno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -126,7 +127,9 @@ public class CardComponent extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlaca)
                     .addComponent(txtPlaca))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDisponivel)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,6 +141,7 @@ public class CardComponent extends javax.swing.JPanel {
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel txtAno;
     private javax.swing.JLabel txtCor;
+    private javax.swing.JLabel txtDisponivel;
     private javax.swing.JLabel txtModelo;
     private javax.swing.JLabel txtPlaca;
     // End of variables declaration//GEN-END:variables

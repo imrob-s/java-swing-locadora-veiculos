@@ -22,7 +22,6 @@ public class App {
 
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
-
     }
 
     private static void setLookAndFeel() {

@@ -40,4 +40,8 @@ public class CarroService {
     public List<Carro> findAllBy(Modelo modelo){
         return repository.findAllBy(modelo);
     }
+    
+    public List<Carro> findAllWithIdNames(){
+        return repository.findAllWithIdNames();
+    }
 }

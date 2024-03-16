@@ -4,10 +4,8 @@
  */
 package com.imrob.locadoraveiculos.repositories;
 
-import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 /**

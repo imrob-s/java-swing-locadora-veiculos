@@ -9,6 +9,7 @@ import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.FabricanteGUI;
+import com.imrob.locadoraveiculos.gui.reserva.NovaReservaGUI;
 import com.imrob.locadoraveiculos.repositories.CarroRepository;
 import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
@@ -39,9 +40,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jpConteudo = new javax.swing.JPanel();
         menuBarPrincipal = new javax.swing.JMenuBar();
         menuReservas = new javax.swing.JMenu();
-        menuReservasAdicionar = new javax.swing.JMenuItem();
-        menuReservasVisualizar = new javax.swing.JMenuItem();
-        menuReservasCancelar = new javax.swing.JMenuItem();
+        mnuReservasAdicionar = new javax.swing.JMenuItem();
+        mnuReservasVisualizar = new javax.swing.JMenuItem();
+        mnuReservasCancelar = new javax.swing.JMenuItem();
         menuVeiculos = new javax.swing.JMenu();
         menuVeiculosCatalogo = new javax.swing.JMenuItem();
         menuVeiculosLocacoes = new javax.swing.JMenuItem();
@@ -63,21 +64,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuAjudaSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 700));
+        setMinimumSize(new java.awt.Dimension(900, 700));
+        setPreferredSize(new java.awt.Dimension(900, 599));
 
         jpConteudo.setPreferredSize(new java.awt.Dimension(600, 600));
         jpConteudo.setLayout(new java.awt.CardLayout());
 
         menuReservas.setText("Reservas");
 
-        menuReservasAdicionar.setText("Fazer Nova Reserva");
-        menuReservas.add(menuReservasAdicionar);
+        mnuReservasAdicionar.setText("Fazer Nova Reserva");
+        mnuReservasAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReservasAdicionarActionPerformed(evt);
+            }
+        });
+        menuReservas.add(mnuReservasAdicionar);
 
-        menuReservasVisualizar.setText("Visualizar Reservas Atuais");
-        menuReservas.add(menuReservasVisualizar);
+        mnuReservasVisualizar.setText("Visualizar Reservas Atuais");
+        menuReservas.add(mnuReservasVisualizar);
 
-        menuReservasCancelar.setText("Cancelar Reserva");
-        menuReservas.add(menuReservasCancelar);
+        mnuReservasCancelar.setText("Cancelar Reserva");
+        menuReservas.add(mnuReservasCancelar);
 
         menuBarPrincipal.add(menuReservas);
 
@@ -178,6 +185,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new CadastroCarroGUI(this, true).setVisible(true);
     }//GEN-LAST:event_menuVeiculosCadastrarActionPerformed
 
+    private void mnuReservasAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReservasAdicionarActionPerformed
+        new NovaReservaGUI(this, true).setVisible(true);
+    }//GEN-LAST:event_mnuReservasAdicionarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -231,14 +242,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuRelatorioReservas;
     private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenu menuReservas;
-    private javax.swing.JMenuItem menuReservasAdicionar;
-    private javax.swing.JMenuItem menuReservasCancelar;
-    private javax.swing.JMenuItem menuReservasVisualizar;
     private javax.swing.JMenu menuVeiculos;
     private javax.swing.JMenuItem menuVeiculosAtualizar;
     private javax.swing.JMenuItem menuVeiculosCadastrar;
     private javax.swing.JMenuItem menuVeiculosCatalogo;
     private javax.swing.JMenuItem menuVeiculosLocacoes;
     private javax.swing.JMenuItem menuVeiculosRemover;
+    private javax.swing.JMenuItem mnuReservasAdicionar;
+    private javax.swing.JMenuItem mnuReservasCancelar;
+    private javax.swing.JMenuItem mnuReservasVisualizar;
     // End of variables declaration//GEN-END:variables
 }

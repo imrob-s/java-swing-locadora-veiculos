@@ -9,17 +9,20 @@
             <Property name="text" type="java.lang.String" value="Reservas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuReservasAdicionar">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuReservasAdicionar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fazer Nova Reserva"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReservasAdicionarActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuReservasVisualizar">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuReservasVisualizar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visualizar Reservas Atuais"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuReservasCancelar">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuReservasCancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar Reserva"/>
               </Properties>
@@ -143,7 +146,10 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 700]"/>
+      <Dimension value="[900, 700]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[900, 599]"/>
     </Property>
   </Properties>
   <SyntheticProperties>

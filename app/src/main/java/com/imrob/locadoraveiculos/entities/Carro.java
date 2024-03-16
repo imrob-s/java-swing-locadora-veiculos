@@ -11,25 +11,44 @@ package com.imrob.locadoraveiculos.entities;
 public class Carro {
 
     private Long id;
-    private Long idFabricante;
-    private Long idModelo;
+    // Foi necessario o snakecase devido mapeamento com banco de dados
+    private Long fabricante_id;
+    private Long modelo_id;
     private String placa;
     private String cor;
     private Boolean disponivel;
     private Integer ano;
     private Double valorLocacao;
+    private String fabricante;
+    private String modelo;
 
     public Carro() {
     }
 
     public Carro(Long idFabricante, Long idModelo, String placa, String cor, Boolean disponivel, Integer ano, Double valorlocacao) {
-        this.idFabricante = idFabricante;
-        this.idModelo = idModelo;
+        this.fabricante_id = idFabricante;
+        this.modelo_id = idModelo;
         this.placa = placa;
         this.cor = cor;
         this.disponivel = disponivel;
         this.ano = ano;
         this.valorLocacao = valorlocacao;
+    }
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public Long getId() {
@@ -40,20 +59,20 @@ public class Carro {
         this.id = id;
     }
 
-    public Long getIdFabricante() {
-        return idFabricante;
+    public Long getFabricanteId() {
+        return fabricante_id;
     }
 
-    public void setIdFabricante(Long idFabricante) {
-        this.idFabricante = idFabricante;
+    public void setFabricanteId(Long fabricante_id) {
+        this.fabricante_id = fabricante_id;
     }
 
-    public Long getIdModelo() {
-        return idModelo;
+    public Long getModeloId() {
+        return modelo_id;
     }
 
-    public void setIdModelo(Long idModelo) {
-        this.idModelo = idModelo;
+    public void setModeloId(Long modelo_id) {
+        this.modelo_id = modelo_id;
     }
 
     public String getPlaca() {
@@ -100,8 +119,8 @@ public class Carro {
     public String toString() {
         return "Carro{" +
                 "id=" + id +
-                ", idFabricante=" + idFabricante +
-                ", idModelo=" + idModelo +
+                ", idFabricante=" + fabricante_id +
+                ", idModelo=" + modelo_id +
                 ", placa='" + placa + '\'' +
                 ", cor='" + cor + '\'' +
                 ", disponivel=" + disponivel +

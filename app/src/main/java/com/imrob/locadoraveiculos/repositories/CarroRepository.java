@@ -44,7 +44,7 @@ public class CarroRepository {
                      """;
         jdbcClient
           .sql(sql)
-          .params(carro.getIdFabricante(), carro.getIdModelo(), carro.getAno(),
+          .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
           carro.getCor(), carro.getPlaca(), carro.getValorLocacao(),
           carro.getDisponivel())
           .update();
@@ -63,7 +63,7 @@ public class CarroRepository {
                      """;
         jdbcClient
           .sql(sql)
-          .params(carro.getIdFabricante(), carro.getIdModelo(), carro.getAno(),
+          .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
           carro.getCor(), carro.getPlaca(), carro.getValorLocacao(),
           carro.getDisponivel(), carro.getId())
           .update();
@@ -90,6 +90,32 @@ public class CarroRepository {
         return jdbcClient
                 .sql(sql)
                 .param("id", modelo.getId())
+                .query(Carro.class)
+                .list();
+    }
+    
+    public List<Carro> findAllWithIdNames(){
+        String sql = """
+                     SELECT 
+                         c.id,
+                         c.fabricante_id,
+                         c.modelo_id,
+                         f.nome AS fabricante, 
+                         m.nome AS modelo, 
+                         c.ano, 
+                         c.cor, 
+                         c.placa, 
+                         c.valorlocacao, 
+                         c.disponivel
+                     FROM 
+                         carro c 
+                     INNER JOIN 
+                         fabricante f ON c.fabricante_id = f.id 
+                     INNER JOIN 
+                         modelo m ON c.modelo_id = m.id;
+                     """;
+        return jdbcClient
+                .sql(sql)
                 .query(Carro.class)
                 .list();
     }
