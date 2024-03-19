@@ -9,18 +9,21 @@ import com.imrob.locadoraveiculos.services.CarroService;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class CatalogoVeiculos extends javax.swing.JPanel {
     private CardComponent card;
+    private JPanel jpConteudo;
+    private JScrollPane scroll;
     public CarroService service = new CarroService(
                 new CarroRepository(DatabaseConfig.jdbcClient()));
     
     public CatalogoVeiculos() {
         initComponents();
-        setPreferredSize(new Dimension(900, 600));
-        GridLayout gridLayout = new GridLayout(0, 4, 15, 15); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
-        jpConteudo.setLayout(gridLayout);
-
+        carregarTela();
         carregarCatalogoCarros();
         
     }
@@ -32,6 +35,19 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
             jpConteudo.add(new CardComponent(c));
         }
     }
+    
+    public void carregarTela() {
+        jpConteudo = new javax.swing.JPanel();
+        scroll = new javax.swing.JScrollPane();
+        scroll.setViewportView(jpConteudo);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scroll, java.awt.BorderLayout.CENTER); 
+        
+        setPreferredSize(new Dimension(885, 1000));
+        GridLayout gridLayout = new GridLayout(0, 4, 15, 15); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
+        jpConteudo.setLayout(gridLayout);
+        jpConteudo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,32 +58,79 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scroll = new javax.swing.JScrollPane();
-        jpConteudo = new javax.swing.JPanel();
+        pHeader = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
-        scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Frota de Veículos");
 
-        javax.swing.GroupLayout jpConteudoLayout = new javax.swing.GroupLayout(jpConteudo);
-        jpConteudo.setLayout(jpConteudoLayout);
-        jpConteudoLayout.setHorizontalGroup(
-            jpConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Pesquisar:");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Adicionar Novo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pHeaderLayout = new javax.swing.GroupLayout(pHeader);
+        pHeader.setLayout(pHeaderLayout);
+        pHeaderLayout.setHorizontalGroup(
+            pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(pHeaderLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
-        jpConteudoLayout.setVerticalGroup(
-            jpConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+        pHeaderLayout.setVerticalGroup(
+            pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        scroll.setViewportView(jpConteudo);
-
-        add(scroll, java.awt.BorderLayout.LINE_END);
+        add(pHeader, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jpConteudo;
-    private javax.swing.JScrollPane scroll;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel pHeader;
     // End of variables declaration//GEN-END:variables
 }

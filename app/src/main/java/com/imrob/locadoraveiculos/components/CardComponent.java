@@ -1,6 +1,7 @@
 package com.imrob.locadoraveiculos.components;
 
 import com.imrob.locadoraveiculos.entities.Carro;
+import java.awt.Color;
 import java.net.URL;
 import javax.swing.ImageIcon;
 
@@ -22,10 +23,19 @@ public class CardComponent extends javax.swing.JPanel {
         txtAno.setText(String.valueOf(carro.getAno()));
         txtCor.setText(carro.getCor());
         txtPlaca.setText(carro.getPlaca());
-        // lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/carro/" + carro.getModeloId() +".png")));
+        if (carro.getDisponivel()){
+            txtDisponivel.setOpaque(true);
+            txtDisponivel.setBackground(Color.GREEN);
+            txtDisponivel.setText("Disponível");
+        } else {
+            txtDisponivel.setOpaque(true);
+            txtDisponivel.setBackground(Color.RED);
+            txtDisponivel.setForeground(Color.WHITE);
+            txtDisponivel.setText("Indisponível");
+        }
+        
         String imagePath = "/imgs/carro/" + carro.getModeloId() + ".png";
         URL imageURL = getClass().getResource(imagePath);
-
         if (imageURL != null) {
             lblImg.setIcon(new ImageIcon(imageURL));
         } else {

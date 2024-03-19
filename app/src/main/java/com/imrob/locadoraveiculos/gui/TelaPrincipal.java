@@ -15,7 +15,11 @@ import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
 import com.imrob.locadoraveiculos.services.CarroService;
 import com.imrob.locadoraveiculos.services.FabricanteService;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.List;
+import mdlaf.MaterialLookAndFeel;
+import mdlaf.themes.JMarsDarkTheme;
 
 public class TelaPrincipal extends javax.swing.JFrame {
     private CatalogoVeiculos catalogo;
@@ -25,7 +29,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        jpConteudo.add(new CatalogoVeiculos());
+        jpConteudo.setLayout(new BorderLayout());
+        catalogo = new CatalogoVeiculos();
+        
+        jpConteudo.add(catalogo, BorderLayout.CENTER);
     }
 
     /**
@@ -67,7 +74,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(900, 700));
         setPreferredSize(new java.awt.Dimension(900, 599));
 
-        jpConteudo.setPreferredSize(new java.awt.Dimension(600, 600));
+        jpConteudo.setMaximumSize(new java.awt.Dimension(1200, 700));
+        jpConteudo.setName(""); // NOI18N
+        jpConteudo.setPreferredSize(new java.awt.Dimension(885, 700));
         jpConteudo.setLayout(new java.awt.CardLayout());
 
         menuReservas.setText("Reservas");
@@ -146,6 +155,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConfiguracoes.setText("Configurações");
 
         menuConfiguracoesTema.setText("Alterar Tema");
+        menuConfiguracoesTema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConfiguracoesTemaActionPerformed(evt);
+            }
+        });
         menuConfiguracoes.add(menuConfiguracoesTema);
 
         menuBarPrincipal.add(menuConfiguracoes);
@@ -166,11 +180,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpConteudo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+            .addComponent(jpConteudo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
         );
 
         pack();
@@ -188,6 +202,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void mnuReservasAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReservasAdicionarActionPerformed
         new NovaReservaGUI(this, true).setVisible(true);
     }//GEN-LAST:event_mnuReservasAdicionarActionPerformed
+
+    private void menuConfiguracoesTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConfiguracoesTemaActionPerformed
+       
+    }//GEN-LAST:event_menuConfiguracoesTemaActionPerformed
 
     /**
      * @param args the command line arguments

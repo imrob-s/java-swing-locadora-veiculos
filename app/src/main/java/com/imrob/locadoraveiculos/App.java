@@ -3,13 +3,16 @@
  */
 package com.imrob.locadoraveiculos;
 import com.imrob.locadoraveiculos.services.FabricanteService;
-import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.gui.TelaPrincipal;
 import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
 import com.imrob.locadoraveiculos.services.ModeloService;
 import javax.swing.UIManager;
+import mdlaf.MaterialLookAndFeel;
+import mdlaf.themes.JMarsDarkTheme;
+import mdlaf.themes.MaterialLiteTheme;
+import mdlaf.themes.MaterialOceanicTheme;
 
 public class App {
     public static FabricanteService serviceFabricante = new FabricanteService(
@@ -26,7 +29,7 @@ public class App {
 
     private static void setLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(new FlatArcOrangeIJTheme());
+            UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
