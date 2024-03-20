@@ -12,7 +12,7 @@ public class Modelo {
 
     private Long id;
     private String nome;
-    private Long idFabricante;
+    private Long fabricante_id;
 
     public Modelo() {
     }
@@ -20,12 +20,12 @@ public class Modelo {
     public Modelo(Long id, String nome, Long idFabricante) {
         this.id = id;
         this.nome = nome;
-        this.idFabricante = idFabricante;
+        this.fabricante_id = idFabricante;
     }
 
     public Modelo(String nome, Long idFabricante) {
         this.nome = nome;
-        this.idFabricante = idFabricante;
+        this.fabricante_id = idFabricante;
     }
 
     public Long getId() {
@@ -44,12 +44,12 @@ public class Modelo {
         this.nome = nome;
     }
 
-    public Long getIdFabricante() {
-        return idFabricante;
+    public Long getFabricanteId() {
+        return fabricante_id;
     }
 
-    public void setIdFabricante(Long idFabricante) {
-        this.idFabricante = idFabricante;
+    public void setFabricanteId(Long fabricanteId) {
+        this.fabricante_id = fabricanteId;
     }
 
     @Override

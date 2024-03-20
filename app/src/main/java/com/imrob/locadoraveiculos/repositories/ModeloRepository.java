@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.repositories;
 
 import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
-/**
- *
- * @author Rob
- */
 public class ModeloRepository {
     private final JdbcClient jdbcClient;
 
@@ -42,7 +35,7 @@ public class ModeloRepository {
         jdbcClient
           .sql(sql)
           .param("nome", modelo.getNome())
-          .param("fabricanteId", modelo.getIdFabricante())
+          .param("fabricanteId", modelo.getFabricanteId())
           .update();
     }
     

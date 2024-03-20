@@ -1,6 +1,6 @@
 package com.imrob.locadoraveiculos.gui;
 
-import com.imrob.locadoraveiculos.components.CardComponent;
+import com.imrob.locadoraveiculos.components.CardCarro;
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.entities.Modelo;

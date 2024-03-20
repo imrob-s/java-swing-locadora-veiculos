@@ -29,7 +29,7 @@ public class App {
 
     private static void setLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
+            UIManager.setLookAndFeel(new MaterialLookAndFeel());
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }

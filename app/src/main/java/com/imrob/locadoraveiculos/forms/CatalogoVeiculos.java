@@ -1,7 +1,7 @@
 
 package com.imrob.locadoraveiculos.forms;
 
-import com.imrob.locadoraveiculos.components.CardComponent;
+import com.imrob.locadoraveiculos.components.CardCarro;
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.repositories.CarroRepository;
@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class CatalogoVeiculos extends javax.swing.JPanel {
-    private CardComponent card;
+    private CardCarro card;
     private JPanel jpConteudo;
     private JScrollPane scroll;
     public CarroService service = new CarroService(
@@ -32,7 +32,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
         List<Carro> lista = service.findAllWithIdNames();
         
         for (Carro c : lista) {
-            jpConteudo.add(new CardComponent(c));
+            jpConteudo.add(new CardCarro(c));
         }
     }
     
