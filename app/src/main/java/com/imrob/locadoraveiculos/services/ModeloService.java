@@ -1,33 +1,67 @@
 package com.imrob.locadoraveiculos.services;
 
+import com.imrob.locadoraveiculos.DTO.ModeloDTO;
+import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
+import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeloService {
     private final ModeloRepository repository;
+    private final FabricanteRepository fabricanteRepository;
 
-    public ModeloService(ModeloRepository modeloRepository) {
-        this.repository = modeloRepository;
+    public ModeloService() {
+        this.repository = new ModeloRepository();
+        this.fabricanteRepository = new FabricanteRepository();
     }
 
-    public List<Modelo> findAll() {
-        return repository.findAll();
+    public List<ModeloDTO> findAll() {
+        return convertToDTOs(repository.findAll());
     }
     
-    public Modelo findById(Long id) {
-        return repository.findBy(id);
+    public ModeloDTO findById(Long id) {
+        return convertToDTO(repository.findBy(id));
     }
     
-    public void save(Modelo modelo) {
-        repository.save(modelo);
+    public void save(ModeloDTO modelo) {
+        repository.save(convertToEntity(modelo));
     }
     
-    public void update(Modelo modelo) {
-        repository.update(modelo);
+    public void update(ModeloDTO modelo) {
+        repository.update(convertToEntity(modelo));
     }
     
     public void delete(Long id) {
         repository.delete(id);
+    }
+    
+    public List<ModeloDTO> convertToDTOs(List<Modelo> modelos){
+        List<ModeloDTO> dtos = new ArrayList<>();
+        for (Modelo modelo : modelos) {
+            dtos.add(convertToDTO(modelo));
+        }
+        return dtos;
+    }
+    
+    public ModeloDTO convertToDTO(Modelo entity) {
+        Fabricante fabricante = fabricanteRepository.findBy(entity.getFabricanteId());
+        ModeloDTO dto = new ModeloDTO();
+        dto.setId(entity.getId());
+        dto.setNome(entity.getNome());
+        dto.setFabricanteId(entity.getFabricanteId());
+        dto.setFabricante(fabricante.getNome());
+        
+        return dto;
+    }
+    
+    public Modelo convertToEntity(ModeloDTO dto) {
+        Modelo entity = new Modelo();
+        entity.setId(dto.getId());
+        entity.setNome(dto.getNome());
+        entity.setFabricanteId(dto.getFabricanteId());
+        
+        return entity;
     }
 }

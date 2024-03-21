@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.gui.cadastro;
 
-import static com.imrob.locadoraveiculos.App.serviceFabricante;
-import com.imrob.locadoraveiculos.config.DatabaseConfig;
+import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.entities.Modelo;
 import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import java.util.List;
 
 /**
@@ -16,10 +13,10 @@ import java.util.List;
  * @author imrob
  */
 public class CadastroModeloGUI extends javax.swing.JDialog {
+    private Modelo modelo = new Modelo();
+    private ModeloService modeloService = new ModeloService();
+    private FabricanteService fabricanteService = new FabricanteService();
     
-    /**
-     * Creates new form CadastroModeloGUI
-     */
     public CadastroModeloGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,10 +26,10 @@ public class CadastroModeloGUI extends javax.swing.JDialog {
     }
     
     public void carregarComboBoxFabricante() {
-        List<Fabricante> lista = serviceFabricante.findAll();
+        List<FabricanteDTO> lista = fabricanteService.findAll();
         cboFabricante.removeAllItems();
         
-        for (Fabricante f : lista) {
+        for (FabricanteDTO f : lista) {
             cboFabricante.addItem(f.getNome());
         }
     }

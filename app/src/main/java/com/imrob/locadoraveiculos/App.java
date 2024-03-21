@@ -15,10 +15,6 @@ import mdlaf.themes.MaterialLiteTheme;
 import mdlaf.themes.MaterialOceanicTheme;
 
 public class App {
-    public static FabricanteService serviceFabricante = new FabricanteService(
-                new FabricanteRepository(DatabaseConfig.jdbcClient()));
-    public static ModeloService serviceModelo = new ModeloService(
-                new ModeloRepository(DatabaseConfig.jdbcClient()));
 
     public static void main(String[] args) {
         setLookAndFeel();

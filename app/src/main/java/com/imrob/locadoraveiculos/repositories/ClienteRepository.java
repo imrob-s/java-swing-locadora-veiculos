@@ -1,5 +1,6 @@
 package com.imrob.locadoraveiculos.repositories;
 
+import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Cliente;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -7,8 +8,8 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 public class ClienteRepository {
     private final JdbcClient jdbcClient;
 
-    public ClienteRepository(JdbcClient jdbcClient) {
-        this.jdbcClient = jdbcClient;
+    public ClienteRepository() {
+        this.jdbcClient = DatabaseConfig.jdbcClient();
     }
     
     public List<Cliente> findAll() {

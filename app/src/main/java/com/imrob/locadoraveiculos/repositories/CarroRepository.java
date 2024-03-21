@@ -1,24 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.repositories;
 
+import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
-/**
- *
- * @author Rob
- */
 public class CarroRepository {
     private final JdbcClient jdbcClient;
 
-    public CarroRepository(JdbcClient jdbcClient) {
-        this.jdbcClient = jdbcClient;
+    public CarroRepository() {
+        this.jdbcClient = DatabaseConfig.jdbcClient();
     }
     
     public List<Carro> findAll() {
@@ -45,7 +39,7 @@ public class CarroRepository {
         jdbcClient
           .sql(sql)
           .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
-          carro.getCor(), carro.getPlaca(), carro.getValorLocacao(),
+          carro.getCor(), carro.getPlaca(), carro.getValorlocacao(),
           carro.getDisponivel())
           .update();
     }
@@ -64,7 +58,7 @@ public class CarroRepository {
         jdbcClient
           .sql(sql)
           .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
-          carro.getCor(), carro.getPlaca(), carro.getValorLocacao(),
+          carro.getCor(), carro.getPlaca(), carro.getValorlocacao(),
           carro.getDisponivel(), carro.getId())
           .update();
   }
@@ -94,29 +88,29 @@ public class CarroRepository {
                 .list();
     }
     
-    public List<Carro> findAllWithIdNames(){
+    public String findNomeModeloById (Long id) {
         String sql = """
-                     SELECT 
-                         c.id,
-                         c.fabricante_id,
-                         c.modelo_id,
-                         f.nome AS fabricante, 
-                         m.nome AS modelo, 
-                         c.ano, 
-                         c.cor, 
-                         c.placa, 
-                         c.valorlocacao, 
-                         c.disponivel
-                     FROM 
-                         carro c 
-                     INNER JOIN 
-                         fabricante f ON c.fabricante_id = f.id 
-                     INNER JOIN 
-                         modelo m ON c.modelo_id = m.id;
+                     select m.nome
+                     from modelo m 
+                     where m.id = :id
                      """;
         return jdbcClient
                 .sql(sql)
-                .query(Carro.class)
-                .list();
+                .param("id", id)
+                .query(String.class)
+                .single();
     }
+    
+        public String findNomeFabricanteById (Long id) {
+        String sql = """
+                     select f.nome
+                     from fabricante f 
+                     where f.id = :id
+                     """;
+        return jdbcClient
+                .sql(sql)
+                .param("id", id)
+                .query(String.class)
+                .single();
+    } 
 }

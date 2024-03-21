@@ -1,10 +1,11 @@
 package com.imrob.locadoraveiculos.gui.cadastro;
 
-import static com.imrob.locadoraveiculos.App.serviceFabricante;
-import static com.imrob.locadoraveiculos.App.serviceModelo;
-import com.imrob.locadoraveiculos.entities.Carro;
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
+import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
+import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.entities.Modelo;
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,41 +15,34 @@ import java.util.List;
  * @author imrob
  */
 public class CadastroCarroGUI extends javax.swing.JDialog {
-    private Carro carro = new Carro();
-    private Modelo modelo = new Modelo();
+    private CarroDTO carro = new CarroDTO();
+    private ModeloDTO modelo = new ModeloDTO();
     private Fabricante fabricante = new Fabricante();
-    private List<Fabricante> listaFabricante = new ArrayList<>();
-    private List<Modelo> listaModelo = new ArrayList<>();
+    private FabricanteService fabricanteService = new FabricanteService();
+    private ModeloService modeloService = new ModeloService();
     /**
      * Creates new form CadastroCarroGUI
      */
     public CadastroCarroGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
         carregarComboBoxFabricante();
     }
     
-    private Long getIdFabricanteCombo(){
-        return listaFabricante.get(cboFabricante.getSelectedIndex()).getId();
-    }
-    
     public void carregarComboBoxFabricante() {
-        List<Fabricante> lista = serviceFabricante.findAll();
+        List<FabricanteDTO> lista = fabricanteService.findAll();
         cboFabricante.removeAllItems();
         
-        for (Fabricante f : lista) {
+        for (FabricanteDTO f : lista) {
             cboFabricante.addItem(f.getNome());
         }
     }
     
-
-    
     public void carregarComboBoxModelo(){
-        List<Modelo> lista = serviceModelo.findAll();
+        List<ModeloDTO> lista = modeloService.findAll();
         cboModelo.removeAllItems();
         
-        for (Modelo f : lista) {
+        for (ModeloDTO f : lista) {
             cboModelo.addItem(f.getNome());
         }
     }

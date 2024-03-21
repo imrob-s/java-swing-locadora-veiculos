@@ -11,8 +11,8 @@ import java.util.List;
 public class LocacaoService {
     private final LocacaoRepository locacaoRepository;
 
-    public LocacaoService(LocacaoRepository locacaoRepository) {
-        this.locacaoRepository = locacaoRepository;
+    public LocacaoService() {
+        this.locacaoRepository = new LocacaoRepository();
     }
 
     public List<LocacaoDTO> findAll() {

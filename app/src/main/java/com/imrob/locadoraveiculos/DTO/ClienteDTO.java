@@ -5,6 +5,7 @@ import com.imrob.locadoraveiculos.entities.Cliente;
 import java.time.LocalDate;
 
 public class ClienteDTO {
+    private Long id;
     private String nome;
     private String rg;
     private String cpf;
@@ -15,11 +16,14 @@ public class ClienteDTO {
     private String municipio;
     private String estado;
     private String telefone;
+    private static String[] colunas = {"Id", "Nome", "RG", "CPF", "CNH", 
+        "Vencimento CNH", "email", "Endereço", "Cidade", "Estado", "Telefone"};
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(String nome, String rg, String cpf, String cnh, LocalDate dataVencimentoCNH, String email, String logradouro, String municipio, String estado, String telefone) {
+    public ClienteDTO(Long id, String nome, String rg, String cpf, String cnh, LocalDate dataVencimentoCNH, String email, String logradouro, String municipio, String estado, String telefone) {
+        this.id = id;
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -32,6 +36,14 @@ public class ClienteDTO {
         this.telefone = telefone;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long Id) {
+        this.id = Id;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -111,4 +123,9 @@ public class ClienteDTO {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public static String[] getColunas() {
+        return colunas;
+    }
+    
 }

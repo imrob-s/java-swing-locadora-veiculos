@@ -41,9 +41,9 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtFabricante" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblModelo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txtModelo" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFabricante" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblPlaca" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="91" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="txtPlaca" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -86,8 +86,8 @@
               <Component id="lblImg" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFabricante" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -114,7 +114,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblImg">
     </Component>
-    <Component class="javax.swing.JLabel" name="txtFabricante">
+    <Component class="javax.swing.JLabel" name="lblFabricante">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -125,7 +125,7 @@
         <Property name="text" type="java.lang.String" value="Fabricante"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtModelo">
+    <Component class="javax.swing.JLabel" name="lblModelo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>

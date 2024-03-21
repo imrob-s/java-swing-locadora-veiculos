@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.entities;
 
-/**
- *
- * @author imrob
- */
 public class Carro {
 
     private Long id;
@@ -18,9 +11,7 @@ public class Carro {
     private String cor;
     private Boolean disponivel;
     private Integer ano;
-    private Double valorLocacao;
-    private String fabricante;
-    private String modelo;
+    private Double valorlocacao;
 
     public Carro() {
     }
@@ -32,23 +23,7 @@ public class Carro {
         this.cor = cor;
         this.disponivel = disponivel;
         this.ano = ano;
-        this.valorLocacao = valorlocacao;
-    }
-
-    public String getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+        this.valorlocacao = valorlocacao;
     }
 
     public Long getId() {
@@ -107,12 +82,12 @@ public class Carro {
         this.ano = ano;
     }
 
-    public Double getValorLocacao() {
-        return valorLocacao;
+    public Double getValorlocacao() {
+        return valorlocacao;
     }
 
-    public void setValorLocacao(Double valorLocacao) {
-        this.valorLocacao = valorLocacao;
+    public void setValorlocacao(Double valorlocacao) {
+        this.valorlocacao = valorlocacao;
     }
 
     @Override
@@ -125,7 +100,7 @@ public class Carro {
                 ", cor='" + cor + '\'' +
                 ", disponivel=" + disponivel +
                 ", ano=" + ano +
-                ", valorLocacao=" + valorLocacao +
+                ", valorLocacao=" + valorlocacao +
                 '}';
     }
 }

@@ -15,16 +15,14 @@ public class SeguradoraService {
     private final MunicipioRepository municipioRepository;
 
 
-    public SeguradoraService(SeguradoraRepository seguradoraRepository, MunicipioRepository municipioRepository) {
-        this.seguradoraRepository = seguradoraRepository;
-        this.municipioRepository = municipioRepository;
+    public SeguradoraService() {
+        this.seguradoraRepository = new SeguradoraRepository();
+        this.municipioRepository = new MunicipioRepository();
     }
 
     public List<SeguradoraDTO> findAll() {
         List<Seguradora> seguradoras = seguradoraRepository.findAll();
-        return seguradoras.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return convertToDTOs(seguradoras);
     }
 
     public SeguradoraDTO findSeguradoraById(Long id) {

@@ -13,9 +13,9 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final MunicipioRepository municipioRepository;
 
-    public ClienteService(ClienteRepository clienteRepository, MunicipioRepository municipioRepository) {
-        this.clienteRepository = clienteRepository;
-        this.municipioRepository = municipioRepository;
+    public ClienteService() {
+        this.clienteRepository = new ClienteRepository();
+        this.municipioRepository = new MunicipioRepository();
     }
 
     public List<ClienteDTO> findAll() {
@@ -70,6 +70,7 @@ public class ClienteService {
 
     private void copyDtoToEntity(ClienteDTO dto, Cliente entity) {
         Municipio municipio = municipioRepository.findByName(dto.getMunicipio(), dto.getEstado());
+        entity.setId(dto.getId());
         entity.setNome(dto.getNome());
         entity.setRg(dto.getRg());
         entity.setCpf(dto.getCpf());
@@ -84,6 +85,7 @@ public class ClienteService {
 
     private void copyEntityToDto(Cliente entity, ClienteDTO dto) {
         Municipio municipio = municipioRepository.findById(entity.getMunicipioId());
+        dto.setId(entity.getId());
         dto.setNome(entity.getNome());
         dto.setRg(entity.getRg());
         dto.setCpf(entity.getCpf());

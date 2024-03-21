@@ -4,44 +4,26 @@
  */
 package com.imrob.locadoraveiculos.gui.consultas;
 
-import com.imrob.locadoraveiculos.config.DatabaseConfig;
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.entities.Carro;
-import com.imrob.locadoraveiculos.repositories.CarroRepository;
+import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class PesquisarCarroGUI extends javax.swing.JDialog {
-    public CarroService service = new CarroService(
-           new CarroRepository(DatabaseConfig.jdbcClient()));
+    public CarroService service = new CarroService();
     
     public PesquisarCarroGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        carregarCatalogoCarros();
+        carregarTabelaCarros();
     }
     
-    String[] colunas = {"Id", "Fabricante", "Modelo", "Ano", 
-            "Placa", "Cor", "Valor"};
-    DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
-    
-    public void carregarCatalogoCarros() {
-        
-        List<Carro> lista = service.findAllWithIdNames();
-        
-        for (Carro c : lista) {
-            Object[] linha = {c.getId(), 
-                c.getFabricante(),
-                c.getModelo(),
-                c.getAno(),
-                c.getPlaca(),
-                c.getCor(),
-                c.getValorLocacao()
-            };
-            tableModel.addRow(linha);
-        }
-        
-        
+    public void carregarTabelaCarros() {
+        List<CarroDTO> carros = service.findAll();
+        TableModelCarro tableModel = new TableModelCarro(carros);
+        tabela.setModel(tableModel);
     }
     
 
@@ -56,15 +38,15 @@ public class PesquisarCarroGUI extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        btnSelecionar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
+        btnSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tabela.setModel(tableModel);
         jScrollPane1.setViewportView(tabela);
 
-        btnSelecionar.setText("Selecionar");
+        jPanel1.setLayout(new java.awt.GridLayout());
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,28 +54,28 @@ public class PesquisarCarroGUI extends javax.swing.JDialog {
                 btnCancelarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCancelar);
+
+        btnSelecionar.setText("Selecionar");
+        jPanel1.add(btnSelecionar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSelecionar)
-                .addGap(16, 16, 16))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSelecionar)
-                    .addComponent(btnCancelar))
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -150,6 +132,7 @@ public class PesquisarCarroGUI extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSelecionar;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

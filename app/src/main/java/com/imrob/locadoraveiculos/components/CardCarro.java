@@ -1,6 +1,6 @@
 package com.imrob.locadoraveiculos.components;
 
-import com.imrob.locadoraveiculos.entities.Carro;
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import java.awt.Color;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -12,15 +12,15 @@ public class CardCarro extends javax.swing.JPanel {
         setOpaque(false);
     }
     
-    public CardCarro(Carro carro) {
+    public CardCarro(CarroDTO carro) {
         initComponents();
         setOpaque(false);
         setData(carro);
     }
     
-    public void setData(Carro carro) {
-        txtFabricante.setText(carro.getFabricante());
-        txtModelo.setText(carro.getModelo());
+    public void setData(CarroDTO carro) {
+        lblModelo.setText(carro.getNome());
+        lblFabricante.setText(carro.getFabricante());
         txtAno.setText(String.valueOf(carro.getAno()));
         txtCor.setText(carro.getCor());
         txtPlaca.setText(carro.getPlaca());
@@ -50,8 +50,8 @@ public class CardCarro extends javax.swing.JPanel {
     private void initComponents() {
 
         lblImg = new javax.swing.JLabel();
-        txtFabricante = new javax.swing.JLabel();
-        txtModelo = new javax.swing.JLabel();
+        lblFabricante = new javax.swing.JLabel();
+        lblModelo = new javax.swing.JLabel();
         lblPlaca = new javax.swing.JLabel();
         lblAno = new javax.swing.JLabel();
         lblCor = new javax.swing.JLabel();
@@ -66,13 +66,13 @@ public class CardCarro extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(200, 250));
         setMinimumSize(new java.awt.Dimension(200, 250));
 
-        txtFabricante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtFabricante.setForeground(new java.awt.Color(51, 51, 51));
-        txtFabricante.setText("Fabricante");
+        lblFabricante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblFabricante.setForeground(new java.awt.Color(51, 51, 51));
+        lblFabricante.setText("Fabricante");
 
-        txtModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtModelo.setForeground(new java.awt.Color(51, 51, 51));
-        txtModelo.setText("Modelo");
+        lblModelo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblModelo.setForeground(new java.awt.Color(51, 51, 51));
+        lblModelo.setText("Modelo");
 
         lblPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblPlaca.setForeground(new java.awt.Color(102, 102, 102));
@@ -106,9 +106,9 @@ public class CardCarro extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtFabricante)
+                        .addComponent(lblModelo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtModelo))
+                        .addComponent(lblFabricante))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(lblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -120,7 +120,7 @@ public class CardCarro extends javax.swing.JPanel {
                                 .addComponent(txtDisponivel))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblPlaca)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtPlaca))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -139,8 +139,8 @@ public class CardCarro extends javax.swing.JPanel {
                 .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFabricante)
-                    .addComponent(txtModelo))
+                    .addComponent(lblModelo)
+                    .addComponent(lblFabricante))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAno)
@@ -163,13 +163,13 @@ public class CardCarro extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblCor;
+    private javax.swing.JLabel lblFabricante;
     private javax.swing.JLabel lblImg;
+    private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel txtAno;
     private javax.swing.JLabel txtCor;
     private javax.swing.JLabel txtDisponivel;
-    private javax.swing.JLabel txtFabricante;
-    private javax.swing.JLabel txtModelo;
     private javax.swing.JLabel txtPlaca;
     // End of variables declaration//GEN-END:variables
 

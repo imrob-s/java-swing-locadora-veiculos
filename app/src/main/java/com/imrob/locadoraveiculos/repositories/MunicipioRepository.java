@@ -1,13 +1,14 @@
 package com.imrob.locadoraveiculos.repositories;
 
+import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Municipio;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 public class MunicipioRepository {
     private final JdbcClient jdbcClient;
 
-    public MunicipioRepository(JdbcClient jdbcClient) {
-        this.jdbcClient = jdbcClient;
+    public MunicipioRepository() {
+        this.jdbcClient = DatabaseConfig.jdbcClient();
     }
 
     public Municipio findByName(String nome, String estadoSigla) {
