@@ -52,15 +52,15 @@ public class ModeloRepository {
         .param("nome", modelo.getNome())
         .update();
   }
-    public List<Modelo> findByFabricante(){
+    public List<Modelo> findByFabricanteId(Long id){
         String sql = """
                      SELECT * 
                      FROM modelo m
-                     INNER JOIN fabricante f
-                     WHERE m.id = :id
+                     WHERE m.fabricante_id = :id
                      """;
         return jdbcClient
                 .sql(sql)
+                .param("id", id)
                 .query(Modelo.class)
                 .list();
     }

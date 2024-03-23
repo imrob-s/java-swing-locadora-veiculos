@@ -3,49 +3,132 @@ package com.imrob.locadoraveiculos.gui.cadastro;
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
-import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.services.FabricanteService;
-import com.imrob.locadoraveiculos.services.ModeloService;
-import java.awt.Color;
-import java.util.ArrayList;
+import com.imrob.locadoraveiculos.gui.TelaPrincipal;
+import com.imrob.locadoraveiculos.services.CarroService;
+import java.net.URL;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author imrob
  */
 public class CadastroCarroGUI extends javax.swing.JDialog {
-    private CarroDTO carro = new CarroDTO();
-    private ModeloDTO modelo = new ModeloDTO();
-    private Fabricante fabricante = new Fabricante();
-    private FabricanteService fabricanteService = new FabricanteService();
-    private ModeloService modeloService = new ModeloService();
-    /**
-     * Creates new form CadastroCarroGUI
-     */
+    private List<FabricanteDTO> listaFabricante;
+    private List<ModeloDTO> listaModelo;
+    private FabricanteDTO fabricanteSelecionado;
+    private ModeloDTO modeloSelecionado;
+    
+
     public CadastroCarroGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        carregarComboBoxFabricante();
+        this.listaFabricante = TelaPrincipal.listaFabricante;
+        this.listaModelo = TelaPrincipal.listaModelo;
+        carregarCboFabricante();
+        
     }
     
-    public void carregarComboBoxFabricante() {
-        List<FabricanteDTO> lista = fabricanteService.findAll();
+    public void carregarCboFabricante() { 
         cboFabricante.removeAllItems();
         
-        for (FabricanteDTO f : lista) {
+        for (FabricanteDTO f : listaFabricante) {
             cboFabricante.addItem(f.getNome());
+        }
+        
+        if (!listaFabricante.isEmpty()) {
+            carregarCboModelo(listaFabricante.get(0));
         }
     }
     
-    public void carregarComboBoxModelo(){
-        List<ModeloDTO> lista = modeloService.findAll();
+    public void carregarCboModelo(FabricanteDTO fabricante){
         cboModelo.removeAllItems();
         
-        for (ModeloDTO f : lista) {
-            cboModelo.addItem(f.getNome());
+        for (ModeloDTO modelo : listaModelo) {
+            if (modelo.getFabricanteId() == fabricante.getId()) {
+                cboModelo.addItem(modelo.getNome());
+            }
         }
     }
+    
+    private FabricanteDTO obterFabricanteSelecionado() {
+        String nomeFabricanteSelecionado = cboFabricante.getSelectedItem().toString();
+        for (FabricanteDTO fabricante : listaFabricante) {
+            if (fabricante.getNome().equals(nomeFabricanteSelecionado)) {
+                return fabricante;
+            }
+        }
+        return null;
+    }
+    
+    private ModeloDTO obterModeloSelecionado() {
+    String nomeModeloSelecionado = cboModelo.getSelectedItem().toString();
+        for (ModeloDTO modelo : listaModelo) {
+            if (modelo.getNome().equals(nomeModeloSelecionado)) {
+                return modelo;
+            }
+        }
+    return null;
+    }
+    
+    
+    private void salvar() {
+        CarroService service = new CarroService();
+        CarroDTO carro = new CarroDTO();
+        
+        if (camposPreenchidos()){
+        try {
+            carro.setFabricanteId(fabricanteSelecionado.getId());
+            carro.setModeloId(obterModeloSelecionado().getId());
+            carro.setAno(Integer.valueOf(txtAno.getText()));
+            carro.setCor(txtCor.getText());
+            carro.setPlaca(txtPlaca.getText());
+            carro.setValorLocacao(Double.valueOf(txtPreco.getText().replace(",", ".")));
+            carro.setDisponivel(cbDisponivel.isSelected());
+            
+            service.save(carro);
+            JOptionPane.showMessageDialog(null, "Carro salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
+            
+            } catch (Exception ex) {
+                
+                JOptionPane.showMessageDialog(null, "Erro ao salvar o carro no sistema: " + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Obrigatório preencher todos os campos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void limparCampos(){
+        txtAno.setText("");
+        txtCor.setText("");
+        txtPlaca.setText("");
+        txtPreco.setText("");
+    }
+    
+    private Boolean camposPreenchidos() {
+        if (txtAno.getText().isBlank() ||
+            txtCor.getText().isBlank() ||
+            txtPlaca.getText().isBlank() ||
+            txtPreco.getText().isBlank()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    private void mostrarCarro(){
+        String imagePath = "/imgs/carro/" + modeloSelecionado.getId() + ".png";
+        URL imageURL = getClass().getResource(imagePath);
+        if (imageURL != null) {
+            lblImg.setIcon(new ImageIcon(imageURL));
+        } else {
+            lblImg.setIcon(new ImageIcon(getClass().getResource("/imgs/img_carrodefault.png")));
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,8 +140,9 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private void initComponents() {
 
         telaCadastroCarro = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        pnlHeader = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        pnlCenter = new javax.swing.JPanel();
         lblAno = new javax.swing.JLabel();
         lblFabricante = new javax.swing.JLabel();
         txtAno = new javax.swing.JTextField();
@@ -72,37 +156,33 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         cbDisponivel = new javax.swing.JCheckBox();
         cboFabricante = new javax.swing.JComboBox<>();
         cboModelo = new javax.swing.JComboBox<>();
+        lblImg = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        pnlFooter = new javax.swing.JPanel();
+        btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblTitulo.setBackground(new java.awt.Color(255, 139, 15));
+        telaCadastroCarro.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
-        jLabel1.setText("Cadastro de Carro");
+        pnlHeader.setBackground(new java.awt.Color(20, 33, 61));
 
-        javax.swing.GroupLayout lblTituloLayout = new javax.swing.GroupLayout(lblTitulo);
-        lblTitulo.setLayout(lblTituloLayout);
-        lblTituloLayout.setHorizontalGroup(
-            lblTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lblTituloLayout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        lblTituloLayout.setVerticalGroup(
-            lblTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblTituloLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17))
-        );
+        lblTitulo.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setText("Cadastro de Veículos");
+        pnlHeader.add(lblTitulo);
 
-        lblAno.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        telaCadastroCarro.add(pnlHeader, java.awt.BorderLayout.NORTH);
+
+        pnlCenter.setForeground(new java.awt.Color(252, 163, 17));
+        pnlCenter.setMaximumSize(null);
+
+        lblAno.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblAno.setText("Ano:");
 
-        lblFabricante.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        lblFabricante.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblFabricante.setText("Fabricante");
 
         txtAno.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -116,21 +196,23 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
             }
         });
 
-        lblModelo.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        lblModelo.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblModelo.setText("Modelo:");
 
-        lblCor.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        lblCor.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblCor.setText("Cor:");
 
-        lblPlaca.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        lblPlaca.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblPlaca.setText("Placa:");
 
-        lblPreco.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        lblPreco.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         lblPreco.setText("Preço:");
 
-        cbDisponivel.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        cbDisponivel.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         cbDisponivel.setText("Disponivel");
 
+        cboFabricante.setToolTipText("Selecione");
+        cboFabricante.setName(""); // NOI18N
         cboFabricante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboFabricanteActionPerformed(evt);
@@ -143,120 +225,181 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
             }
         });
 
-        btnSalvar.setText("Salvar");
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout telaCadastroCarroLayout = new javax.swing.GroupLayout(telaCadastroCarro);
-        telaCadastroCarro.setLayout(telaCadastroCarroLayout);
-        telaCadastroCarroLayout.setHorizontalGroup(
-            telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(telaCadastroCarroLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPreco)
-                    .addComponent(lblPlaca)
-                    .addComponent(lblCor)
-                    .addComponent(lblModelo)
-                    .addComponent(lblAno)
-                    .addComponent(lblFabricante))
-                .addGap(18, 18, 18)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDisponivel)
-                    .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaCadastroCarroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnFechar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
-                .addGap(23, 23, 23))
+        jButton4.setText("Cadastrar");
+
+        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        pnlCenter.setLayout(pnlCenterLayout);
+        pnlCenterLayout.setHorizontalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCenterLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCenterLayout.createSequentialGroup()
+                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAno)
+                            .addComponent(lblCor)
+                            .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCor, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtAno, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlCenterLayout.createSequentialGroup()
+                                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblModelo)
+                                        .addComponent(cboModelo, 0, 100, Short.MAX_VALUE)
+                                        .addComponent(cboFabricante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1)
+                                        .addComponent(jButton4)))))
+                        .addGap(20, 20, 20)
+                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPlaca)
+                            .addComponent(lblPreco)
+                            .addComponent(txtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(txtPlaca)
+                            .addComponent(lblImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                        .addGap(20, 20, 20))
+                    .addGroup(pnlCenterLayout.createSequentialGroup()
+                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFabricante)
+                            .addComponent(cbDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        telaCadastroCarroLayout.setVerticalGroup(
-            telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(telaCadastroCarroLayout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFabricante)
-                    .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblModelo)
-                    .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAno)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCor)
-                    .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPlaca)
-                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPreco)
-                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        pnlCenterLayout.setVerticalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCenterLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblFabricante)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCenterLayout.createSequentialGroup()
+                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(16, 16, 16)
+                        .addComponent(lblModelo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4))
+                        .addGap(22, 22, 22))
+                    .addGroup(pnlCenterLayout.createSequentialGroup()
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlCenterLayout.createSequentialGroup()
+                        .addComponent(lblAno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lblCor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlCenterLayout.createSequentialGroup()
+                        .addComponent(lblPlaca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lblPreco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbDisponivel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(telaCadastroCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnFechar))
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        telaCadastroCarro.add(pnlCenter, java.awt.BorderLayout.CENTER);
+
+        pnlFooter.setBackground(new java.awt.Color(20, 33, 61));
+        pnlFooter.setPreferredSize(new java.awt.Dimension(438, 50));
+
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
+        pnlFooter.setLayout(pnlFooterLayout);
+        pnlFooterLayout.setHorizontalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFooterLayout.createSequentialGroup()
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(btnSair)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addGap(26, 26, 26))
+        );
+        pnlFooterLayout.setVerticalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFooterLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSair)
+                    .addComponent(btnSalvar))
+                .addGap(12, 12, 12))
+        );
+
+        telaCadastroCarro.add(pnlFooter, java.awt.BorderLayout.SOUTH);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnoFocusGained
-        if (txtAno.getText().equals("")){
-            txtAno.setText("Insira o ano");
-            txtAno.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_txtAnoFocusGained
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        salvar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void cboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModeloActionPerformed
+        modeloSelecionado = obterModeloSelecionado();
+        mostrarCarro();
+    }//GEN-LAST:event_cboModeloActionPerformed
+
+    private void cboFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFabricanteActionPerformed
+        fabricanteSelecionado = obterFabricanteSelecionado();
+        carregarCboModelo(fabricanteSelecionado);
+    }//GEN-LAST:event_cboFabricanteActionPerformed
 
     private void txtAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnoActionPerformed
 
-    private void cboFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFabricanteActionPerformed
-        carregarComboBoxModelo();
-    }//GEN-LAST:event_cboFabricanteActionPerformed
+    private void txtAnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnoFocusGained
 
-    private void cboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModeloActionPerformed
+    }//GEN-LAST:event_txtAnoFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboModeloActionPerformed
-
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,19 +445,24 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbDisponivel;
     private javax.swing.JComboBox<String> cboFabricante;
     private javax.swing.JComboBox<String> cboModelo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblCor;
     private javax.swing.JLabel lblFabricante;
+    private javax.swing.JLabel lblImg;
     private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblPreco;
-    private javax.swing.JPanel lblTitulo;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlCenter;
+    private javax.swing.JPanel pnlFooter;
+    private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel telaCadastroCarro;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtCor;

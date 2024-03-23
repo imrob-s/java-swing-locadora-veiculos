@@ -25,6 +25,10 @@ public class ModeloService {
         return convertToDTO(repository.findBy(id));
     }
     
+    public List<ModeloDTO> findByFabricanteId(Long id) {
+        return convertToDTOs(repository.findByFabricanteId(id));
+    }
+    
     public void save(ModeloDTO modelo) {
         repository.save(convertToEntity(modelo));
     }

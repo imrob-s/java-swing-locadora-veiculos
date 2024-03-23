@@ -5,11 +5,9 @@
 package com.imrob.locadoraveiculos.gui.consultas;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 public class PesquisarCarroGUI extends javax.swing.JDialog {
     public CarroService service = new CarroService();

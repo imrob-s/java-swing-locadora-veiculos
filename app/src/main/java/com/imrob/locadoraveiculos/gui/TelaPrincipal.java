@@ -1,28 +1,27 @@
 package com.imrob.locadoraveiculos.gui;
 
-import com.imrob.locadoraveiculos.components.CardCarro;
-import com.imrob.locadoraveiculos.config.DatabaseConfig;
-import com.imrob.locadoraveiculos.entities.Carro;
-import com.imrob.locadoraveiculos.entities.Modelo;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
+import com.imrob.locadoraveiculos.DTO.ModeloDTO;
+import com.imrob.locadoraveiculos.components.Menu;
 import com.imrob.locadoraveiculos.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
-import com.imrob.locadoraveiculos.gui.cadastro.FabricanteGUI;
+import com.imrob.locadoraveiculos.gui.consultas.PesquisarCarroGUI;
+import com.imrob.locadoraveiculos.gui.consultas.PesquisarClienteGUI;
 import com.imrob.locadoraveiculos.gui.reserva.NovaReservaGUI;
-import com.imrob.locadoraveiculos.repositories.CarroRepository;
-import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
-import com.imrob.locadoraveiculos.repositories.ModeloRepository;
 import com.imrob.locadoraveiculos.services.CarroService;
 import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.List;
-import mdlaf.MaterialLookAndFeel;
-import mdlaf.themes.JMarsDarkTheme;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class TelaPrincipal extends javax.swing.JFrame {
     private CatalogoVeiculos catalogo;
+    public static List<ModeloDTO> listaModelo;
+    public static List<FabricanteDTO> listaFabricante;
+    private JPanel menu;
 
     /**
      * Creates new form TelaPrincipal
@@ -31,8 +30,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         jpConteudo.setLayout(new BorderLayout());
         catalogo = new CatalogoVeiculos();
-        
+        menu = new Menu();
+        carregarDados();
         jpConteudo.add(catalogo, BorderLayout.CENTER);
+        jpConteudo.add(menu, BorderLayout.WEST);
+    }
+    
+    public static void carregarDados() {
+        ModeloService modeloService = new ModeloService();
+        FabricanteService fabricanteService = new FabricanteService();
+        CarroService carroService = new CarroService();
+        listaModelo = modeloService.findAll();
+        listaFabricante = fabricanteService.findAll();
     }
 
     /**
@@ -49,18 +58,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuReservas = new javax.swing.JMenu();
         mnuReservasAdicionar = new javax.swing.JMenuItem();
         mnuReservasVisualizar = new javax.swing.JMenuItem();
-        mnuReservasCancelar = new javax.swing.JMenuItem();
         menuVeiculos = new javax.swing.JMenu();
         menuVeiculosCatalogo = new javax.swing.JMenuItem();
         menuVeiculosLocacoes = new javax.swing.JMenuItem();
         menuVeiculosCadastrar = new javax.swing.JMenuItem();
-        menuVeiculosRemover = new javax.swing.JMenuItem();
-        menuVeiculosAtualizar = new javax.swing.JMenuItem();
         menuClientes = new javax.swing.JMenu();
         menuClientesVisualizar = new javax.swing.JMenuItem();
         menuClientesAdicionar = new javax.swing.JMenuItem();
-        menuClientesRemover = new javax.swing.JMenuItem();
-        menuClientesAtualizar = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         menuRelatorioReservas = new javax.swing.JMenuItem();
         menuRelatorioFaturamento = new javax.swing.JMenuItem();
@@ -92,9 +96,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mnuReservasVisualizar.setText("Visualizar Reservas Atuais");
         menuReservas.add(mnuReservasVisualizar);
 
-        mnuReservasCancelar.setText("Cancelar Reserva");
-        menuReservas.add(mnuReservasCancelar);
-
         menuBarPrincipal.add(menuReservas);
 
         menuVeiculos.setText("Veículos");
@@ -103,6 +104,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuVeiculos.add(menuVeiculosCatalogo);
 
         menuVeiculosLocacoes.setText("Veículos Locados");
+        menuVeiculosLocacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVeiculosLocacoesActionPerformed(evt);
+            }
+        });
         menuVeiculos.add(menuVeiculosLocacoes);
 
         menuVeiculosCadastrar.setText("Cadastrar Veículo");
@@ -112,12 +118,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuVeiculos.add(menuVeiculosCadastrar);
-
-        menuVeiculosRemover.setText("Remover Veículo");
-        menuVeiculos.add(menuVeiculosRemover);
-
-        menuVeiculosAtualizar.setText("Atualizar Veículo");
-        menuVeiculos.add(menuVeiculosAtualizar);
 
         menuBarPrincipal.add(menuVeiculos);
 
@@ -133,12 +133,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuClientesAdicionar.setText("Adicionar Novo Cliente");
         menuClientes.add(menuClientesAdicionar);
-
-        menuClientesRemover.setText("Remover Cliente");
-        menuClientes.add(menuClientesRemover);
-
-        menuClientesAtualizar.setText("Atualizar Informações do Cliente");
-        menuClientes.add(menuClientesAtualizar);
 
         menuBarPrincipal.add(menuClientes);
 
@@ -192,7 +186,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuClientesVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesVisualizarActionPerformed
-        // TODO add your handling code here:
+        new PesquisarClienteGUI(this, true).setVisible(true);
     }//GEN-LAST:event_menuClientesVisualizarActionPerformed
 
     private void menuVeiculosCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculosCadastrarActionPerformed
@@ -206,6 +200,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void menuConfiguracoesTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConfiguracoesTemaActionPerformed
        
     }//GEN-LAST:event_menuConfiguracoesTemaActionPerformed
+
+    private void menuVeiculosLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculosLocacoesActionPerformed
+        new PesquisarCarroGUI(this, true).setVisible(true);
+    }//GEN-LAST:event_menuVeiculosLocacoesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,8 +249,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBarPrincipal;
     private javax.swing.JMenu menuClientes;
     private javax.swing.JMenuItem menuClientesAdicionar;
-    private javax.swing.JMenuItem menuClientesAtualizar;
-    private javax.swing.JMenuItem menuClientesRemover;
     private javax.swing.JMenuItem menuClientesVisualizar;
     private javax.swing.JMenu menuConfiguracoes;
     private javax.swing.JMenuItem menuConfiguracoesTema;
@@ -261,13 +257,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenu menuReservas;
     private javax.swing.JMenu menuVeiculos;
-    private javax.swing.JMenuItem menuVeiculosAtualizar;
     private javax.swing.JMenuItem menuVeiculosCadastrar;
     private javax.swing.JMenuItem menuVeiculosCatalogo;
     private javax.swing.JMenuItem menuVeiculosLocacoes;
-    private javax.swing.JMenuItem menuVeiculosRemover;
     private javax.swing.JMenuItem mnuReservasAdicionar;
-    private javax.swing.JMenuItem mnuReservasCancelar;
     private javax.swing.JMenuItem mnuReservasVisualizar;
     // End of variables declaration//GEN-END:variables
 }

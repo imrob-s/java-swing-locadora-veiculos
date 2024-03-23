@@ -61,7 +61,7 @@ public class CardCarro extends javax.swing.JPanel {
         txtDisponivel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setForeground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(200, 250));
         setMinimumSize(new java.awt.Dimension(200, 250));
@@ -155,7 +155,7 @@ public class CardCarro extends javax.swing.JPanel {
                     .addComponent(txtPlaca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDisponivel)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -4,6 +4,7 @@ package com.imrob.locadoraveiculos.forms;
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.components.CardCarro;
 import com.imrob.locadoraveiculos.entities.Carro;
+import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -62,6 +63,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 153, 0));
         setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -116,7 +118,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        new CadastroCarroGUI(null, true).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

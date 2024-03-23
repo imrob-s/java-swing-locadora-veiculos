@@ -17,11 +17,14 @@ repositories {
 
 dependencies {
     implementation 'org.postgresql:postgresql:42.7.2'
-    implementation 'com.formdev:flatlaf:3.4'
-    implementation 'com.formdev:flatlaf-intellij-themes:3.4'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.3'
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
-    implementation 'io.github.vincenzopalazzo:material-ui-swing:1.1.4'
+    implementation 'com.formdev:flatlaf:3.4'
+    implementation 'com.github.jiconfont:jiconfont:1.0.0'
+    implementation 'com.github.jiconfont:jiconfont-swing:1.0.1'
+    implementation 'com.github.jiconfont:jiconfont-font_awesome:4.7.0.1'
+    implementation 'com.github.jiconfont:jiconfont-google_material_design_icons:2.2.0.2'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

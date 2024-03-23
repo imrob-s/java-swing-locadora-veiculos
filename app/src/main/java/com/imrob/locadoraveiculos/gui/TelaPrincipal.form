@@ -22,11 +22,6 @@
                 <Property name="text" type="java.lang.String" value="Visualizar Reservas Atuais"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuReservasCancelar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cancelar Reserva"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuVeiculos">
@@ -43,6 +38,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ve&#xed;culos Locados"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuVeiculosLocacoesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuVeiculosCadastrar">
               <Properties>
@@ -51,16 +49,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuVeiculosCadastrarActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuVeiculosRemover">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Remover Ve&#xed;culo"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuVeiculosAtualizar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Ve&#xed;culo"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -80,16 +68,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuClientesAdicionar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Novo Cliente"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuClientesRemover">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Remover Cliente"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuClientesAtualizar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Atualizar Informa&#xe7;&#xf5;es do Cliente"/>
               </Properties>
             </MenuItem>
           </SubComponents>
