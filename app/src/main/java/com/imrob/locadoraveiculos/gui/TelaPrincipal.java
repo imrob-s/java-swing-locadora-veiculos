@@ -1,11 +1,11 @@
 package com.imrob.locadoraveiculos.gui;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
-import com.imrob.locadoraveiculos.components.Menu;
 import com.imrob.locadoraveiculos.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
+import com.imrob.locadoraveiculos.gui.cadastro.TelaTeste;
 import com.imrob.locadoraveiculos.gui.consultas.PesquisarCarroGUI;
 import com.imrob.locadoraveiculos.gui.consultas.PesquisarClienteGUI;
 import com.imrob.locadoraveiculos.gui.reserva.NovaReservaGUI;
@@ -15,12 +15,12 @@ import com.imrob.locadoraveiculos.services.ModeloService;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 public class TelaPrincipal extends javax.swing.JFrame {
     private CatalogoVeiculos catalogo;
     public static List<ModeloDTO> listaModelo;
     public static List<FabricanteDTO> listaFabricante;
+    public static List<CarroDTO> listaCarro;
     private JPanel menu;
 
     /**
@@ -28,12 +28,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        jpConteudo.setLayout(new BorderLayout());
-        catalogo = new CatalogoVeiculos();
-        menu = new Menu();
+        // jpConteudo.setLayout(new BorderLayout());
         carregarDados();
-        jpConteudo.add(catalogo, BorderLayout.CENTER);
-        jpConteudo.add(menu, BorderLayout.WEST);
+        // jpConteudo.add(new CatalogoVeiculos(), BorderLayout.CENTER);
     }
     
     public static void carregarDados() {
@@ -42,6 +39,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         CarroService carroService = new CarroService();
         listaModelo = modeloService.findAll();
         listaFabricante = fabricanteService.findAll();
+        listaCarro = carroService.findAll();
+        
     }
 
     /**
@@ -198,7 +197,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuReservasAdicionarActionPerformed
 
     private void menuConfiguracoesTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConfiguracoesTemaActionPerformed
-       
+       new TelaTeste().setVisible(true);;
     }//GEN-LAST:event_menuConfiguracoesTemaActionPerformed
 
     private void menuVeiculosLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculosLocacoesActionPerformed

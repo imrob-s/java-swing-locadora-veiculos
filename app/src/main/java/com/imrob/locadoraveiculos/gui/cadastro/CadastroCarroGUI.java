@@ -44,7 +44,6 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     
     public void carregarCboModelo(FabricanteDTO fabricante){
         cboModelo.removeAllItems();
-        
         for (ModeloDTO modelo : listaModelo) {
             if (modelo.getFabricanteId() == fabricante.getId()) {
                 cboModelo.addItem(modelo.getNome());
@@ -53,23 +52,31 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     }
     
     private FabricanteDTO obterFabricanteSelecionado() {
+       
         String nomeFabricanteSelecionado = cboFabricante.getSelectedItem().toString();
         for (FabricanteDTO fabricante : listaFabricante) {
             if (fabricante.getNome().equals(nomeFabricanteSelecionado)) {
                 return fabricante;
             }
+        
         }
         return null;
     }
     
     private ModeloDTO obterModeloSelecionado() {
-    String nomeModeloSelecionado = cboModelo.getSelectedItem().toString();
+    if(cboModelo.getSelectedItem() == null){
+        return null;
+    }
+    
+        String nomeModeloSelecionado = cboModelo.getSelectedItem().toString();
         for (ModeloDTO modelo : listaModelo) {
             if (modelo.getNome().equals(nomeModeloSelecionado)) {
                 return modelo;
             }
         }
+    
     return null;
+    
     }
     
     
@@ -120,6 +127,9 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     }
     
     private void mostrarCarro(){
+        if(modeloSelecionado == null){
+            return;
+        }
         String imagePath = "/imgs/carro/" + modeloSelecionado.getId() + ".png";
         URL imageURL = getClass().getResource(imagePath);
         if (imageURL != null) {
@@ -213,12 +223,22 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
 
         cboFabricante.setToolTipText("Selecione");
         cboFabricante.setName(""); // NOI18N
+        cboFabricante.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboFabricanteItemStateChanged(evt);
+            }
+        });
         cboFabricante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboFabricanteActionPerformed(evt);
             }
         });
 
+        cboModelo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboModeloItemStateChanged(evt);
+            }
+        });
         cboModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboModeloActionPerformed(evt);
@@ -400,6 +420,14 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cboFabricanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboFabricanteItemStateChanged
+        
+    }//GEN-LAST:event_cboFabricanteItemStateChanged
+
+    private void cboModeloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboModeloItemStateChanged
+       
+    }//GEN-LAST:event_cboModeloItemStateChanged
 
     /**
      * @param args the command line arguments

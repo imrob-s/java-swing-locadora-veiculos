@@ -1,4 +1,4 @@
-package com.raven.swing;
+package com.imrob.locadoraveiculos.swing;
 
 import java.awt.Component;
 import java.awt.Container;
