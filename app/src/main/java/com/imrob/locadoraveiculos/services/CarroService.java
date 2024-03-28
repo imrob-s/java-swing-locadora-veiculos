@@ -19,8 +19,8 @@ public class CarroService {
         return convertToDTOs(repository.findAll());
     }
     
-    public CarroDTO findById(Long id) {
-        return convertToDTO(repository.findById(id));
+    public CarroDTO findBy(Long id) {
+        return convertToDTO(repository.findBy(id));
     }
     
     public void save(CarroDTO dto) {

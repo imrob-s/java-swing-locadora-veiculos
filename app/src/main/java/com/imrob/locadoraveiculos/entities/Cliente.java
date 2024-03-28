@@ -9,19 +9,16 @@ public class Cliente {
     private String rg;
     private String cpf;
     private String cnh;
-    private LocalDate cnh_vencimento;
+    private LocalDate cnh_vencimento; // está mapeado com o banco de dados
     private String email;
-    private String logradouro;
-    private Long municipio_id;
-    private Long estado_id;
+    private Long endereco_id; // está mapeado com o banco de dados
     private String telefone;
 
     public Cliente() {
     }
 
     public Cliente(Long id, String nome, String rg, String cpf, String cnh, 
-            LocalDate dataVencimentoCNH, String email, String endereco, 
-            Long municipioId, Long estadoId, String telefone) {
+            LocalDate dataVencimentoCNH, String email, String telefone, Long endereco_id) {
         this.id = id;
         this.nome = nome;
         this.rg = rg;
@@ -29,9 +26,8 @@ public class Cliente {
         this.cnh = cnh;
         this.cnh_vencimento = dataVencimentoCNH;
         this.email = email;
-        this.logradouro = endereco;
-        this.municipio_id = municipioId;
-        this.estado_id = estadoId;
+        this.telefone = telefone;
+        this.endereco_id = endereco_id;
     }
 
     public Long getId() {
@@ -90,28 +86,20 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public LocalDate getCnhVencimento() {
+        return cnh_vencimento;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setCnhVencimento(LocalDate cnh_vencimento) {
+        this.cnh_vencimento = cnh_vencimento;
     }
 
-    public Long getMunicipioId() {
-        return municipio_id;
+    public Long getEnderecoId() {
+        return endereco_id;
     }
 
-    public void setMunicipioId(Long municipioId) {
-        this.municipio_id = municipioId;
-    }
-
-    public Long getEstadoId() {
-        return estado_id;
-    }
-
-    public void setEstadoId(Long estadoId) {
-        this.estado_id = estadoId;
+    public void setEnderecoId(Long endereco_id) {
+        this.endereco_id = endereco_id;
     }
 
     public String getTelefone() {

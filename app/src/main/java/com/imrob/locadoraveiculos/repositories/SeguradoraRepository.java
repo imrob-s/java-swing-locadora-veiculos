@@ -43,9 +43,9 @@ public class SeguradoraRepository {
 
     public void save(Seguradora seguradora) {
         String sql = """
-                     INSERT INTO seguradora (nome, cnpj, email, valor, municipio_id,
-                     estado_id_id, telefone)
-                     VALUES (:nome, :cnpj, :email, :valor, :munid, :estid, :tel )
+                     INSERT INTO seguradora (nome, cnpj, email, valor, endereco_id,
+                     telefone)
+                     VALUES (:nome, :cnpj, :email, :valor, :endereco_id, :tel )
                      """;
         jdbcClient
                 .sql(sql)
@@ -53,8 +53,7 @@ public class SeguradoraRepository {
                 .param("cnpj", seguradora.getCnpj())
                 .param("email", seguradora.getEmail())
                 .param("valor", seguradora.getValor())
-                .param("munid", seguradora.getMunicipioId())
-                .param("estid", seguradora.getEstadoId())
+                .param("endereco_id", seguradora.getEnderecoId())
                 .param("tel", seguradora.getTelefone())
                 .update();
     }
@@ -71,8 +70,7 @@ public class SeguradoraRepository {
                      cnpj = :cnpj,
                      email = :email,
                      valor = :valor,
-                     municipio_id = :munid,
-                     estado_id = :estid,
+                     endereco_id = :endereco_id,
                      telefone = :tel
                      """;
         jdbcClient
@@ -81,8 +79,7 @@ public class SeguradoraRepository {
                 .param("cnpj", seguradora.getCnpj())
                 .param("email", seguradora.getEmail())
                 .param("valor", seguradora.getValor())
-                .param("munid", seguradora.getMunicipioId())
-                .param("estid", seguradora.getEstadoId())
+                .param("endereco_id", seguradora.getEnderecoId())
                 .param("tel", seguradora.getTelefone())
                 .update();
     }

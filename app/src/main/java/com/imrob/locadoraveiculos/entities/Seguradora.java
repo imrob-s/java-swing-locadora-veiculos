@@ -7,21 +7,19 @@ public class Seguradora {
     private String cnpj;
     private String email;
     private Double valor;
-    private Long municipio_id;
-    private Long estado_id;
+    private Long endereco_id;
     private String telefone;
 
     public Seguradora() {
     }
 
-    public Seguradora(Long id, String nome, String cnpj, String email, Double valor, Long municipioId, Long estadoId, String telefone) {
+    public Seguradora(Long id, String nome, String cnpj, String email, Double valor, Long endereco_id, String telefone) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.email = email;
         this.valor = valor;
-        this.municipio_id = municipioId;
-        this.estado_id = estadoId;
+        this.endereco_id = endereco_id;
         this.telefone = telefone;
     }
 
@@ -65,21 +63,14 @@ public class Seguradora {
         this.valor = valor;
     }
 
-    public Long getMunicipioId() {
-        return municipio_id;
+    public Long getEnderecoId() {
+        return endereco_id;
     }
 
-    public void setMunicipioId(Long municipioId) {
-        this.municipio_id = municipioId;
+    public void setEnderecoId(Long endereco_id) {
+        this.endereco_id = endereco_id;
     }
 
-    public Long getEstadoId() {
-        return estado_id;
-    }
-
-    public void setEstadoId(Long estadoId) {
-        this.estado_id = estadoId;
-    }
     public String getTelefone() {
         return telefone;
     }

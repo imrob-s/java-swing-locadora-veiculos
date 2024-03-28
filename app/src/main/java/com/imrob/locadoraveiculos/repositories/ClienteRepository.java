@@ -57,22 +57,19 @@ public class ClienteRepository {
         String sql = """
                      INSERT INTO cliente (nome, rg, cpf, cnh, cnh_vencimento,
                      email, logradouro, municipio_id, estado_id, telefone) 
-                     VALUES (:nome, :rg, :cpf, :cnh, :cnhv, :email, :log,
-                     :munid, :estid, :tel)
+                     VALUES (:nome, :rg, :cpf, :cnh, :cnhv, :email, :endId, :tel)
                      """;
         jdbcClient
-          .sql(sql)
-          .param("nome", cliente.getNome())
-          .param("rg", cliente.getRg())
-          .param("cpf", cliente.getCpf())
-          .param("cnh", cliente.getCnh())
-          .param("cnhv", cliente.getDataVencimentoCNH())
-          .param("email", cliente.getEmail())
-          .param("log", cliente.getLogradouro())
-          .param("munid", cliente.getMunicipioId())
-          .param("estid", cliente.getEstadoId())
-          .param("tel", cliente.getTelefone())
-          .update();
+                .sql(sql)
+                .param("nome", cliente.getNome())
+                .param("rg", cliente.getRg())
+                .param("cpf", cliente.getCpf())
+                .param("cnh", cliente.getCnh())
+                .param("cnhv", cliente.getDataVencimentoCNH())
+                .param("email", cliente.getEmail())
+                .param("endId", cliente.getEnderecoId())
+                .param("tel", cliente.getTelefone())
+                .update();
     }
     
     public void delete(Long id) {
@@ -89,9 +86,7 @@ public class ClienteRepository {
                      cnh = :cnh,
                      cnh_vencimento = :cnhv,
                      email = :email,
-                     logradouro = :log,
-                     municipio_id = :munid,
-                     estado_id = :estid,
+                     endereco_id = :endId,
                      telefone = :tel
                      """;
         jdbcClient
@@ -102,9 +97,7 @@ public class ClienteRepository {
           .param("cnh", cliente.getCnh())
           .param("cnhv", cliente.getDataVencimentoCNH())
           .param("email", cliente.getEmail())
-          .param("log", cliente.getLogradouro())
-          .param("munid", cliente.getMunicipioId())
-          .param("estid", cliente.getEstadoId())
+          .param("endId", cliente.getEnderecoId())
           .param("tel", cliente.getTelefone())
           .update();
   }

@@ -1,23 +1,20 @@
 package com.imrob.locadoraveiculos.services;
 
-import com.imrob.locadoraveiculos.entities.Municipio;
-import com.imrob.locadoraveiculos.repositories.MunicipioRepository;
+import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.repositories.SeguradoraRepository;
 import com.imrob.locadoraveiculos.entities.Seguradora;
 import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SeguradoraService {
     private final SeguradoraRepository seguradoraRepository;
-    private final MunicipioRepository municipioRepository;
-
+    private final EnderecoService enderecoService;
 
     public SeguradoraService() {
         this.seguradoraRepository = new SeguradoraRepository();
-        this.municipioRepository = new MunicipioRepository();
+        this.enderecoService = new EnderecoService();
     }
 
     public List<SeguradoraDTO> findAll() {
@@ -25,26 +22,28 @@ public class SeguradoraService {
         return convertToDTOs(seguradoras);
     }
 
-    public SeguradoraDTO findSeguradoraById(Long id) {
+    public SeguradoraDTO findBy(Long id) {
         Seguradora seguradora = seguradoraRepository.findBy(id);
         return convertToDTO(seguradora);
     }
 
-    public SeguradoraDTO findSeguradoraByName(String name) {
+    public SeguradoraDTO findByName(String name) {
         Seguradora seguradora = seguradoraRepository.findByName(name);
         return convertToDTO(seguradora);
     }
 
-    public void saveSeguradora(SeguradoraDTO seguradoraDTO) {
+    public void save(SeguradoraDTO seguradoraDTO, EnderecoDTO enderecoDTO) {
         Seguradora seguradora = convertToEntity(seguradoraDTO);
+        Long enderecoId = enderecoService.save(enderecoDTO);
+        seguradora.setEnderecoId(enderecoId);
         seguradoraRepository.save(seguradora);
     }
 
-    public void deleteSeguradora(Long id) {
+    public void delete(Long id) {
         seguradoraRepository.delete(id);
     }
 
-    public void updateSeguradora(SeguradoraDTO seguradoraDTO) {
+    public void update(SeguradoraDTO seguradoraDTO) {
         Seguradora seguradora = convertToEntity(seguradoraDTO);
         seguradoraRepository.update(seguradora);
     }
@@ -58,30 +57,27 @@ public class SeguradoraService {
     }
 
     private SeguradoraDTO convertToDTO(Seguradora seguradora) {
-        Municipio municipio = municipioRepository.findById(seguradora.getMunicipioId());
-        SeguradoraDTO dto = new SeguradoraDTO();
-        dto.setId(seguradora.getId());
-        dto.setNome(seguradora.getNome());
-        dto.setCnpj(seguradora.getCnpj());
-        dto.setEmail(seguradora.getEmail());
-        dto.setValor(seguradora.getValor());
-        dto.setMunicipio(municipio.getNome());
-        dto.setEstado(municipio.getEstadoNome());
-        dto.setTelefone(seguradora.getTelefone());
-        return dto;
+        return new SeguradoraDTO(
+                seguradora.getId(),
+                seguradora.getNome(),
+                seguradora.getCnpj(),
+                seguradora.getEmail(),
+                seguradora.getValor(),
+                seguradora.getEnderecoId(),
+                seguradora.getTelefone()
+                );
     }
 
     private Seguradora convertToEntity(SeguradoraDTO seguradoraDTO) {
-        Municipio municipio = municipioRepository.findByName(seguradoraDTO.getMunicipio(), seguradoraDTO.getEstado());
-        Seguradora seguradora = new Seguradora();
-        seguradora.setId(seguradoraDTO.getId());
-        seguradora.setNome(seguradoraDTO.getNome());
-        seguradora.setCnpj(seguradoraDTO.getCnpj());
-        seguradora.setEmail(seguradoraDTO.getEmail());
-        seguradora.setValor(seguradoraDTO.getValor());
-        seguradora.setMunicipioId(municipio.getId());
-        seguradora.setEstadoId(municipio.getEstadoId());
-        seguradora.setTelefone(seguradoraDTO.getTelefone());
-        return seguradora;
+        return new Seguradora(
+                seguradoraDTO.getId(),
+                seguradoraDTO.getNome(),
+                seguradoraDTO.getCnpj(),
+                seguradoraDTO.getEmail(),
+                seguradoraDTO.getValor(),
+                seguradoraDTO.getEnderecoId(),
+                seguradoraDTO.getTelefone()
+        );
+
     }
 }

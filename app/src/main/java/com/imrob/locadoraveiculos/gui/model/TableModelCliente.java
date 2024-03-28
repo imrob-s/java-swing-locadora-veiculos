@@ -38,9 +38,12 @@ public class TableModelCliente extends AbstractTableModel {
             case 4 -> clientes.get(rowIndex).getCnh();
             case 5 -> clientes.get(rowIndex).getDataVencimentoCNH();
             case 6 -> clientes.get(rowIndex).getEmail();
-            case 7 -> clientes.get(rowIndex).getLogradouro();
-            case 8 -> clientes.get(rowIndex).getMunicipio();
-            case 9 -> clientes.get(rowIndex).getEstado();
+            case 7 -> clientes.get(rowIndex).getEndereco().getRua();
+            case 8 -> clientes.get(rowIndex).getEndereco().getNumero();
+            case 9 -> clientes.get(rowIndex).getEndereco().getBairro();
+            case 10 -> clientes.get(rowIndex).getEndereco().getCidade();
+            case 11 -> clientes.get(rowIndex).getEndereco().getEstado();
+            case 12 -> clientes.get(rowIndex).getEndereco().getCep();
             default -> clientes.get(rowIndex).getTelefone();
         };
     }
