@@ -1,6 +1,7 @@
 
 package com.imrob.locadoraveiculos.gui.consultas;
 
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
@@ -30,21 +31,23 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     private void editar(){
-        // Verifique se uma linha foi selecionada na tabela
-        int selectedRow = tabela.getSelectedRow();
-        if (selectedRow != -1) { // -1 indica que nenhuma linha está selecionada
-            // Ative o editor de células em todas as colunas da linha selecionada
-            for (int column = 0; column < tabela.getColumnCount(); column++) {
-                tabela.editCellAt(selectedRow, column);
-                Component editor = tabela.getEditorComponent();
-                if (editor != null) {
-                    editor.requestFocus(); // Coloque o foco no editor de células
-                }
-            }
+        int linhaSelecionada = tabela.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            CarroDTO carroDTO = new CarroDTO();
+
+            carroDTO.setId((Long) tabela.getValueAt(linhaSelecionada, 0));
+            carroDTO.setNome((String) tabela.getValueAt(linhaSelecionada, 1));
+            carroDTO.setFabricante((String) tabela.getValueAt(linhaSelecionada, 2));
+            carroDTO.setCor((String) tabela.getValueAt(linhaSelecionada, 3));
+            carroDTO.setPlaca((String) tabela.getValueAt(linhaSelecionada, 4));
+            carroDTO.setValorLocacao((Double) tabela.getValueAt(linhaSelecionada, 5));
+            carroDTO.setDisponivel((Boolean) tabela.getValueAt(linhaSelecionada, 6));
+
+
         } else {
             // Se nenhuma linha foi selecionada, exiba uma mensagem de erro
-            JOptionPane.showMessageDialog(null, "Por favor, selecione uma linha para editar.",
-                    "Nenhuma linha selecionada", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para editar.",
+                    "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
         }
     }
     
