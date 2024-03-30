@@ -5,6 +5,8 @@ import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 public class ModeloRepository {
     private final JdbcClient jdbcClient;
@@ -28,7 +30,8 @@ public class ModeloRepository {
         .single();
   }
     
-    public void save(Modelo modelo) {
+    public Long save(Modelo modelo) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = """
                      INSERT INTO modelo (nome, fabricante_id) 
                      VALUES (:nome, :fabricanteId)
@@ -37,7 +40,9 @@ public class ModeloRepository {
           .sql(sql)
           .param("nome", modelo.getNome())
           .param("fabricanteId", modelo.getFabricanteId())
-          .update();
+          .update(keyHolder, "id");
+        
+        return keyHolder.getKey().longValue();
     }
     
     public void delete(Long id) {

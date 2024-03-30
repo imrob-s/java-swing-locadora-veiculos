@@ -4,11 +4,8 @@
  */
 package com.imrob.locadoraveiculos.gui.reserva;
 
-import com.imrob.locadoraveiculos.gui.TelaPrincipal;
 import com.imrob.locadoraveiculos.gui.consultas.PesquisarCarroGUI;
-import java.awt.Frame;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *

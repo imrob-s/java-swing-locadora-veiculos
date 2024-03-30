@@ -29,8 +29,8 @@ public class ModeloService {
         return convertToDTOs(repository.findByFabricanteId(id));
     }
     
-    public void save(ModeloDTO modelo) {
-        repository.save(convertToEntity(modelo));
+    public Long save(ModeloDTO modelo) {
+        return repository.save(convertToEntity(modelo));
     }
     
     public void update(ModeloDTO modelo) {

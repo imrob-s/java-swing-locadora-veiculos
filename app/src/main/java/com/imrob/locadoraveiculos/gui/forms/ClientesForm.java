@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.imrob.locadoraveiculos.forms;
+package com.imrob.locadoraveiculos.gui.forms;
 
 /**
  *
  * @author Rob
  */
-public class ReservasForm extends javax.swing.JPanel {
+public class ClientesForm extends javax.swing.JPanel {
 
     /**
-     * Creates new form ReservasForm
+     * Creates new form ClientesForm
      */
-    public ReservasForm() {
+    public ClientesForm() {
         initComponents();
     }
 

@@ -57,10 +57,15 @@ public class CarroRepository {
                      """;
         jdbcClient
           .sql(sql)
-          .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
-          carro.getCor(), carro.getPlaca(), carro.getValorlocacao(),
-          carro.getDisponivel(), carro.getId())
-          .update();
+          .params(carro.getFabricanteId(), 
+                  carro.getModeloId(), 
+                  carro.getAno(), 
+                  carro.getCor(), 
+                  carro.getPlaca(), 
+                  carro.getValorlocacao(), 
+                  carro.getDisponivel(), 
+                  carro.getId())
+                .update();
   }
     public List<Carro> findAllBy(Fabricante fabricante){
         String sql = """

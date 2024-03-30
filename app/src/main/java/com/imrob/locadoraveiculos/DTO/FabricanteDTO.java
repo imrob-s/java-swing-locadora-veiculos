@@ -13,6 +13,10 @@ public class FabricanteDTO {
         this.nome = nome;
     }
 
+    public FabricanteDTO(String nome) {
+        this.nome = nome;
+    }
+
     public Long getId() {
         return id;
     }

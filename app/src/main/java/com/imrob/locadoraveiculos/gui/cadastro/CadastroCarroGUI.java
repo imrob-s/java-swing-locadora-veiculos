@@ -1,31 +1,31 @@
+
 package com.imrob.locadoraveiculos.gui.cadastro;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
-import com.imrob.locadoraveiculos.gui.TelaPrincipal;
+import com.imrob.locadoraveiculos.Utils.Utils;
+import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.net.URL;
 import java.util.List;
-import javax.swing.ImageIcon;
+import java.util.Objects;
 import javax.swing.JOptionPane;
+import raven.swing.AvatarIcon;
 
-/**
- *
- * @author imrob
- */
-public class CadastroCarroGUI extends javax.swing.JDialog {
-    private List<FabricanteDTO> listaFabricante;
+public class CadastroCarroGUI extends javax.swing.JPanel {
+
+   private List<FabricanteDTO> listaFabricante;
     private List<ModeloDTO> listaModelo;
     private FabricanteDTO fabricanteSelecionado;
     private ModeloDTO modeloSelecionado;
     
 
-    public CadastroCarroGUI(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public CadastroCarroGUI() {
         initComponents();
-        this.listaFabricante = TelaPrincipal.listaFabricante;
-        this.listaModelo = TelaPrincipal.listaModelo;
+        
+        this.listaFabricante = Application.listaFabricante;
+        this.listaModelo = Application.listaModelo;
         carregarCboFabricante();
         
     }
@@ -45,10 +45,19 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     public void carregarCboModelo(FabricanteDTO fabricante){
         cboModelo.removeAllItems();
         for (ModeloDTO modelo : listaModelo) {
-            if (modelo.getFabricanteId() == fabricante.getId()) {
+            if (Objects.equals(modelo.getFabricanteId(), fabricante.getId())) {
                 cboModelo.addItem(modelo.getNome());
             }
         }
+    }
+    
+    public void carregarCboCor(){
+        String[] listaCores = {
+            "AMARELO", "AZUL", "BEGE", "BRANCA", "CINZA", "DOURADA",
+            "GRENÁ", "LARANJA", "MARROM", "PRATA", "PRETA", "ROSA",
+            "ROXA", "VERDE", "VERMELHA", "FANTASIA"
+        };
+        
     }
     
     private FabricanteDTO obterFabricanteSelecionado() {
@@ -89,12 +98,13 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
             carro.setFabricanteId(fabricanteSelecionado.getId());
             carro.setModeloId(obterModeloSelecionado().getId());
             carro.setAno(Integer.valueOf(txtAno.getText()));
-            carro.setCor(txtCor.getText());
+            carro.setCor(cboCor.getSelectedItem().toString());
             carro.setPlaca(txtPlaca.getText());
             carro.setValorLocacao(Double.valueOf(txtPreco.getText().replace(",", ".")));
             carro.setDisponivel(cbDisponivel.isSelected());
             
             service.save(carro);
+            Application.listaCarro = service.findAll();
             JOptionPane.showMessageDialog(null, "Carro salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
             
@@ -110,14 +120,14 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     
     private void limparCampos(){
         txtAno.setText("");
-        txtCor.setText("");
+        cboCor.setSelectedIndex(1);
         txtPlaca.setText("");
         txtPreco.setText("");
     }
     
     private Boolean camposPreenchidos() {
         if (txtAno.getText().isBlank() ||
-            txtCor.getText().isBlank() ||
+            cboCor.getSelectedItem().toString().equals("SELECIONE") ||
             txtPlaca.getText().isBlank() ||
             txtPreco.getText().isBlank()) {
             return false;
@@ -133,12 +143,11 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         String imagePath = "/imgs/carro/" + modeloSelecionado.getId() + ".png";
         URL imageURL = getClass().getResource(imagePath);
         if (imageURL != null) {
-            lblImg.setIcon(new ImageIcon(imageURL));
+            lblImg.setIcon(new AvatarIcon(imageURL, 255, 141, 10));
         } else {
-            lblImg.setIcon(new ImageIcon(getClass().getResource("/imgs/img_carrodefault.png")));
+            lblImg.setIcon(new AvatarIcon(getClass().getResource("/imgs/img_carrodefault.png"), 255, 141, 10));
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,50 +158,34 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        telaCadastroCarro = new javax.swing.JPanel();
-        pnlHeader = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
         pnlCenter = new javax.swing.JPanel();
         lblAno = new javax.swing.JLabel();
         lblFabricante = new javax.swing.JLabel();
         txtAno = new javax.swing.JTextField();
         lblModelo = new javax.swing.JLabel();
         lblCor = new javax.swing.JLabel();
+        cboCor = new javax.swing.JComboBox<>();
         lblPlaca = new javax.swing.JLabel();
         lblPreco = new javax.swing.JLabel();
-        txtCor = new javax.swing.JTextField();
         txtPreco = new javax.swing.JTextField();
         txtPlaca = new javax.swing.JTextField();
         cbDisponivel = new javax.swing.JCheckBox();
         cboFabricante = new javax.swing.JComboBox<>();
         cboModelo = new javax.swing.JComboBox<>();
         lblImg = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        pnlFooter = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        telaCadastroCarro.setLayout(new java.awt.BorderLayout());
-
-        pnlHeader.setBackground(new java.awt.Color(20, 33, 61));
-
-        lblTitulo.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Cadastro de Veículos");
-        pnlHeader.add(lblTitulo);
-
-        telaCadastroCarro.add(pnlHeader, java.awt.BorderLayout.NORTH);
+        setLayout(new java.awt.BorderLayout());
 
         pnlCenter.setForeground(new java.awt.Color(252, 163, 17));
         pnlCenter.setMaximumSize(null);
 
-        lblAno.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        lblAno.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblAno.setText("Ano:");
 
-        lblFabricante.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        lblFabricante.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblFabricante.setText("Fabricante");
 
         txtAno.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -200,286 +193,182 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
                 txtAnoFocusGained(evt);
             }
         });
-        txtAno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnoActionPerformed(evt);
-            }
-        });
+        txtAno.addActionListener(this::txtAnoActionPerformed);
 
-        lblModelo.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        lblModelo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblModelo.setText("Modelo:");
 
-        lblCor.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        lblCor.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblCor.setText("Cor:");
 
-        lblPlaca.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        cboCor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cboCor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "AMARELO", "AZUL", "BEGE", "BRANCA", "CINZA", "DOURADA", "GRENÁ", "LARANJA", "MARROM", "PRATA", "PRETA", "ROSA", "ROXA", "VERDE", "VERMELHA", "FANTASIA" }));
+
+        lblPlaca.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblPlaca.setText("Placa:");
 
-        lblPreco.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        lblPreco.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblPreco.setText("Preço:");
 
-        cbDisponivel.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        cbDisponivel.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         cbDisponivel.setText("Disponivel");
 
         cboFabricante.setToolTipText("Selecione");
         cboFabricante.setName(""); // NOI18N
-        cboFabricante.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboFabricanteItemStateChanged(evt);
-            }
-        });
-        cboFabricante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboFabricanteActionPerformed(evt);
-            }
-        });
+        cboFabricante.addItemListener(this::cboFabricanteItemStateChanged);
+        cboFabricante.addActionListener(this::cboFabricanteActionPerformed);
 
-        cboModelo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboModeloItemStateChanged(evt);
-            }
-        });
-        cboModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboModeloActionPerformed(evt);
-            }
-        });
+        cboModelo.addItemListener(this::cboModeloItemStateChanged);
+        cboModelo.addActionListener(this::cboModeloActionPerformed);
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(15, 15, 15));
 
-        jButton4.setText("Cadastrar");
+        btnSair.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.addActionListener(this::btnSairActionPerformed);
 
-        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        btnSalvar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(btnSair)
+                .add(20, 20, 20)
+                .add(btnSalvar)
+                .add(20, 20, 20))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
+                    .add(btnSalvar)
+                    .add(btnSair))
+                .add(10, 10, 10))
+        );
+
+        org.jdesktop.layout.GroupLayout pnlCenterLayout = new org.jdesktop.layout.GroupLayout(pnlCenter);
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
-            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCenterLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCenterLayout.createSequentialGroup()
-                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAno)
-                            .addComponent(lblCor)
-                            .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCor, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtAno, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlCenterLayout.createSequentialGroup()
-                                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblModelo)
-                                        .addComponent(cboModelo, 0, 100, Short.MAX_VALUE)
-                                        .addComponent(cboFabricante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(14, 14, 14)
-                                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1)
-                                        .addComponent(jButton4)))))
-                        .addGap(20, 20, 20)
-                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPlaca)
-                            .addComponent(lblPreco)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(txtPlaca)
-                            .addComponent(lblImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
-                        .addGap(20, 20, 20))
-                    .addGroup(pnlCenterLayout.createSequentialGroup()
-                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFabricante)
-                            .addComponent(cbDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(pnlCenterLayout.createSequentialGroup()
+                .add(20, 20, 20)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblAno)
+                    .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(pnlCenterLayout.createSequentialGroup()
+                            .add(lblImg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(20, 20, 20)
+                            .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(lblFabricante)
+                                .add(lblModelo)
+                                .add(cboFabricante, 0, 200, Short.MAX_VALUE)
+                                .add(cboModelo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(pnlCenterLayout.createSequentialGroup()
+                            .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, txtAno, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(pnlCenterLayout.createSequentialGroup()
+                                    .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(lblCor)
+                                        .add(cboCor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 117, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(20, 20, 20)
+                                    .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(lblPreco)
+                                        .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
+                            .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(cbDisponivel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(lblPlaca)
+                                .add(txtPlaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         pnlCenterLayout.setVerticalGroup(
-            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCenterLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblFabricante)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCenterLayout.createSequentialGroup()
-                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(16, 16, 16)
-                        .addComponent(lblModelo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))
-                        .addGap(22, 22, 22))
-                    .addGroup(pnlCenterLayout.createSequentialGroup()
-                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(pnlCenterLayout.createSequentialGroup()
-                        .addComponent(lblAno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblCor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlCenterLayout.createSequentialGroup()
-                        .addComponent(lblPlaca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblPreco)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbDisponivel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlCenterLayout.createSequentialGroup()
+                .add(20, 20, 20)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(pnlCenterLayout.createSequentialGroup()
+                        .add(lblFabricante)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cboFabricante, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(20, 20, 20)
+                        .add(lblModelo)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cboModelo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(lblImg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(17, 17, 17)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblPlaca)
+                    .add(lblAno))
+                .add(6, 6, 6)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(txtPlaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(txtAno, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(20, 20, 20)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblCor)
+                    .add(lblPreco))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(cbDisponivel)
+                    .add(cboCor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        telaCadastroCarro.add(pnlCenter, java.awt.BorderLayout.CENTER);
-
-        pnlFooter.setBackground(new java.awt.Color(20, 33, 61));
-        pnlFooter.setPreferredSize(new java.awt.Dimension(438, 50));
-
-        btnSair.setText("Sair");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
-        pnlFooter.setLayout(pnlFooterLayout);
-        pnlFooterLayout.setHorizontalGroup(
-            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
-                .addComponent(btnSair)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
-                .addGap(26, 26, 26))
-        );
-        pnlFooterLayout.setVerticalGroup(
-            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSair)
-                    .addComponent(btnSalvar))
-                .addGap(12, 12, 12))
-        );
-
-        telaCadastroCarro.add(pnlFooter, java.awt.BorderLayout.SOUTH);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(telaCadastroCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-        );
-
-        pack();
-        setLocationRelativeTo(null);
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
+    private void txtAnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnoFocusGained
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        salvar();
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_txtAnoFocusGained
 
-    private void cboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModeloActionPerformed
-        modeloSelecionado = obterModeloSelecionado();
-        mostrarCarro();
-    }//GEN-LAST:event_cboModeloActionPerformed
+    private void txtAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnoActionPerformed
+
+    private void cboFabricanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboFabricanteItemStateChanged
+
+    }//GEN-LAST:event_cboFabricanteItemStateChanged
 
     private void cboFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFabricanteActionPerformed
         fabricanteSelecionado = obterFabricanteSelecionado();
         carregarCboModelo(fabricanteSelecionado);
     }//GEN-LAST:event_cboFabricanteActionPerformed
 
-    private void txtAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnoActionPerformed
-
-    private void txtAnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnoFocusGained
-
-    }//GEN-LAST:event_txtAnoFocusGained
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void cboFabricanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboFabricanteItemStateChanged
-        
-    }//GEN-LAST:event_cboFabricanteItemStateChanged
-
     private void cboModeloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboModeloItemStateChanged
-       
+
     }//GEN-LAST:event_cboModeloItemStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCarroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCarroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCarroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCarroGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void cboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModeloActionPerformed
+        modeloSelecionado = obterModeloSelecionado();
+        mostrarCarro();
+    }//GEN-LAST:event_cboModeloActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroCarroGUI dialog = new CadastroCarroGUI(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        Utils.sair(this);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        salvar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbDisponivel;
+    private javax.swing.JComboBox<String> cboCor;
     private javax.swing.JComboBox<String> cboFabricante;
     private javax.swing.JComboBox<String> cboModelo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblCor;
     private javax.swing.JLabel lblFabricante;
@@ -487,14 +376,11 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private javax.swing.JLabel lblModelo;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblPreco;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlCenter;
-    private javax.swing.JPanel pnlFooter;
-    private javax.swing.JPanel pnlHeader;
-    private javax.swing.JPanel telaCadastroCarro;
     private javax.swing.JTextField txtAno;
-    private javax.swing.JTextField txtCor;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPreco;
     // End of variables declaration//GEN-END:variables
+
+    
 }
