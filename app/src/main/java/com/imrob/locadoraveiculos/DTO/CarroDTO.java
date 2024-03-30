@@ -4,7 +4,7 @@ import javax.swing.Icon;
 
 public class CarroDTO {
     
-    private Long Id;
+    private Long id;
     private Long fabricanteId;
     private Long modeloId;
     private Icon image;
@@ -21,7 +21,7 @@ public class CarroDTO {
     }
 
     public CarroDTO(Long Id, Long fabricanteId, Long modeloId, Icon image, String nome, String fabricante, Integer ano, String cor, String placa, Boolean disponivel, double valorLocacao) {
-        this.Id = Id;
+        this.id = Id;
         this.fabricanteId = fabricanteId;
         this.modeloId = modeloId;
         this.image = image;
@@ -35,11 +35,11 @@ public class CarroDTO {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public Long getFabricanteId() {

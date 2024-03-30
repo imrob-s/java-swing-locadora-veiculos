@@ -35,9 +35,8 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     
     public void carregarCatalogoCarros() {
     String filtro = txtPesquisar.getText();
-    jpConteudo.removeAll(); // Remove todos os itens do painel de conteúdo
+    jpConteudo.removeAll();
 
-    // Lista de carros filtrada com base no texto de filtro
     List<CarroDTO> carrosFiltrados = Application.listaCarro.stream()
             .filter(carro ->
                     carro.getNome().toLowerCase().contains(filtro.toLowerCase()) ||
@@ -49,10 +48,9 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
             .collect(Collectors.toList());
 
     for (CarroDTO c : carrosFiltrados) {
-        jpConteudo.add(new CardCarro(c)); // Adiciona cada carro filtrado como um CardCarro ao painel de conteúdo
+        jpConteudo.add(new CardCarro(c)); 
     }
 
-    // Atualiza o layout do painel de conteúdo para refletir as mudanças
     jpConteudo.revalidate();
     jpConteudo.repaint();
 }
