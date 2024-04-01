@@ -6,7 +6,7 @@ import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
-import com.imrob.locadoraveiculos.gui.model.MagicTableModel;
+import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -25,7 +25,7 @@ public class ListaGenericaGUI extends javax.swing.JPanel {
     }
     
     public void carregarTabelaCarros() {
-        MagicTableModel<CarroDTO> tableModel = new MagicTableModel(Application.listaCarro);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel(Application.listaCarro);
         tabela.setModel(tableModel);
     }
     
