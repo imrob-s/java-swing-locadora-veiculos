@@ -38,7 +38,7 @@ public class CarroRepository {
                      """;
         jdbcClient
           .sql(sql)
-          .params(carro.getFabricanteId(), carro.getModeloId(), carro.getAno(),
+          .params(carro.getFabricante_id(), carro.getModelo_id(), carro.getAno(),
           carro.getCor(), carro.getPlaca(), carro.getValorlocacao(),
           carro.getDisponivel())
           .update();
@@ -57,8 +57,8 @@ public class CarroRepository {
                      """;
         jdbcClient
           .sql(sql)
-          .params(carro.getFabricanteId(), 
-                  carro.getModeloId(), 
+          .params(carro.getFabricante_id(),
+                  carro.getModelo_id(),
                   carro.getAno(), 
                   carro.getCor(), 
                   carro.getPlaca(), 

@@ -3,7 +3,6 @@ package com.imrob.locadoraveiculos.gui.model;
 import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +11,12 @@ import java.util.List;
  * Obs: Os metodos gettters da entidade devem sequir a ordem das colunas da tabela.
  *
  * @param <ENTITY> o tipo da entidade a ser mapeada
+ * @author Rob Silva
  */
 public class MappedTableModel<ENTITY> extends AbstractTableModel {
     private List<ENTITY> lista;
     private String[] columnNames;
-    private List<String> metodos;
+    private Method[] metodos;
 
     /**
      * Constrói um modelo de tabela mapeado com as entidades fornecidas.
@@ -24,11 +24,10 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
      *
      * @param entities a lista de entidades a serem mapeadas
      */
-    public MappedTableModel(List<ENTITY> entities){
+    public MappedTableModel(List<ENTITY> entities) {
         lista = entities;
         columnNames = getColumnNames();
-        metodos = new ArrayList<>();
-        setMetodos();
+        metodos = setMetodos();
     }
 
     /**
@@ -40,8 +39,7 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     public MappedTableModel(List<ENTITY> entities, String[] columnNames){
         lista = entities;
         this.columnNames = columnNames;
-        metodos = new ArrayList<>();
-        setMetodos();
+        metodos = setMetodos();
     }
 
     /**
@@ -88,7 +86,7 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
-            Method method = lista.get(rowIndex).getClass().getMethod(metodos.get(columnIndex));
+            Method method = metodos[columnIndex];
             return method.invoke(lista.get(rowIndex));
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,15 +97,18 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     /**
      * Define os nomes dos metodos da entidade.
      */
-    private void setMetodos(){
-        Method[] arrayMethod = lista.get(0).getClass().getDeclaredMethods();
+    private Method[] setMetodos() {
+        Method[] metodosOrdenados = new Method[columnNames.length];
 
-        for (Method m : arrayMethod){
-            String nomeMetodo = m.getName();
-            if (nomeMetodo.startsWith("get")){
-                metodos.add(m.getName());
+        for (int i = 0; i < metodosOrdenados.length; i++) {
+            String nomeMetodo = "get" + capitalize(columnNames[i]);
+            try {
+                metodosOrdenados[i] = lista.get(0).getClass().getDeclaredMethod(nomeMetodo);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
             }
         }
+        return metodosOrdenados;
     }
 
     /**
@@ -117,5 +118,12 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
      */
     public void setColumnNames(String[] columnNames){
         this.columnNames = columnNames;
+    }
+
+    /*
+     * Coloca a primeira letra da string em maiusculo.
+     */
+    private static String capitalize(String palavra) {
+        return Character.toUpperCase(palavra.charAt(0)) + palavra.substring(1);
     }
 }

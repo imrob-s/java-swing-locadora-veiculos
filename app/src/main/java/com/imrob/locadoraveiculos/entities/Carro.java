@@ -34,19 +34,19 @@ public class Carro {
         this.id = id;
     }
 
-    public Long getFabricanteId() {
+    public Long getFabricante_id() {
         return fabricante_id;
     }
 
-    public void setFabricanteId(Long fabricante_id) {
+    public void setFabricante_id(Long fabricante_id) {
         this.fabricante_id = fabricante_id;
     }
 
-    public Long getModeloId() {
+    public Long getModelo_id() {
         return modelo_id;
     }
 
-    public void setModeloId(Long modelo_id) {
+    public void setModelo_id(Long modelo_id) {
         this.modelo_id = modelo_id;
     }
 

@@ -21,10 +21,14 @@ public class ListaGenericaGUI extends javax.swing.JPanel {
 
     public ListaGenericaGUI() {
         initComponents();
-        carregarTabelaCarros();
+        try {
+            carregarTabelaCarros();
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
     }
     
-    public void carregarTabelaCarros() {
+    public void carregarTabelaCarros() throws NoSuchMethodException {
         MappedTableModel<CarroDTO> tableModel = new MappedTableModel(Application.listaCarro);
         tabela.setModel(tableModel);
     }

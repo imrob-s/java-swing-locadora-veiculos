@@ -54,10 +54,10 @@ public class CarroService {
     private CarroDTO convertToDTO(Carro entity) {
         CarroDTO dto = new CarroDTO();
         dto.setId(entity.getId());
-        dto.setFabricanteId(entity.getFabricanteId());
-        dto.setModeloId(entity.getModeloId());
-        dto.setNome(repository.findNomeModeloById(entity.getModeloId()));
-        dto.setFabricante(repository.findNomeFabricanteById(entity.getFabricanteId()));
+        dto.setFabricanteId(entity.getFabricante_id());
+        dto.setModeloId(entity.getModelo_id());
+        dto.setNome(repository.findNomeModeloById(entity.getModelo_id()));
+        dto.setFabricante(repository.findNomeFabricanteById(entity.getFabricante_id()));
         dto.setAno(entity.getAno());
         dto.setCor(entity.getCor());
         dto.setPlaca(entity.getPlaca());
@@ -69,8 +69,8 @@ public class CarroService {
     private Carro convertToEntity(CarroDTO dto) {
         Carro entity = new Carro();
         entity.setId(dto.getId());
-        entity.setFabricanteId(dto.getFabricanteId());
-        entity.setModeloId(dto.getModeloId());
+        entity.setFabricante_id(dto.getFabricanteId());
+        entity.setModelo_id(dto.getModeloId());
         entity.setAno(dto.getAno());
         entity.setCor(dto.getCor());
         entity.setPlaca(dto.getPlaca());
