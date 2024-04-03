@@ -2,6 +2,9 @@
 .gradle
 .env
 /app/src/main/resources/.env
+/app/src/main/java/com/imrob/locadoraveiculos/Teste.java
 
 # Ignore Gradle build output directory
 build
+.idea
+.settings

@@ -31,15 +31,16 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     }
 
     /**
-     * Constrói um modelo de tabela mapeado com as entidades fornecidas e os nomes das colunas especificados.
+     * Constrói um modelo de tabela mapeado com a lista de entidades fornecida e os nomes das colunas especificados.
      *
      * @param entities a lista de entidades a serem mapeadas
      * @param columnNames os nomes das colunas da tabela
      */
     public MappedTableModel(List<ENTITY> entities, String[] columnNames){
         lista = entities;
-        this.columnNames = columnNames;
+        this.columnNames = getColumnNames();
         metodos = setMetodos();
+        this.columnNames = columnNames;
     }
 
     /**
@@ -48,6 +49,7 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
      * @return um array de strings contendo os nomes das colunas da tabela
      */
     public String[] getColumnNames() {
+
         Field[] campos = lista.get(0).getClass().getDeclaredFields();
         String[] colunas = new String[campos.length];
 

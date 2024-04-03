@@ -39,7 +39,7 @@ public class ModeloRepository {
         jdbcClient
           .sql(sql)
           .param("nome", modelo.getNome())
-          .param("fabricanteId", modelo.getFabricanteId())
+          .param("fabricanteId", modelo.getFabricante_id())
           .update(keyHolder, "id");
         
         return keyHolder.getKey().longValue();

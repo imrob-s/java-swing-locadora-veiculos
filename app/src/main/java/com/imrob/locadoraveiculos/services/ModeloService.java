@@ -50,11 +50,11 @@ public class ModeloService {
     }
     
     public ModeloDTO convertToDTO(Modelo entity) {
-        Fabricante fabricante = fabricanteRepository.findBy(entity.getFabricanteId());
+        Fabricante fabricante = fabricanteRepository.findBy(entity.getFabricante_id());
         ModeloDTO dto = new ModeloDTO();
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
-        dto.setFabricanteId(entity.getFabricanteId());
+        dto.setFabricanteId(entity.getFabricante_id());
         dto.setFabricante(fabricante.getNome());
         
         return dto;
@@ -64,7 +64,7 @@ public class ModeloService {
         Modelo entity = new Modelo();
         entity.setId(dto.getId());
         entity.setNome(dto.getNome());
-        entity.setFabricanteId(dto.getFabricanteId());
+        entity.setFabricante_id(dto.getFabricanteId());
         
         return entity;
     }

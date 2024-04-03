@@ -44,11 +44,11 @@ public class Modelo {
         this.nome = nome;
     }
 
-    public Long getFabricanteId() {
+    public Long getFabricante_id() {
         return fabricante_id;
     }
 
-    public void setFabricanteId(Long fabricanteId) {
+    public void setFabricante_id(Long fabricanteId) {
         this.fabricante_id = fabricanteId;
     }
 
