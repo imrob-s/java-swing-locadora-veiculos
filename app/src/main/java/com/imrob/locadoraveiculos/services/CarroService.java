@@ -20,7 +20,7 @@ public class CarroService {
     }
     
     public CarroDTO findBy(Long id) {
-        return convertToDTO(repository.findBy(id));
+        return convertToDTO(repository.findById(id));
     }
     
     public void save(CarroDTO dto) {

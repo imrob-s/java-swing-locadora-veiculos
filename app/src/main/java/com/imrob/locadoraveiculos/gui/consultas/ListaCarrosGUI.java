@@ -6,6 +6,7 @@ import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
+import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
 import java.awt.Component;
 import java.util.regex.Pattern;
@@ -26,7 +27,7 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     public void carregarTabelaCarros() {
-        TableModelCarro tableModel = new TableModelCarro(Application.listaCarro);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(Application.listaCarro);
         tabela.setModel(tableModel);
     }
     

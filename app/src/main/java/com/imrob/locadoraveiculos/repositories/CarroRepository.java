@@ -22,7 +22,7 @@ public class CarroRepository {
                 .list();
     }
     
-    public Carro findBy(Long id) {
+    public Carro findById(Long id) {
     return jdbcClient
         .sql("SELECT id, nome FROM carro WHERE id = :id")
         .param("id", id)

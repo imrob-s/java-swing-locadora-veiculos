@@ -61,6 +61,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
+app/out
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -157,3 +158,5 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,netbeans
+!/app/out/
+!/app/out/
