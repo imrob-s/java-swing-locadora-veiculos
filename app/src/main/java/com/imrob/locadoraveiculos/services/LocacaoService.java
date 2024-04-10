@@ -1,6 +1,6 @@
 package com.imrob.locadoraveiculos.services;
 
-import com.imrob.locadoraveiculos.repositories.LocacaoRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.LocacaoRepository;
 import com.imrob.locadoraveiculos.entities.Locacao;
 import com.imrob.locadoraveiculos.DTO.LocacaoDTO;
 

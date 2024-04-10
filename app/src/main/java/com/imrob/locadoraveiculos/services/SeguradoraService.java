@@ -1,7 +1,7 @@
 package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
-import com.imrob.locadoraveiculos.repositories.SeguradoraRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.SeguradoraRepository;
 import com.imrob.locadoraveiculos.entities.Seguradora;
 import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
 

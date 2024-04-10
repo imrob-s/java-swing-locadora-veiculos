@@ -4,7 +4,7 @@ import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.repositories.CarroRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.CarroRepository;
 import java.util.ArrayList;
 import java.util.List;
 

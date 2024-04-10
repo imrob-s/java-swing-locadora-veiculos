@@ -3,8 +3,8 @@ package com.imrob.locadoraveiculos.services;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
-import com.imrob.locadoraveiculos.repositories.ModeloRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.ModeloRepository;
 import java.util.ArrayList;
 import java.util.List;
 

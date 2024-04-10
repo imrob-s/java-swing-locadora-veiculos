@@ -2,10 +2,9 @@ package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.FabricanteRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class FabricanteService {
     private final FabricanteRepository repository;

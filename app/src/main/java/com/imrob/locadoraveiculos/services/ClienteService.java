@@ -3,7 +3,7 @@ package com.imrob.locadoraveiculos.services;
 import com.imrob.locadoraveiculos.DTO.ClienteDTO;
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.entities.Cliente;
-import com.imrob.locadoraveiculos.repositories.ClienteRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.ClienteRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.entities.Endereco;
-import com.imrob.locadoraveiculos.repositories.EnderecoRepository;
+import com.imrob.locadoraveiculos.repositories.deprecated.EnderecoRepository;
 
 public class EnderecoService {
    private final EnderecoRepository repository;

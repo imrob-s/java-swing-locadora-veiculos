@@ -1,23 +1,8 @@
 package com.imrob.locadoraveiculos;
 
-import ch.qos.logback.core.net.server.Client;
-import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.entities.Carro;
-import com.imrob.locadoraveiculos.entities.Cliente;
 import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
-import com.imrob.locadoraveiculos.repositories.CarroRepository;
-import com.imrob.locadoraveiculos.repositories.ModeloRepository;
-import com.imrob.locadoraveiculos.repositories.TesteRepository;
-import com.imrob.locadoraveiculos.services.CarroService;
 
 import javax.swing.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
-
-import static java.util.stream.Collectors.counting;
 
 public class Teste extends JFrame {
     private JTable tabela;

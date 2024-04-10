@@ -1,4 +1,4 @@
-package com.imrob.locadoraveiculos.repositories;
+package com.imrob.locadoraveiculos.repositories.deprecated;
 
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Municipio;
