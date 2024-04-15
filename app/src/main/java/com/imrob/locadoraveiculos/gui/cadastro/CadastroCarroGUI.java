@@ -11,23 +11,22 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
+
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import raven.swing.AvatarIcon;
 
 public class CadastroCarroGUI extends javax.swing.JPanel {
 
-   private List<FabricanteDTO> listaFabricante;
-    private List<ModeloDTO> listaModelo;
+    private final List<FabricanteDTO> listaFabricante = new FabricanteService().findAll();
+    private final List<ModeloDTO> listaModelo = new ModeloService().findAll();
     private FabricanteDTO fabricanteSelecionado;
     private ModeloDTO modeloSelecionado;
     
 
     public CadastroCarroGUI() {
         initComponents();
-        
-        this.listaFabricante = Application.listaFabricante;
-        this.listaModelo = Application.listaModelo;
         carregarCboFabricante();
-        
     }
     
     public void carregarCboFabricante() { 
@@ -100,7 +99,7 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
             carro.setAno(Integer.valueOf(txtAno.getText()));
             carro.setCor(cboCor.getSelectedItem().toString());
             carro.setPlaca(txtPlaca.getText());
-            carro.setValorLocacao(Double.valueOf(txtPreco.getText().replace(",", ".")));
+            carro.setValorLocacao(Double.parseDouble(txtPreco.getText().replace(",", ".")));
             carro.setDisponivel(cbDisponivel.isSelected());
             
             service.save(carro);

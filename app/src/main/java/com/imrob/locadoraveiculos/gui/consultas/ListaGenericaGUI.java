@@ -3,7 +3,6 @@ package com.imrob.locadoraveiculos.gui.consultas;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
-import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;

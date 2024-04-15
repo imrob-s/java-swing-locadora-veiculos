@@ -5,15 +5,13 @@ import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
+import com.imrob.locadoraveiculos.gui.editar.EditarCarroGUI;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.CarroService;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
@@ -35,16 +33,21 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
             CarroDTO carro = new CarroDTO();
 
             carro.setId((Long) tabela.getValueAt(linhaSelecionada, 0));
-            carro.setNome((String) tabela.getValueAt(linhaSelecionada, 1));
-            carro.setFabricante((String) tabela.getValueAt(linhaSelecionada, 2));
-            carro.setCor((String) tabela.getValueAt(linhaSelecionada, 3));
-            carro.setPlaca((String) tabela.getValueAt(linhaSelecionada, 4));
-            carro.setValorLocacao((Double) tabela.getValueAt(linhaSelecionada, 5));
-            carro.setDisponivel((Boolean) tabela.getValueAt(linhaSelecionada, 6));
+            carro.setFabricanteId((Long) tabela.getValueAt(linhaSelecionada, 1));
+            carro.setModeloId((Long) tabela.getValueAt(linhaSelecionada, 2));
+            carro.setImage((Icon) tabela.getValueAt(linhaSelecionada, 3));
+            carro.setNome(tabela.getValueAt(linhaSelecionada, 4).toString());
+            carro.setFabricante(tabela.getValueAt(linhaSelecionada, 5).toString());
+            carro.setAno((Integer) tabela.getValueAt(linhaSelecionada, 6));
+            carro.setCor(tabela.getValueAt(linhaSelecionada, 7).toString());
+            carro.setPlaca(tabela.getValueAt(linhaSelecionada, 8).toString());
+            carro.setDisponivel((Boolean) tabela.getValueAt(linhaSelecionada, 9));
+            carro.setValorLocacao((double) tabela.getValueAt(linhaSelecionada, 10));
 
+            FormManager.getInstance().showForm("Editar Carro", new EditarCarroGUI(carro));
 
+            carregarTabelaCarros();
         } else {
-            // Se nenhuma linha foi selecionada, exiba uma mensagem de erro
             JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para editar.",
                     "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
         }
@@ -59,7 +62,7 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         TableRowSorter<MappedTableModel<CarroDTO>> sorter = new TableRowSorter<>(tableModel);
         tabela.setRowSorter(sorter);
         String texto = txtProcurar.getText();
-        if (texto.length() == 0) {
+        if (texto.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
             try {

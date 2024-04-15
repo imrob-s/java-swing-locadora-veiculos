@@ -1,7 +1,7 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-.env
-/app/src/main/resources/.env
+# .env
+# /app/src/main/resources/.env
 /app/src/main/java/com/imrob/locadoraveiculos/Teste.java
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,intellij,netbeans
@@ -161,4 +161,3 @@ nbdist/
 app/out/
 ehcache/
 .idea/
-app/src/main/resources/.env

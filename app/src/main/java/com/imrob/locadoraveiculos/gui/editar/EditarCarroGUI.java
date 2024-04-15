@@ -11,12 +11,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
+
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import raven.swing.AvatarIcon;
 
 public class EditarCarroGUI extends javax.swing.JPanel {
 
-   private List<FabricanteDTO> listaFabricante;
-    private List<ModeloDTO> listaModelo;
+   private List<FabricanteDTO> listaFabricante = new FabricanteService().findAll();
+    private List<ModeloDTO> listaModelo = new ModeloService().findAll();
     private FabricanteDTO fabricanteSelecionado;
     private ModeloDTO modeloSelecionado;
     private CarroDTO carro;
@@ -25,15 +28,18 @@ public class EditarCarroGUI extends javax.swing.JPanel {
     public EditarCarroGUI(CarroDTO carro) {
         this.carro = carro;
         initComponents();
-        this.listaFabricante = Application.listaFabricante;
-        this.listaModelo = Application.listaModelo;
         carregarCboFabricante();
-        
-        
+        preencherFormulario();
     }
     
-    private void selecionarCboFabricante(){
-        
+    private void preencherFormulario(){
+        cboFabricante.setSelectedItem(carro.getFabricante());
+        cboCor.setSelectedItem(carro.getCor());
+        txtPlaca.setText(carro.getPlaca());
+        txtAno.setText(String.valueOf(carro.getAno()));
+        txtPreco.setText(String.valueOf(carro.getValorLocacao()));
+        cbDisponivel.setSelected(carro.getDisponivel());
+        cboModelo.setSelectedItem(carro.getNome());
     }
     
     public void carregarCboFabricante() { 
@@ -101,6 +107,7 @@ public class EditarCarroGUI extends javax.swing.JPanel {
         
         if (camposPreenchidos()){
         try {
+            carro.setId(this.carro.getId());
             carro.setFabricanteId(fabricanteSelecionado.getId());
             carro.setModeloId(obterModeloSelecionado().getId());
             carro.setAno(Integer.valueOf(txtAno.getText()));
@@ -109,14 +116,13 @@ public class EditarCarroGUI extends javax.swing.JPanel {
             carro.setValorLocacao(Double.valueOf(txtPreco.getText().replace(",", ".")));
             carro.setDisponivel(cbDisponivel.isSelected());
             
-            service.save(carro);
-            Application.listaCarro = service.findAll();
-            JOptionPane.showMessageDialog(null, "Carro salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            limparCampos();
+            service.update(carro);
+            JOptionPane.showMessageDialog(null, "Carro atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            Utils.sair(this);
             
             } catch (Exception ex) {
                 
-                JOptionPane.showMessageDialog(null, "Erro ao salvar o carro no sistema: " + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o carro no sistema: " + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             
