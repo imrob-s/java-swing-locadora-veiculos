@@ -27,12 +27,12 @@ public class Application extends JFrame {
     }
     
     public static void carregarDados() {
-        ModeloService modeloService = new ModeloService();
-        FabricanteService fabricanteService = new FabricanteService();
-        CarroService carroService = new CarroService();
-        listaModelo = modeloService.findAll();
-        listaFabricante = fabricanteService.findAll();
-        listaCarro = carroService.findAll();      
+//        ModeloService modeloService = new ModeloService();
+//        FabricanteService fabricanteService = new FabricanteService();
+//        CarroService carroService = new CarroService();
+//        listaModelo = modeloService.findAll();
+//        listaFabricante = fabricanteService.findAll();
+        listaCarro = new CarroService().findAll();
     }
 
     private void init() {

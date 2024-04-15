@@ -1,7 +1,11 @@
 
 package com.imrob.locadoraveiculos.entities;
 
-public class Carro {
+import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
+
+import java.io.Serializable;
+
+public class Carro implements Identifiable<Long>, Serializable {
 
     private Long id;
     // Foi necessario o snakecase devido mapeamento com banco de dados

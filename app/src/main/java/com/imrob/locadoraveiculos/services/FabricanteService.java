@@ -1,8 +1,12 @@
 package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
+import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.repositories.deprecated.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.cache.CachedRepository;
+import com.imrob.locadoraveiculos.repositories.impl.RobRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +22,7 @@ public class FabricanteService {
     }
     
     public FabricanteDTO findById(Long id) {
-        return convertToDTO(repository.findBy(id));
+        return convertToDTO(repository.findById(id));
     }
     
     public void save(FabricanteDTO fabricante){

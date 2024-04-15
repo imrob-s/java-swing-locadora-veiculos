@@ -13,8 +13,6 @@ public class ClienteDTO {
     private EnderecoDTO endereco;
     private String telefone;
     private Long enderecoId;
-    private static String[] colunas = {"Id", "Nome", "RG", "CPF", "CNH", 
-        "Vencimento CNH", "email", "Rua", "Numero", "Bairro", "Cidade", "Estado", "CEP", "Telefone"};
 
     public ClienteDTO() {
     }
@@ -133,10 +131,6 @@ public class ClienteDTO {
 
     public void setEnderecoId(Long enderecoId) {
         this.enderecoId = enderecoId;
-    }
-
-    public static String[] getColunas() {
-        return colunas;
     }
     
 }

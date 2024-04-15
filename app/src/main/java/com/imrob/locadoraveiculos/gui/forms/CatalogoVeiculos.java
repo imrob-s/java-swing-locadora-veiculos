@@ -5,6 +5,8 @@ import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.CardCarro;
+import com.imrob.locadoraveiculos.services.CarroService;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
@@ -37,7 +39,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     String filtro = txtPesquisar.getText();
     jpConteudo.removeAll();
 
-    List<CarroDTO> carrosFiltrados = Application.listaCarro.stream()
+    List<CarroDTO> carrosFiltrados = new CarroService().findAll().stream()
             .filter(carro ->
                     carro.getNome().toLowerCase().contains(filtro.toLowerCase()) ||
                     carro.getFabricante().toLowerCase().contains(filtro.toLowerCase()) ||

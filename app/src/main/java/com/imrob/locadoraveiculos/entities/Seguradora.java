@@ -1,7 +1,11 @@
 
 package com.imrob.locadoraveiculos.entities;
 
-public class Seguradora {
+import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
+
+import java.io.Serializable;
+
+public class Seguradora implements Identifiable<Long>, Serializable {
     private Long id;
     private String nome;
     private String cnpj;

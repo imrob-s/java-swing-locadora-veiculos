@@ -2,21 +2,26 @@ package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.entities.Carro;
-import com.imrob.locadoraveiculos.entities.Fabricante;
-import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.repositories.deprecated.CarroRepository;
+import com.imrob.locadoraveiculos.repositories.CarroRepository;
+import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.ModeloRepository;
+import com.imrob.locadoraveiculos.repositories.cache.CachedRepository;
+import com.imrob.locadoraveiculos.repositories.impl.RobRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarroService {
+
     private final CarroRepository repository;
-    
+
     public CarroService() {
-        repository = new CarroRepository();
+        this.repository = new CarroRepository();
     }
 
     public List<CarroDTO> findAll() {
-        return convertToDTOs(repository.findAll());
+        List<Carro> resultList = repository.findAll();
+        return convertToDTOs(resultList);
     }
     
     public CarroDTO findBy(Long id) {
@@ -35,14 +40,6 @@ public class CarroService {
         repository.delete(id);
     }
     
-    public List<CarroDTO> findAllBy(Fabricante fabricante){
-        return convertToDTOs(repository.findAllBy(fabricante));
-    }
-    
-    public List<CarroDTO> findAllBy(Modelo modelo){
-        return convertToDTOs(repository.findAllBy(modelo));
-    }
-    
     private List<CarroDTO> convertToDTOs(List<Carro> carros) {
         List<CarroDTO> dtos = new ArrayList<>();
         for (Carro carro : carros) {
@@ -56,8 +53,8 @@ public class CarroService {
         dto.setId(entity.getId());
         dto.setFabricanteId(entity.getFabricante_id());
         dto.setModeloId(entity.getModelo_id());
-        dto.setNome(repository.findNomeModeloById(entity.getModelo_id()));
-        dto.setFabricante(repository.findNomeFabricanteById(entity.getFabricante_id()));
+        dto.setNome(new ModeloRepository().findById(entity.getModelo_id()).getNome());
+        dto.setFabricante(new FabricanteRepository().findById(entity.getFabricante_id()).getNome());
         dto.setAno(entity.getAno());
         dto.setCor(entity.getCor());
         dto.setPlaca(entity.getPlaca());

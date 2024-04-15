@@ -3,8 +3,8 @@ package com.imrob.locadoraveiculos.services;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import com.imrob.locadoraveiculos.entities.Modelo;
-import com.imrob.locadoraveiculos.repositories.deprecated.FabricanteRepository;
-import com.imrob.locadoraveiculos.repositories.deprecated.ModeloRepository;
+import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
+import com.imrob.locadoraveiculos.repositories.ModeloRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +22,7 @@ public class ModeloService {
     }
     
     public ModeloDTO findById(Long id) {
-        return convertToDTO(repository.findBy(id));
-    }
-    
-    public List<ModeloDTO> findByFabricanteId(Long id) {
-        return convertToDTOs(repository.findByFabricanteId(id));
+        return convertToDTO(repository.findById(id));
     }
     
     public Long save(ModeloDTO modelo) {
@@ -50,7 +46,7 @@ public class ModeloService {
     }
     
     public ModeloDTO convertToDTO(Modelo entity) {
-        Fabricante fabricante = fabricanteRepository.findBy(entity.getFabricante_id());
+        Fabricante fabricante = fabricanteRepository.findById(entity.getFabricante_id());
         ModeloDTO dto = new ModeloDTO();
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());

@@ -1,6 +1,7 @@
 package com.imrob.locadoraveiculos;
 
 import com.imrob.locadoraveiculos.entities.Fabricante;
+import com.imrob.locadoraveiculos.repositories.deprecated.FabricanteRepository;
 
 import javax.swing.*;
 
@@ -8,7 +9,7 @@ public class Teste extends JFrame {
     private JTable tabela;
 
     public Teste() {
-//        // CarroRepository repository = new CarroRepository();
+          // FabricanteRepository repository = new FabricanteRepository();
 //        ModeloRepository repository = new ModeloRepository();
 //        // List<Modelo> modelos = repository.findAll();
 //        List<Carro> carros = new TesteRepository().findAll();
@@ -28,8 +29,7 @@ public class Teste extends JFrame {
     }
 
     public static void main(String[] args) {
-
-        TesteRepository repository = new TesteRepository();
+        FabricanteRepository repository = new FabricanteRepository();
         Fabricante fabricante = new Fabricante(20L, "Outro Texto de Teste");
         repository.delete(19L);
 

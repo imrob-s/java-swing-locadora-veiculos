@@ -1,9 +1,12 @@
 
 package com.imrob.locadoraveiculos.entities;
 
+import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Locacao {
+public class Locacao implements Identifiable<Long>, Serializable {
     private Long id;
     private Long seguradoraId;
     private Long carroId;

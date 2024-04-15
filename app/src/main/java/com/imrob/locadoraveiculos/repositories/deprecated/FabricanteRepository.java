@@ -5,12 +5,12 @@ import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Fabricante;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
-
+@Deprecated
 public class FabricanteRepository {
     private final JdbcClient jdbcClient;
 
     public FabricanteRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
     
     public List<Fabricante> findAll() {

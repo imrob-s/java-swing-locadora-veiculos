@@ -4,12 +4,12 @@ import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Cliente;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
-
+@Deprecated
 public class ClienteRepository {
     private final JdbcClient jdbcClient;
 
     public ClienteRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
     
     public List<Cliente> findAll() {

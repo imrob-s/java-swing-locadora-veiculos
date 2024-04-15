@@ -5,12 +5,12 @@ import com.imrob.locadoraveiculos.entities.Seguradora;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.util.List;
-
+@Deprecated
 public class SeguradoraRepository {
     private final JdbcClient jdbcClient;
 
     public SeguradoraRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
 
     public List<Seguradora> findAll() {

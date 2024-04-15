@@ -5,14 +5,12 @@ import com.imrob.locadoraveiculos.entities.Endereco;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
-import java.util.List;
-
+@Deprecated
 public class EnderecoRepository {
     private final JdbcClient jdbcClient;
 
     public EnderecoRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
 
 

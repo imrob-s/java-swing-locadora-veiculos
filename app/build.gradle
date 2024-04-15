@@ -19,18 +19,23 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.2'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.3'
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation 'org.ehcache:ehcache:3.10.8'
+
 //    implementation 'com.github.jiconfont:jiconfont:1.0.0'
 //    implementation 'com.github.jiconfont:jiconfont-swing:1.0.1'
 //    implementation 'com.github.jiconfont:jiconfont-font_awesome:4.7.0.1'
 //    implementation 'com.github.jiconfont:jiconfont-google_material_design_icons:2.2.0.2'
 
-    implementation files("libs/swing-blur-background-1.0.2.jar", "libs/swing-glasspane-popup-1.5.0.jar")
+    implementation files("libs/swing-blur-background-1.0.2.jar", "libs/swing-glasspane-popup-1.5.0.jar", "swing-crazy-panel-1.0.0.jar")
     implementation 'org.swinglabs:swing-layout:1.0.3'
     implementation 'com.twelvemonkeys.common:common-image:3.10.1'
     implementation 'com.formdev:flatlaf:3.4'
     implementation 'com.formdev:flatlaf-extras:3.4'
     implementation 'com.miglayout:miglayout-swing:11.3'
     implementation 'com.formdev:flatlaf-fonts-roboto:2.137'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
 }
 
@@ -48,6 +53,10 @@ compileJava {
 application {
     // Define the main class for the application.
     mainClass = 'com.imrob.locadoraveiculos.App'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 tasks.named('test') {

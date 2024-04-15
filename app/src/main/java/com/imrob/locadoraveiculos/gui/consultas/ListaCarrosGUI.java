@@ -3,19 +3,17 @@ package com.imrob.locadoraveiculos.gui.consultas;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
-import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
-import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
-import java.awt.Component;
+import com.imrob.locadoraveiculos.services.CarroService;
+
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
@@ -27,7 +25,7 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     public void carregarTabelaCarros() {
-        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(Application.listaCarro);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(new CarroService().findAll());
         tabela.setModel(tableModel);
     }
     
@@ -57,8 +55,8 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     private void atualizarFiltro() {
-        TableModelCarro tableModel = new TableModelCarro(Application.listaCarro);
-        TableRowSorter<TableModelCarro> sorter = new TableRowSorter<>(tableModel);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(new CarroService().findAll());
+        TableRowSorter<MappedTableModel<CarroDTO>> sorter = new TableRowSorter<>(tableModel);
         tabela.setRowSorter(sorter);
         String texto = txtProcurar.getText();
         if (texto.length() == 0) {

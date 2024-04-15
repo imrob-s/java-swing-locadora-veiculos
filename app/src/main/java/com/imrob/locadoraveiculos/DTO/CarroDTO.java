@@ -15,7 +15,6 @@ public class CarroDTO {
     private String placa;
     private Boolean disponivel;
     private double valorLocacao;
-    private static String[] colunas = {"Id", "Nome", "Fabricante", "Cor", "Placa", "Valor", "Disponivel"};
     
     public CarroDTO() {
     }
@@ -122,8 +121,15 @@ public class CarroDTO {
         this.valorLocacao = valorLocacao;
     }
 
-    public static String[] getColunas() {
-        return colunas;
+    @Override
+    public String toString() {
+        return "CarroDTO{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", fabricante='" + fabricante + '\'' +
+                ", ano=" + ano +
+                ", cor='" + cor + '\'' +
+                ", placa='" + placa + '\'' +
+                '}';
     }
-
 }

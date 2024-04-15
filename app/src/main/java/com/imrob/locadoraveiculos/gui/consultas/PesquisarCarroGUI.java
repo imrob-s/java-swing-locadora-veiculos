@@ -5,7 +5,7 @@
 package com.imrob.locadoraveiculos.gui.consultas;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
+import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class PesquisarCarroGUI extends javax.swing.JDialog {
     
     public void carregarTabelaCarros() {
         List<CarroDTO> carros = service.findAll();
-        TableModelCarro tableModel = new TableModelCarro(carros);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(carros);
         tabela.setModel(tableModel);
     }
     

@@ -4,15 +4,17 @@ package com.imrob.locadoraveiculos.repositories.deprecated;
 import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
+@Deprecated
 public class ModeloRepository {
     private final JdbcClient jdbcClient;
 
     public ModeloRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
     
     public List<Modelo> findAll() {
@@ -42,7 +44,7 @@ public class ModeloRepository {
           .param("fabricanteId", modelo.getFabricante_id())
           .update(keyHolder, "id");
         
-        return keyHolder.getKey().longValue();
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
     
     public void delete(Long id) {

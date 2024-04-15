@@ -4,11 +4,15 @@
 package com.imrob.locadoraveiculos;
 
 import com.imrob.locadoraveiculos.gui.application.Application;
+import com.imrob.locadoraveiculos.repositories.cache.CacheConfig;
 
 
-public class App {
+ public class App {
 
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            CacheConfig.getInstance().close();
+        }));
         Application.main(args);
     }
 }

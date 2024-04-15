@@ -1,9 +1,12 @@
 
 package com.imrob.locadoraveiculos.entities;
 
+import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cliente {
+public class Cliente implements Identifiable<Long>, Serializable {
     private Long id;
     private String nome;
     private String rg;

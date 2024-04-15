@@ -6,12 +6,12 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Deprecated
 public class LocacaoRepository {
     private final JdbcClient jdbcClient;
 
     public LocacaoRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
 
     public List<Locacao> findAll() {

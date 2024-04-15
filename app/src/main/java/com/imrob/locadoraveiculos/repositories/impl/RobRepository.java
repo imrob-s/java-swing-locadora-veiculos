@@ -1,6 +1,8 @@
 package com.imrob.locadoraveiculos.repositories.impl;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -54,11 +56,12 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      *
      * @param entity A entidade a ser salva no banco de dados.
      */
-    default void save(ENTITY entity) {
+    default ID_TYPE save(ENTITY entity) {
         JdbcClient jdbcClient = getConnection();
         Class<ENTITY> entityClass = getEntityClass();
         String tableName = entityClass.getSimpleName().toLowerCase();
         List<Object> values = getSaveValues(entity);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("INSERT INTO ")
@@ -89,7 +92,9 @@ public interface RobRepository<ENTITY, ID_TYPE> {
 
         jdbcClient.sql(sql)
                 .params(values)
-                .update();
+                .update(keyHolder, "id");
+
+        return (ID_TYPE) keyHolder.getKey();
     }
 
     /**
@@ -155,7 +160,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      * @return A classe da entidade.
      */
     @SuppressWarnings("unchecked")
-    private Class<ENTITY> getEntityClass() {
+    default Class<ENTITY> getEntityClass() {
         ParameterizedType type = (ParameterizedType) getClass().getGenericInterfaces()[0];
         return (Class<ENTITY>) type.getActualTypeArguments()[0];
     }

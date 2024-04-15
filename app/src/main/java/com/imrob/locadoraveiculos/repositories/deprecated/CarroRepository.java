@@ -8,11 +8,12 @@ import com.imrob.locadoraveiculos.entities.Modelo;
 import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
+@Deprecated
 public class CarroRepository {
     private final JdbcClient jdbcClient;
 
     public CarroRepository() {
-        this.jdbcClient = DatabaseConfig.jdbcClient();
+        this.jdbcClient = DatabaseConfig.getConnection();
     }
     
     public List<Carro> findAll() {

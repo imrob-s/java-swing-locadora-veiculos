@@ -7,7 +7,9 @@ import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
-import com.imrob.locadoraveiculos.gui.model.TableModelCarro;
+import com.imrob.locadoraveiculos.services.CarroService;
+
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.DefaultCellEditor;
@@ -29,7 +31,8 @@ public class ListaGenericaGUI extends javax.swing.JPanel {
     }
     
     public void carregarTabelaCarros() throws NoSuchMethodException {
-        MappedTableModel<CarroDTO> tableModel = new MappedTableModel(Application.listaCarro);
+        List<CarroDTO> listaCarros = new CarroService().findAll();
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(listaCarros);
         tabela.setModel(tableModel);
     }
     
@@ -59,8 +62,8 @@ public class ListaGenericaGUI extends javax.swing.JPanel {
     }
     
     private void atualizarFiltro() {
-        TableModelCarro tableModel = new TableModelCarro(Application.listaCarro);
-        TableRowSorter<TableModelCarro> sorter = new TableRowSorter<>(tableModel);
+        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(new CarroService().findAll());
+        TableRowSorter<MappedTableModel<CarroDTO>> sorter = new TableRowSorter<>(tableModel);
         tabela.setRowSorter(sorter);
         String texto = txtProcurar.getText();
         if (texto.length() == 0) {
