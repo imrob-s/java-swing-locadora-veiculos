@@ -31,7 +31,6 @@ public class CadastroFabricanteGUI extends javax.swing.JPanel {
         if(!txtFabricante.getText().isBlank()){
         try {
             service.save(fabricante);
-            Application.listaFabricante = service.findAll();
             
             JOptionPane.showMessageDialog(null, "Fabricante salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             Utils.sair(this);

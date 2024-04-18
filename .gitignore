@@ -152,6 +152,7 @@ replay_pid*
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
 build/
+app/build/
 nbbuild/
 dist/
 nbdist/

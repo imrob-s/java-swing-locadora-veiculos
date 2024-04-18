@@ -53,7 +53,7 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
     public void carregarCboCor(){
         String[] listaCores = {
             "AMARELO", "AZUL", "BEGE", "BRANCA", "CINZA", "DOURADA",
-            "GRENÁ", "LARANJA", "MARROM", "PRATA", "PRETA", "ROSA",
+            "GRENA", "LARANJA", "MARROM", "PRATA", "PRETA", "ROSA",
             "ROXA", "VERDE", "VERMELHA", "FANTASIA"
         };
         
@@ -103,7 +103,6 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
             carro.setDisponivel(cbDisponivel.isSelected());
             
             service.save(carro);
-            Application.listaCarro = service.findAll();
             JOptionPane.showMessageDialog(null, "Carro salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
             

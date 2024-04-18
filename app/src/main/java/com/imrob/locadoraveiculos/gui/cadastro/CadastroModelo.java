@@ -8,8 +8,10 @@ import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.application.Application;
+import com.imrob.locadoraveiculos.services.FabricanteService;
 import com.imrob.locadoraveiculos.services.ModeloService;
 import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,7 +51,7 @@ public class CadastroModelo extends javax.swing.JPanel {
     }
     
     public void carregarCboFabricante() {
-        List<FabricanteDTO> lista = Application.listaFabricante;
+        List<FabricanteDTO> lista = new FabricanteService().findAll();
         
         for (FabricanteDTO f : lista) {
             cboFabricante.addItem(f.getNome());
@@ -57,13 +59,16 @@ public class CadastroModelo extends javax.swing.JPanel {
     }
     
     private FabricanteDTO obterFabricanteSelecionado() {
-       
+        List<FabricanteDTO> lista = new FabricanteService().findAll();
+        
+        try {
         String nomeFabricanteSelecionado = cboFabricante.getSelectedItem().toString();
-        for (FabricanteDTO fabricante : Application.listaFabricante) {
+        for (FabricanteDTO fabricante : lista) {
             if (fabricante.getNome().equals(nomeFabricanteSelecionado)) {
                 return fabricante;
             }
-        
+        }} catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao obter o fabricante selecionado. " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
@@ -105,8 +110,7 @@ public class CadastroModelo extends javax.swing.JPanel {
                 // Salvar a imagem
                 ImageIO.write(imagemSelecionada, getFileExtension(nomeArquivoSelecionado), arquivoDestino);
             } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Erro ao salvar a imagem.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao salvar a imagem. " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Nenhuma imagem selecionada.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -122,12 +126,10 @@ public class CadastroModelo extends javax.swing.JPanel {
             modelo.setFabricanteId(fabricanteSelecionado.getId());
             
             Long modeloId = service.save(modelo);
-            Application.listaModelo = service.findAll();
             
             JOptionPane.showMessageDialog(null, "Modelo salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             return modeloId;
-            } catch (Exception ex) {
-                
+            } catch (HeadlessException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar o modelo no sistema: " + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         return -1L;
@@ -142,12 +144,12 @@ public class CadastroModelo extends javax.swing.JPanel {
         }
     }
     
-    private void limparDados(){
-        txtNome.setText("");
-        cboFabricante.setSelectedIndex(1);
-        lblImagem.setIcon(icon);
-        imagemSelecionada = null;
-    }
+//    private void limparDados(){
+//        txtNome.setText("");
+//        cboFabricante.setSelectedIndex(1);
+//        lblImagem.setIcon(icon);
+//        imagemSelecionada = null;
+//    }
 
 
     private String getFileExtension(String nomeArquivo) {
