@@ -3,8 +3,9 @@ package com.imrob.locadoraveiculos.gui.components;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
+import com.imrob.locadoraveiculos.gui.cadastro.CadastroClienteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroModelo;
+import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.consultas.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.consultas.ListaGenericaGUI;
 import net.miginfocom.swing.MigLayout;
@@ -126,7 +127,7 @@ public class SystemMenu extends BlurChild {
                         if (ints.length == 1) {
                             int index = ints[0];
                             if (index == 0) {
-                                FormManager.getInstance().showForm("Dashboard", new CadastroModelo());
+                                FormManager.getInstance().showForm("Dashboard", new CadastroModeloGUI());
                             }
                         }else if(ints.length == 2){
                             int index=ints[0];
@@ -151,7 +152,7 @@ public class SystemMenu extends BlurChild {
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Lista de Clientes", new CatalogoVeiculos());
                                 }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Cadastrar Cliente", new CadastroCarroGUI());
+                                    FormManager.getInstance().showForm("Cadastrar Cliente", new CadastroClienteGUI());
                                 }else if(subIndex==2){
                                     FormManager.getInstance().showForm("Gerenciar Clientes", new CadastroCarroGUI());
                                 }
@@ -161,13 +162,13 @@ public class SystemMenu extends BlurChild {
                                 }else if(subIndex==1){
                                     FormManager.getInstance().showForm("Cadastro de Fabricante", new CadastroFabricanteGUI());
                                 }else if(subIndex==2){
-                                    FormManager.getInstance().showForm("Cadastro de Modelo", new CadastroModelo());
+                                    FormManager.getInstance().showForm("Cadastro de Modelo", new CadastroModeloGUI());
                                 }else if(subIndex==3){
                                     FormManager.getInstance().showForm("Cadastro de Seguradora", new CadastroCarroGUI());
                                 }
                             } else if(index==5){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Cadastro de Cliente", new CatalogoVeiculos());
+                                    FormManager.getInstance().showForm("Cadastro de Cliente", new CadastroClienteGUI());
                                 }else if(subIndex==1){
                                     FormManager.getInstance().showForm("Locação de Veículo", new CadastroCarroGUI());
                                 }

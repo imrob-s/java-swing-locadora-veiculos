@@ -22,7 +22,6 @@ public class CarroServiceTest {
     @Test
     void deveRetornarUmaListaDeCarrosDoBancoDeDados() {
         List<CarroDTO> result = service.findAll();
-        Application.listaCarro = result;
         System.out.println("O Tamanho da lista é: " + result.size());
         assertNotNull(result);
     }
@@ -32,15 +31,6 @@ public class CarroServiceTest {
     void deveRetornarUmaListaDeCarrosDoCache() {
         List<CarroDTO> result = service.findAll();
         result.forEach(System.out::println);
-
-        assertNotNull(result);
-    }
-
-    @Order(3)
-    @Test
-    void deveRetornarUmaListaDoAplication() {
-        List<CarroDTO> result = Application.listaCarro;
-        System.out.println("Passei pelo aplication");
 
         assertNotNull(result);
     }

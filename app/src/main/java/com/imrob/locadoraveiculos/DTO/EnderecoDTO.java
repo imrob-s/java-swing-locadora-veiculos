@@ -22,7 +22,6 @@ public class EnderecoDTO {
         this.cep = cep;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

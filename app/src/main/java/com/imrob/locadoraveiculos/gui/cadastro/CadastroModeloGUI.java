@@ -34,14 +34,14 @@ import raven.swing.AvatarIcon;
  *
  * @author Rob
  */
-public class CadastroModelo extends javax.swing.JPanel {
+public class CadastroModeloGUI extends javax.swing.JPanel {
     private FabricanteDTO fabricanteSelecionado;
     private Icon icon;
     private BufferedImage imagemSelecionada;
     private String nomeArquivoSelecionado;
     private final String pastaImagens = "imgs/carro/";
     
-    public CadastroModelo() {
+    public CadastroModeloGUI() {
         initComponents();
         icon = new AvatarIcon(getClass().getResource("/imgs/img_carrodefault.png"), 180, 100, 10);
         lblImagem.setIcon(icon);
