@@ -5,7 +5,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 
 import java.io.Serializable;
 
-public class Carro implements Identifiable<Long>, Serializable {
+public class Carro implements Identifiable, Serializable {
 
     private Long id;
     // Foi necessario o snakecase devido mapeamento com banco de dados

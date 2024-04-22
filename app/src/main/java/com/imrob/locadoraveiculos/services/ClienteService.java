@@ -3,7 +3,7 @@ package com.imrob.locadoraveiculos.services;
 import com.imrob.locadoraveiculos.DTO.ClienteDTO;
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.entities.Cliente;
-import com.imrob.locadoraveiculos.repositories.deprecated.ClienteRepository;
+import com.imrob.locadoraveiculos.repositories.ClienteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +22,16 @@ public class ClienteService {
     }
 
     public ClienteDTO findBy(Long id) {
-        return convertToDTO(repository.findBy(id));
+        return convertToDTO(repository.findById(id));
     }
 
-    public ClienteDTO findByCPF(String cpf) {
-        return convertToDTO(repository.findByCPF(cpf));
-    }
+//    public ClienteDTO findByCPF(String cpf) {
+//        return convertToDTO(repository.findByCPF(cpf));
+//    }
 
-    public ClienteDTO findByName(String name) {
-        return convertToDTO(repository.findByName(name));
-    }
+//    public ClienteDTO findByName(String name) {
+//        return convertToDTO(repository.findByName(name));
+//    }
 
     public void save(ClienteDTO clienteDto, EnderecoDTO enderecoDto) {
         Cliente cliente = convertToEntity(clienteDto);

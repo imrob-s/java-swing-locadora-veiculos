@@ -7,27 +7,18 @@ package com.imrob.locadoraveiculos.gui.cadastro;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
-import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.services.FabricanteService;
 import com.imrob.locadoraveiculos.services.ModeloService;
-import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import raven.swing.AvatarIcon;
 
 /**

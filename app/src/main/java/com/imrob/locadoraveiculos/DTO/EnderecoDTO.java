@@ -22,6 +22,15 @@ public class EnderecoDTO {
         this.cep = cep;
     }
 
+    public EnderecoDTO(String rua, String numero, String bairro, String cidade, String estado, String cep) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+    }
+
     public Long getId() {
         return id;
     }

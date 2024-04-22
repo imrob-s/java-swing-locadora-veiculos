@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Esta interface representa um repositório genérico para realizar operações CRUD em entidades em um banco de dados.
@@ -56,7 +57,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      *
      * @param entity A entidade a ser salva no banco de dados.
      */
-    default ID_TYPE save(ENTITY entity) {
+    default Long save(ENTITY entity) {
         JdbcClient jdbcClient = getConnection();
         Class<ENTITY> entityClass = getEntityClass();
         String tableName = entityClass.getSimpleName().toLowerCase();
@@ -94,7 +95,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
                 .params(values)
                 .update(keyHolder, "id");
 
-        return (ID_TYPE) keyHolder.getKey();
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
 
     /**

@@ -1,14 +1,11 @@
 package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.gui.application.Application;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CarroServiceTest {
     private CarroService service;

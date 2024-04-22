@@ -5,7 +5,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 
 import java.io.Serializable;
 
-public class Endereco implements Identifiable<Long>, Serializable {
+public class Endereco implements Identifiable, Serializable {
     private Long id;
     private String rua;
     private String numero;
@@ -28,6 +28,12 @@ public class Endereco implements Identifiable<Long>, Serializable {
     }
 
     public Endereco(String rua, String numero, String bairro, String cidade, String estado, String cep) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
     }
 
     public Long getId() {

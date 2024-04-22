@@ -1,13 +1,16 @@
 package com.imrob.locadoraveiculos.gui.components;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroClienteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.consultas.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.consultas.ListaGenericaGUI;
+import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 import raven.drawer.component.header.SimpleHeader;
 import raven.drawer.component.header.SimpleHeaderData;
@@ -19,10 +22,6 @@ import raven.swing.blur.style.GradientColor;
 import raven.swing.blur.style.Style;
 import raven.swing.blur.style.StyleBorder;
 import raven.swing.blur.style.StyleOverlay;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class SystemMenu extends BlurChild {
 
@@ -152,7 +151,7 @@ public class SystemMenu extends BlurChild {
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Lista de Clientes", new CatalogoVeiculos());
                                 }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Cadastrar Cliente", new CadastroClienteGUI());
+                                    FormManager.getInstance().showForm("Cadastrar Cliente", new CadastroClienteGUI(), false);
                                 }else if(subIndex==2){
                                     FormManager.getInstance().showForm("Gerenciar Clientes", new CadastroCarroGUI());
                                 }

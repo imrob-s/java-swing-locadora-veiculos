@@ -43,7 +43,7 @@ java {
 }
 
 compileJava {
-    options.encoding = 'UTF-8'
+    options.encoding = 'ISO-8859-1'
 }
 
 application {

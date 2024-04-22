@@ -6,7 +6,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Locacao implements Identifiable<Long>, Serializable {
+public class Locacao implements Identifiable, Serializable {
     private Long id;
     private Long seguradoraId;
     private Long carroId;

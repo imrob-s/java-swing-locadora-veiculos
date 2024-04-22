@@ -5,7 +5,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 
 import java.io.Serializable;
 
-public class Seguradora implements Identifiable<Long>, Serializable {
+public class Seguradora implements Identifiable, Serializable {
     private Long id;
     private String nome;
     private String cnpj;

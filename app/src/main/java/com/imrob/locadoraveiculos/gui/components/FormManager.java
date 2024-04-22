@@ -1,7 +1,7 @@
 package com.imrob.locadoraveiculos.gui.components;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class FormManager {
 
@@ -25,6 +25,14 @@ public class FormManager {
 
     public void showForm(String title, Component component) {
         JInternalFrame frame = new JInternalFrame(title, true, true, true, true);
+        frame.setSize(component.getPreferredSize());
+        frame.add(component);
+        frame.setVisible(true);
+        desktopPane.add(frame, 0);
+    }
+    
+        public void showForm(String title, Component component, Boolean resizable) {
+        JInternalFrame frame = new JInternalFrame(title, resizable, true, true, true);
         frame.setSize(component.getPreferredSize());
         frame.add(component);
         frame.setVisible(true);

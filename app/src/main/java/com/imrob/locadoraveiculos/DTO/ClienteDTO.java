@@ -52,6 +52,16 @@ public class ClienteDTO {
         this.enderecoId = enderecoId;
     }
 
+    public ClienteDTO(String nome, String rg, String cpf, String cnh, LocalDate dataVencimentoCNH, String email, String telefone) {
+        this.nome = nome;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.cnh = cnh;
+        this.dataVencimentoCNH = dataVencimentoCNH;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
     public Long getId() {
         return id;
     }
