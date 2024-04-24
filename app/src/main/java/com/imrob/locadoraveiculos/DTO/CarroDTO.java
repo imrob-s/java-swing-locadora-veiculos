@@ -8,7 +8,7 @@ public class CarroDTO {
     private Long fabricanteId;
     private Long modeloId;
     private Icon image;
-    private String nome;
+    private String modelo;
     private String fabricante;
     private Integer ano;
     private String cor;
@@ -24,7 +24,7 @@ public class CarroDTO {
         this.fabricanteId = fabricanteId;
         this.modeloId = modeloId;
         this.image = image;
-        this.nome = nome;
+        this.modelo = nome;
         this.fabricante = fabricante;
         this.ano = ano;
         this.cor = cor;
@@ -65,12 +65,12 @@ public class CarroDTO {
         this.image = image;
     }
 
-    public String getNome() {
-        return nome;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getFabricante() {
@@ -125,7 +125,7 @@ public class CarroDTO {
     public String toString() {
         return "CarroDTO{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
+                ", nome='" + modelo + '\'' +
                 ", fabricante='" + fabricante + '\'' +
                 ", ano=" + ano +
                 ", cor='" + cor + '\'' +

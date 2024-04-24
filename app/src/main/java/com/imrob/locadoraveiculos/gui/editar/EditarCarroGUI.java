@@ -5,7 +5,6 @@ import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
-import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.services.CarroService;
 import java.net.URL;
 import java.util.List;
@@ -39,7 +38,7 @@ public class EditarCarroGUI extends javax.swing.JPanel {
         txtAno.setText(String.valueOf(carro.getAno()));
         txtPreco.setText(String.valueOf(carro.getValorLocacao()));
         cbDisponivel.setSelected(carro.getDisponivel());
-        cboModelo.setSelectedItem(carro.getNome());
+        cboModelo.setSelectedItem(carro.getModelo());
     }
     
     public void carregarCboFabricante() { 

@@ -20,7 +20,7 @@ public class CardCarro extends javax.swing.JPanel {
     }
     
     public void setData(CarroDTO carro) {
-        lblModelo.setText(carro.getNome());
+        lblModelo.setText(carro.getModelo());
         lblFabricante.setText(carro.getFabricante());
         txtAno.setText(String.valueOf(carro.getAno()));
         txtCor.setText(carro.getCor());

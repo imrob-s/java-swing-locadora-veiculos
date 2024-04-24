@@ -24,7 +24,7 @@ public class CarroService {
         return convertToDTOs(resultList);
     }
     
-    public CarroDTO findBy(Long id) {
+    public CarroDTO findById(Long id) {
         return convertToDTO(repository.findById(id));
     }
     
@@ -53,7 +53,7 @@ public class CarroService {
         dto.setId(entity.getId());
         dto.setFabricanteId(entity.getFabricante_id());
         dto.setModeloId(entity.getModelo_id());
-        dto.setNome(new ModeloRepository().findById(entity.getModelo_id()).getNome());
+        dto.setModelo(new ModeloRepository().findById(entity.getModelo_id()).getNome());
         dto.setFabricante(new FabricanteRepository().findById(entity.getFabricante_id()).getNome());
         dto.setAno(entity.getAno());
         dto.setCor(entity.getCor());

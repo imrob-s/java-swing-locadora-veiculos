@@ -86,15 +86,9 @@ public class SystemMenu extends BlurChild {
                         .subMenu("Lista de Clientes")
                         .subMenu("Adicionar Cliente")
                         .subMenu("Gerenciar Clientes"),
-                new Item.Label("CADASTROS"),
-                new Item("Veículos", "car.svg")
-                        .subMenu("Novo Carro")
-                        .subMenu("Novo Fabricante")
-                        .subMenu("Novo Modelo")
-                        .subMenu("Nova Seguradora"),
-                new Item("Clientes", "cliente.svg")
-                        .subMenu("Novo Cliente")
-                        .subMenu("Nova Locação"),
+                new Item("Seguradoras", "seguradora.svg")
+                        .subMenu("Adicionar Seguradora")
+                        .subMenu("Gerenciar Seguradora"),
                 new Item.Label("OUTROS"),
                 new Item("Configurações", "config.svg")
                         .subMenu("Dados da Empresa")
@@ -158,21 +152,11 @@ public class SystemMenu extends BlurChild {
                                 }
                             } else if(index==4){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Cadastro de Veículo", new CatalogoVeiculos());
-                                }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Cadastro de Fabricante", new CadastroFabricanteGUI());
-                                }else if(subIndex==2){
-                                    FormManager.getInstance().showForm("Cadastro de Modelo", new CadastroModeloGUI());
-                                }else if(subIndex==3){
                                     FormManager.getInstance().showForm("Cadastro de Seguradora", new CadastroSeguradoraGUI());
+                                } else if(subIndex==1){
+                                    FormManager.getInstance().showForm("Gerenciar Seguradoras", new CadastroFabricanteGUI());
                                 }
                             } else if(index==5){
-                                if(subIndex==0){
-                                    FormManager.getInstance().showForm("Cadastro de Cliente", new CadastroClienteGUI());
-                                }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Locação de Veículo", new CadastroCarroGUI());
-                                }
-                            } else if(index==6){
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Dados da Empresa", new ListaGenericaGUI());
                                 }else if(subIndex==1){
@@ -180,7 +164,7 @@ public class SystemMenu extends BlurChild {
                                 }else if(subIndex==2){
                                     FormManager.getInstance().showForm("Configuração de Notificações", new CadastroCarroGUI());
                                 }
-                            } else if(index==7){
+                            } else if(index==6){
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Documentação", new CatalogoVeiculos());
                                 }else if(subIndex==1){

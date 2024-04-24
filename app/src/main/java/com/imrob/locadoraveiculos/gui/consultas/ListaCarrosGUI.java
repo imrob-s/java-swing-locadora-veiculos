@@ -8,7 +8,6 @@ import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.gui.editar.EditarCarroGUI;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.CarroService;
-
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.*;
@@ -30,20 +29,8 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     private void editar(){
         int linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada != -1) {
-            CarroDTO carro = new CarroDTO();
-
-            carro.setId((Long) tabela.getValueAt(linhaSelecionada, 0));
-            carro.setFabricanteId((Long) tabela.getValueAt(linhaSelecionada, 1));
-            carro.setModeloId((Long) tabela.getValueAt(linhaSelecionada, 2));
-            carro.setImage((Icon) tabela.getValueAt(linhaSelecionada, 3));
-            carro.setNome(tabela.getValueAt(linhaSelecionada, 4).toString());
-            carro.setFabricante(tabela.getValueAt(linhaSelecionada, 5).toString());
-            carro.setAno((Integer) tabela.getValueAt(linhaSelecionada, 6));
-            carro.setCor(tabela.getValueAt(linhaSelecionada, 7).toString());
-            carro.setPlaca(tabela.getValueAt(linhaSelecionada, 8).toString());
-            carro.setDisponivel((Boolean) tabela.getValueAt(linhaSelecionada, 9));
-            carro.setValorLocacao((double) tabela.getValueAt(linhaSelecionada, 10));
-
+            Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
+            CarroDTO carro = new CarroService().findById(id);
             FormManager.getInstance().showForm("Editar Carro", new EditarCarroGUI(carro));
 
             carregarTabelaCarros();

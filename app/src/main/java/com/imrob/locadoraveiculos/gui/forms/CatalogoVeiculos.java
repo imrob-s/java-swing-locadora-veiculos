@@ -41,7 +41,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
 
     List<CarroDTO> carrosFiltrados = new CarroService().findAll().stream()
             .filter(carro ->
-                    carro.getNome().toLowerCase().contains(filtro.toLowerCase()) ||
+                    carro.getModelo().toLowerCase().contains(filtro.toLowerCase()) ||
                     carro.getFabricante().toLowerCase().contains(filtro.toLowerCase()) ||
                     carro.getCor().toLowerCase().contains(filtro.toLowerCase()) ||
                     carro.getPlaca().toLowerCase().contains(filtro.toLowerCase()) ||

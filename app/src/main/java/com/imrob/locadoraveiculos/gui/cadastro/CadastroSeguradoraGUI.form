@@ -39,18 +39,15 @@
                               </Group>
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCidade" min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtEstado" min="-2" pref="110" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -65,7 +62,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtNumero" min="-2" pref="76" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtBairro" min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="txtBairro" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -82,6 +79,11 @@
                               <Component id="txtfTelefone" min="-2" pref="107" max="-2" attributes="0"/>
                               <Component id="txtfValor" alignment="1" min="-2" pref="107" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="txtCidade" min="-2" pref="192" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="txtEstado" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

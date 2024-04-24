@@ -41,7 +41,7 @@ public class ListaGenericaGUI extends javax.swing.JPanel {
             CarroDTO carro = new CarroDTO();
 
             carro.setId((Long) tabela.getValueAt(linhaSelecionada, 0));
-            carro.setNome((String) tabela.getValueAt(linhaSelecionada, 1));
+            carro.setModelo((String) tabela.getValueAt(linhaSelecionada, 1));
             carro.setFabricante((String) tabela.getValueAt(linhaSelecionada, 2));
             carro.setCor((String) tabela.getValueAt(linhaSelecionada, 3));
             carro.setPlaca((String) tabela.getValueAt(linhaSelecionada, 4));

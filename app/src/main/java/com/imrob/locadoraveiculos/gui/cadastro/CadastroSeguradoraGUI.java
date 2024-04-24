@@ -75,10 +75,12 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
         if (!Validators.isCharacters(txtNome.getText())) {
             erros.add("O campo Nome é inválido.");
         }
-        if (Validators.isEmpty(txtfValor.getText()) || !Validators.isNumber(txtNumero.getText())) {
+        if (Validators.isEmpty(txtfValor.getText()) || 
+                !Validators.isNumber(txtNumero.getText())) {
             erros.add("O campo \"Valor do seguro\" é inválido.");
         }
-        if (!Validators.isNumber(txtfCnpj.getText().replaceAll("[^0-9]", ""))) {
+        if (!Validators.isNumber(txtfCnpj.getText()
+                .replaceAll("[^0-9]", ""))) {
             erros.add("O campo CNPJ é inválido.");
         }
         if (!Validators.isValidEmail(txtEmail.getText())) {
@@ -93,13 +95,16 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
         if (!Validators.isCharacters(txtRua.getText())) {
             erros.add("O campo Rua é inválido.");
         }
-        if (!Validators.hasNumberQuantity(txtfCnpj.getText().replaceAll("[^0-9]", ""), 14)) {
+        if (!Validators.hasNumberQuantity(txtfCnpj.getText()
+                .replaceAll("[^0-9]", ""), 14)) {
             erros.add("O campo CNPJ é inválido.");
         }
-        if (!Validators.hasNumberQuantity(txtfCep.getText().replaceAll("[^0-9]", ""), 8)) {
+        if (!Validators.hasNumberQuantity(txtfCep.getText()
+                .replaceAll("[^0-9]", ""), 8)) {
             erros.add("O campo CEP é inválido.");
         }
-        if (!Validators.hasNumberQuantity(txtfTelefone.getText().replaceAll("[^0-9]", ""), 10)) {
+        if (!Validators.hasNumberQuantity(txtfTelefone.getText()
+                .replaceAll("[^0-9]", ""), 10)) {
             erros.add("O campo Telefone é inválido.");
         }
 
@@ -258,16 +263,14 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
                                     .add(49, 49, 49)
                                     .add(jLabel12))
                                 .add(jLabel8)
-                                .add(jLabel9)
-                                .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 181, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jLabel9))
+                            .add(64, 64, 64)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                 .add(layout.createSequentialGroup()
-                                    .add(20, 20, 20)
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(jLabel13)
-                                        .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(10, 10, 10)
+                                    .add(jLabel13))
                                 .add(layout.createSequentialGroup()
-                                    .add(32, 32, 32)
+                                    .add(22, 22, 22)
                                     .add(jLabel5))))
                         .add(jLabel2)
                         .add(jLabel1)
@@ -278,7 +281,7 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
                         .add(layout.createSequentialGroup()
                             .add(txtNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(18, 18, 18)
-                            .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 226, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(txtBairro))
                         .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                 .add(layout.createSequentialGroup()
@@ -290,7 +293,11 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                 .add(jLabel4)
                                 .add(txtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, txtfValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, txtfValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(layout.createSequentialGroup()
+                            .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(20, 20, 20)
+                            .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
