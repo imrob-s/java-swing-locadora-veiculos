@@ -42,8 +42,8 @@ java {
     }
 }
 
-compileJava {
-    options.encoding = 'ISO-8859-1'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 application {
@@ -54,6 +54,7 @@ application {
 test {
     useJUnitPlatform()
 }
+
 
 tasks.named('test') {
 

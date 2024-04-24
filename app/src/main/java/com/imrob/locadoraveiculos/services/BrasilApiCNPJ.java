@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import feign.Param;
 import feign.RequestLine;
 
-public interface ViaCEPService {
-    @RequestLine("GET /ws/{cep}/json/")
-    JsonNode consultarCEP(@Param("cep") String cep);
+public interface BrasilApiCNPJ {
+    @RequestLine("GET /api/cnpj/v1/{cnpj}")
+    JsonNode consultarCNPJ(@Param("cnpj") String cnpj);
 }
-

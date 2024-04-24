@@ -6,7 +6,7 @@ import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.Utils.Validators;
 import com.imrob.locadoraveiculos.services.ClienteService;
-import com.imrob.locadoraveiculos.services.ViaCEPService;
+import com.imrob.locadoraveiculos.services.ViaCEP;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import javax.swing.JOptionPane;
@@ -18,13 +18,13 @@ import java.util.List;
 
 public class CadastroClienteGUI extends javax.swing.JPanel {
 
-    ViaCEPService viacep;
+    ViaCEP viacep;
 
     public CadastroClienteGUI() {
         initComponents();
         viacep = Feign.builder()
                 .decoder(new JacksonDecoder())
-                .target(ViaCEPService.class, "https://viacep.com.br");
+                .target(ViaCEP.class, "https://viacep.com.br");
     }
 
     void consultarCep(String cep) {

@@ -22,6 +22,14 @@ public class SeguradoraDTO {
         this.telefone = telefone;
     }
 
+    public SeguradoraDTO(String nome, String cnpj, String email, double valor, String telefone) {
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.email = email;
+        this.valor = valor;
+        this.telefone = telefone;
+    }
+
     public Long getId() {
         return id;
     }

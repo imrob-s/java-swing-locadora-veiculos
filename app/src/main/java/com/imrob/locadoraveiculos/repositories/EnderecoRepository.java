@@ -33,9 +33,9 @@ public class EnderecoRepository implements RobRepository<Endereco, Long> {
     }
 
     /**
-     * Recupera uma entidade do banco de dados pelo seu identificador unico.
+     * Recupera uma entidade do banco de dados pelo seu identificador único.
      *
-     * @param id O identificador unico da entidade a ser recuperada.
+     * @param id O identificador único da entidade a ser recuperada.
      * @return A entidade correspondente ao identificador especificado, ou null se nao for encontrada.
      */
     @Override
