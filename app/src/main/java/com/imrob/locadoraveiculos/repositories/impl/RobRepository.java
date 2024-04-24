@@ -13,9 +13,9 @@ import java.util.Objects;
 /**
  * Esta interface representa um repositório genérico para realizar operações CRUD em entidades em um banco de dados.
  * @param <ENTITY> O tipo de entidade gerenciada por este repositório.
- * @param <ID_TYPE> O tipo do identificador da entidade.
+ * @param <ID> O tipo do identificador da entidade.
  */
-public interface RobRepository<ENTITY, ID_TYPE> {
+public interface RobRepository<ENTITY, ID> {
     /**
      * Recupera todas as entidades armazenadas no banco de dados.
      *
@@ -39,7 +39,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      * @param id O identificador único da entidade a ser recuperada.
      * @return A entidade correspondente ao identificador especificado, ou null se não for encontrada.
      */
-    default ENTITY findById(ID_TYPE id) {
+    default ENTITY findById(ID id) {
         JdbcClient jdbcClient = getConnection();
         Class<ENTITY> entityClass = getEntityClass();
         String tableName = entityClass.getSimpleName().toLowerCase();
@@ -57,7 +57,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      *
      * @param entity A entidade a ser salva no banco de dados.
      */
-    default Long save(ENTITY entity) {
+    default ID save(ENTITY entity) {
         JdbcClient jdbcClient = getConnection();
         Class<ENTITY> entityClass = getEntityClass();
         String tableName = entityClass.getSimpleName().toLowerCase();
@@ -95,7 +95,13 @@ public interface RobRepository<ENTITY, ID_TYPE> {
                 .params(values)
                 .update(keyHolder, "id");
 
-        return Objects.requireNonNull(keyHolder.getKey()).longValue();
+        Long generatedId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        try {
+            return (ID) generatedId;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Tipo de ID não suportado: " + generatedId.getClass().getName());
+        }
+
     }
 
     /**
@@ -137,7 +143,7 @@ public interface RobRepository<ENTITY, ID_TYPE> {
      *
      * @param id O identificador único da entidade a ser excluída do banco de dados.
      */
-    default void delete(ID_TYPE id){
+    default void delete(ID id){
         JdbcClient jdbcClient = getConnection();
         Class<ENTITY> entityClass = getEntityClass();
         String tableName = entityClass.getSimpleName().toLowerCase();

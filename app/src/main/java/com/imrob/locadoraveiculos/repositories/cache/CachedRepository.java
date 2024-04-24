@@ -13,10 +13,10 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CachedRepository<ENTITY extends Identifiable, Long> implements RobRepository<ENTITY, Long> {
-    private final Cache<Long, ENTITY> cache;
+public class CachedRepository<ENTITY extends Identifiable<ID>, ID> implements RobRepository<ENTITY, ID> {
+    private final Cache<ID, ENTITY> cache;
 
-    public CachedRepository(Class<ENTITY> entityClass, Class<Long> idClass) {
+    public CachedRepository(Class<ENTITY> entityClass, Class<ID> idClass) {
         this.cache = createCache(idClass, entityClass);
     }
 
@@ -34,13 +34,13 @@ public class CachedRepository<ENTITY extends Identifiable, Long> implements RobR
 
 
     @Override
-    public ENTITY findById (Long id){
+    public ENTITY findById (ID id){
         return cache.get(id);
     }
 
     @Override
-    public Long save (ENTITY entity){
-        Long id = entity.getId();
+    public ID save (ENTITY entity){
+        ID id = entity.getId();
         cache.put(id, entity);
         return id;
     }
@@ -53,12 +53,12 @@ public class CachedRepository<ENTITY extends Identifiable, Long> implements RobR
 
     @Override
     public void update (ENTITY entity){
-        Long id = entity.getId();
+        ID id = entity.getId();
         cache.put(id, entity);
     }
 
     @Override
-    public void delete (Long id){
+    public void delete (ID id){
         cache.remove(id);
     }
 
@@ -67,10 +67,10 @@ public class CachedRepository<ENTITY extends Identifiable, Long> implements RobR
         return DatabaseConfig.getConnection();
     }
 
-    private Cache<Long, ENTITY> createCache(Class<Long> idClass, Class<ENTITY> entityClass) {
+    private Cache<ID, ENTITY> createCache(Class<ID> idClass, Class<ENTITY> entityClass) {
         CacheManager cacheManager = CacheConfig.getInstance();
         String cacheName = entityClass.getSimpleName().toLowerCase();
-        Cache<Long, ENTITY> existingCache = cacheManager.getCache(cacheName, idClass, entityClass);
+        Cache<ID, ENTITY> existingCache = cacheManager.getCache(cacheName, idClass, entityClass);
 
         if (existingCache != null) {
             return existingCache;

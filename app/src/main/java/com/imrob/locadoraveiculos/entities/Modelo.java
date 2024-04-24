@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author imrob
  */
-public class Modelo implements Identifiable, Serializable {
+public class Modelo implements Identifiable<Long>, Serializable {
 
     private Long id;
     private String nome;

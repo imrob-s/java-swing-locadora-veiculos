@@ -3,9 +3,9 @@ package com.imrob.locadoraveiculos.gui.cadastro;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.imrob.locadoraveiculos.DTO.ClienteDTO;
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
+import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.Utils.Validators;
 import com.imrob.locadoraveiculos.services.ClienteService;
-import com.imrob.locadoraveiculos.services.EnderecoService;
 import com.imrob.locadoraveiculos.services.ViaCEPService;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -102,6 +102,22 @@ public class CadastroClienteGUI extends javax.swing.JPanel {
         }
         JOptionPane.showMessageDialog(null, mensagem.toString(), "Erro de validação", JOptionPane.ERROR_MESSAGE);
     }
+
+    private void limparCampos() {
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtRg.setText("");
+        txtCnh.setText("");
+        txtfVencimento.setText("");
+        txtEmail.setText("");
+        txtRua.setText("");
+        txtfTelefone.setText("");
+        txtNumero.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
+        txtEstado.setText("");
+        txtfCep.setText("");
+    }
     
 
 
@@ -169,6 +185,7 @@ public class CadastroClienteGUI extends javax.swing.JPanel {
         jLabel3.setText("RG");
 
         txtRg.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        txtRg.addActionListener(this::txtRgActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel4.setText("CNH");
@@ -410,7 +427,7 @@ public class CadastroClienteGUI extends javax.swing.JPanel {
         String numCpf = txtCpf.getText();
 
         if (numCpf.length() >= 11) {
-            numCpf = numCpf.substring(0, numCpf.length() - 1);
+            numCpf = numCpf.substring(0, numCpf.length() - 1).trim();
             txtCpf.setText(numCpf);
         }
     }//GEN-LAST:event_txtCpfKeyTyped
@@ -444,6 +461,12 @@ public class CadastroClienteGUI extends javax.swing.JPanel {
             try {
             new ClienteService().save(cliente, endereco);
             JOptionPane.showMessageDialog(null, "Os dados foram salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar um novo cliente?", "Cadastrar Novo", JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    limparCampos();
+                } else {
+                    Utils.sair(this);
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar o cliente no sistema: " + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
@@ -456,6 +479,15 @@ public class CadastroClienteGUI extends javax.swing.JPanel {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
        painel.setSelectedIndex(0);
     }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void txtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRgActionPerformed
+        String numRG = txtRg.getText();
+
+        if (numRG.length() >= 9) {
+            numRG = numRG.substring(0, numRG.length() - 1).trim();
+            txtRg.setText(numRG);
+        }
+    }//GEN-LAST:event_txtRgActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

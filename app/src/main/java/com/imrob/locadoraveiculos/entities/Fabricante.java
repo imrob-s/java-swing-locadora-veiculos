@@ -5,7 +5,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 
 import java.io.Serializable;
 
-public class Fabricante implements Identifiable, Serializable {
+public class Fabricante implements Identifiable<Long>, Serializable {
     private Long id;
     private String nome;
 

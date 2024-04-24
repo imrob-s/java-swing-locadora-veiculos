@@ -6,7 +6,7 @@ import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cliente implements Identifiable, Serializable {
+public class Cliente implements Identifiable<Long>, Serializable {
     private Long id;
     private String nome;
     private String rg;
