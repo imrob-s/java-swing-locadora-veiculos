@@ -5,14 +5,14 @@ import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
+import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.services.CarroService;
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
-
-import com.imrob.locadoraveiculos.services.FabricanteService;
-import com.imrob.locadoraveiculos.services.ModeloService;
 import raven.swing.AvatarIcon;
 
 public class CadastroCarroGUI extends javax.swing.JPanel {
@@ -173,6 +173,8 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
+        btnAddFabricante = new javax.swing.JButton();
+        btnAddModelo = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -249,25 +251,37 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
                 .add(10, 10, 10))
         );
 
+        btnAddFabricante.setText("Novo");
+        btnAddFabricante.addActionListener(this::btnAddFabricanteActionPerformed);
+
+        btnAddModelo.setText("Novo");
+        btnAddModelo.addActionListener(this::btnAddModeloActionPerformed);
+
         org.jdesktop.layout.GroupLayout pnlCenterLayout = new org.jdesktop.layout.GroupLayout(pnlCenter);
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(pnlCenterLayout.createSequentialGroup()
-                .add(20, 20, 20)
+                .add(40, 40, 40)
                 .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblAno)
-                    .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(pnlCenterLayout.createSequentialGroup()
-                            .add(lblImg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(20, 20, 20)
-                            .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(lblFabricante)
-                                .add(lblModelo)
-                                .add(cboFabricante, 0, 200, Short.MAX_VALUE)
-                                .add(cboModelo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .add(pnlCenterLayout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlCenterLayout.createSequentialGroup()
+                        .add(lblImg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(20, 20, 20)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblFabricante)
+                            .add(lblModelo)
+                            .add(pnlCenterLayout.createSequentialGroup()
+                                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboModelo, 0, 140, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, cboFabricante, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
+                                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnAddFabricante, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, btnAddModelo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                    .add(pnlCenterLayout.createSequentialGroup()
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblAno)
                             .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, txtAno, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(pnlCenterLayout.createSequentialGroup()
@@ -277,47 +291,58 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
                                     .add(20, 20, 20)
                                     .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                         .add(lblPreco)
-                                        .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
-                            .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(cbDisponivel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(lblPlaca)
-                                .add(txtPlaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                        .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                        .add(18, 18, 18)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(pnlCenterLayout.createSequentialGroup()
+                                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(cbDisponivel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(lblPlaca))
+                                .add(0, 0, Short.MAX_VALUE))
+                            .add(txtPlaca))))
+                .add(40, 40, 40))
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlCenterLayout.createSequentialGroup()
-                .add(20, 20, 20)
+                .add(40, 40, 40)
                 .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pnlCenterLayout.createSequentialGroup()
                         .add(lblFabricante)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cboFabricante, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(20, 20, 20)
+                        .add(7, 7, 7)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(cboFabricante, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnAddFabricante))
+                        .add(19, 19, 19)
                         .add(lblModelo)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cboModelo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(cboModelo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnAddModelo)))
                     .add(lblImg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(17, 17, 17)
-                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblPlaca)
-                    .add(lblAno))
-                .add(6, 6, 6)
-                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(txtPlaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtAno, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20)
-                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblCor)
-                    .add(lblPreco))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(cbDisponivel)
-                    .add(cboCor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 74, Short.MAX_VALUE)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(pnlCenterLayout.createSequentialGroup()
+                        .add(lblAno)
+                        .add(6, 6, 6)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtAno, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(txtPlaca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(20, 20, 20)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(lblCor)
+                            .add(lblPreco))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(pnlCenterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtPreco, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(cboCor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(pnlCenterLayout.createSequentialGroup()
+                        .add(lblPlaca)
+                        .add(71, 71, 71)
+                        .add(cbDisponivel)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 60, Short.MAX_VALUE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, 0))
         );
 
         add(pnlCenter, java.awt.BorderLayout.CENTER);
@@ -357,8 +382,18 @@ public class CadastroCarroGUI extends javax.swing.JPanel {
         salvar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnAddFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFabricanteActionPerformed
+        FormManager.getInstance().showForm("Cadastro de Fabricante", new CadastroFabricanteGUI());
+    }//GEN-LAST:event_btnAddFabricanteActionPerformed
+
+    private void btnAddModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModeloActionPerformed
+        FormManager.getInstance().showForm("Cadastro de Modelo", new CadastroModeloGUI());
+    }//GEN-LAST:event_btnAddModeloActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddFabricante;
+    private javax.swing.JButton btnAddModelo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbDisponivel;

@@ -11,7 +11,7 @@ public class EnderecoService {
       this.repository = new EnderecoRepository();
    }
 
-   public EnderecoDTO findBy(Long id) {
+   public EnderecoDTO findById(Long id) {
       Endereco endereco = repository.findById(id);
       return convertEntityToDto(endereco);
    }

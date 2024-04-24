@@ -21,7 +21,7 @@ public class ClienteService {
         return convertToDTOs(repository.findAll());
     }
 
-    public ClienteDTO findBy(Long id) {
+    public ClienteDTO findById(Long id) {
         return convertToDTO(repository.findById(id));
     }
 

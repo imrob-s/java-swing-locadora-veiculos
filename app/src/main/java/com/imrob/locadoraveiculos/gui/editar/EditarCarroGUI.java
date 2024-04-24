@@ -6,13 +6,12 @@ import com.imrob.locadoraveiculos.DTO.FabricanteDTO;
 import com.imrob.locadoraveiculos.DTO.ModeloDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.services.CarroService;
+import com.imrob.locadoraveiculos.services.FabricanteService;
+import com.imrob.locadoraveiculos.services.ModeloService;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
-
-import com.imrob.locadoraveiculos.services.FabricanteService;
-import com.imrob.locadoraveiculos.services.ModeloService;
 import raven.swing.AvatarIcon;
 
 public class EditarCarroGUI extends javax.swing.JPanel {
@@ -137,14 +136,10 @@ public class EditarCarroGUI extends javax.swing.JPanel {
     }
     
     private Boolean camposPreenchidos() {
-        if (txtAno.getText().isBlank() ||
-            cboCor.getSelectedItem().toString().equals("SELECIONE") ||
-            txtPlaca.getText().isBlank() ||
-            txtPreco.getText().isBlank()) {
-            return false;
-        } else {
-            return true;
-        }
+       return !(txtAno.getText().isBlank() ||
+               cboCor.getSelectedItem().toString().equals("SELECIONE") ||
+               txtPlaca.getText().isBlank() ||
+               txtPreco.getText().isBlank());
     }
     
     private void mostrarCarro(){

@@ -7,6 +7,7 @@ import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroSeguradoraGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
+import com.imrob.locadoraveiculos.gui.gerenciar.ListaClientesGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaSeguradoraGUI;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -82,7 +83,6 @@ public class SystemMenu extends BlurChild {
                         .subMenu("Adicionar Novo")
                         .subMenu("Gerenciar Veículos"),
                 new Item("Clientes", "cliente.svg")
-                        .subMenu("Lista de Clientes")
                         .subMenu("Adicionar Cliente")
                         .subMenu("Gerenciar Clientes"),
                 new Item("Seguradoras", "seguradora.svg")
@@ -143,11 +143,9 @@ public class SystemMenu extends BlurChild {
                                 }
                             } else if(index==3){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Lista de Clientes", new CatalogoVeiculos());
+                                    FormManager.getInstance().showForm("Cadastro de Cliente", new CadastroClienteGUI(), false);
                                 }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Cadastrar Cliente", new CadastroClienteGUI(), false);
-                                }else if(subIndex==2){
-                                    FormManager.getInstance().showForm("Gerenciar Clientes", new CadastroCarroGUI());
+                                    FormManager.getInstance().showForm("Gerenciar Clientes", new ListaClientesGUI());
                                 }
                             } else if(index==4){
                                 if(subIndex==0){
