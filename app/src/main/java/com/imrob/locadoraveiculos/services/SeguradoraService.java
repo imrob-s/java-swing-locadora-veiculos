@@ -1,10 +1,9 @@
 package com.imrob.locadoraveiculos.services;
 
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
-import com.imrob.locadoraveiculos.repositories.deprecated.SeguradoraRepository;
-import com.imrob.locadoraveiculos.entities.Seguradora;
 import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
-
+import com.imrob.locadoraveiculos.entities.Seguradora;
+import com.imrob.locadoraveiculos.repositories.SeguradoraRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +21,8 @@ public class SeguradoraService {
         return convertToDTOs(seguradoras);
     }
 
-    public SeguradoraDTO findBy(Long id) {
-        Seguradora seguradora = seguradoraRepository.findBy(id);
-        return convertToDTO(seguradora);
-    }
-
-    public SeguradoraDTO findByName(String name) {
-        Seguradora seguradora = seguradoraRepository.findByName(name);
+    public SeguradoraDTO findById(Long id) {
+        Seguradora seguradora = seguradoraRepository.findById(id);
         return convertToDTO(seguradora);
     }
 

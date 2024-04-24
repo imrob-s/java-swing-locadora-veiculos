@@ -1,47 +1,61 @@
 
-package com.imrob.locadoraveiculos.gui.consultas;
+package com.imrob.locadoraveiculos.gui.gerenciar;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
+import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
 import com.imrob.locadoraveiculos.Utils.Utils;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
+import com.imrob.locadoraveiculos.gui.cadastro.CadastroSeguradoraGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
-import com.imrob.locadoraveiculos.gui.editar.EditarCarroGUI;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.CarroService;
+import com.imrob.locadoraveiculos.services.SeguradoraService;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
-public class ListaCarrosGUI extends javax.swing.JPanel {
+public class ListaSeguradoraGUI extends javax.swing.JPanel {
 
-    public ListaCarrosGUI() {
+    public ListaSeguradoraGUI() {
         initComponents();
-        carregarTabelaCarros();
+        carregarTabela();
     }
     
-    public void carregarTabelaCarros() {
-        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(new CarroService().findAll());
+    public void carregarTabela() {
+        MappedTableModel<SeguradoraDTO> tableModel = new MappedTableModel<>(
+                new SeguradoraService().findAll(), tabela);
+        tableModel.excludeColumns(new String[]{"modeloId", "fabricanteId", "image"});
         tabela.setModel(tableModel);
-    }
-    
-    private void editar(){
-        int linhaSelecionada = tabela.getSelectedRow();
-        if (linhaSelecionada != -1) {
-            Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
-            CarroDTO carro = new CarroService().findById(id);
-            FormManager.getInstance().showForm("Editar Carro", new EditarCarroGUI(carro));
-
-            carregarTabelaCarros();
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para editar.",
-                    "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
-        }
+        tableModel.setPreferredColumnWidths();
     }
     
     private void apagar() {
-        
+        int linhaSelecionada = tabela.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
+            SeguradoraDTO seguradora = new SeguradoraService().findById(id);
+            String mensagem = """
+                              Tem certeza que deseja apagar a seguradora abaixo?
+                              
+                              - Nome: %s
+                                CNPJ: %s
+                              """.formatted(seguradora.getNome(), seguradora.getCnpj());
+            int resposta = JOptionPane.showConfirmDialog(this, mensagem, "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    new SeguradoraService().delete(id);
+                    JOptionPane.showMessageDialog(null, "A seguradora selecionada foi apagada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Não foi possivel apagar a seguradora: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            carregarTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para apagar.",
+                    "Nenhuma seguradora selecionada", JOptionPane.WARNING_MESSAGE);
+        }
     }
     
     private void atualizarFiltro() {
@@ -72,7 +86,6 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         pnlFooter = new javax.swing.JPanel();
         btnSair = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         pnlHeader = new javax.swing.JPanel();
         txtProcurar = new javax.swing.JTextField();
@@ -80,22 +93,26 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
 
+        setPreferredSize(new java.awt.Dimension(700, 610));
+
         pnlFooter.setBackground(new java.awt.Color(15, 15, 15));
         pnlFooter.setPreferredSize(new java.awt.Dimension(378, 43));
 
-        btnSair.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnSair.setBackground(new java.awt.Color(0, 102, 204));
+        btnSair.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
         btnSair.setText("Sair");
         btnSair.addActionListener(this::btnSairActionPerformed);
 
-        btnApagar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnApagar.setBackground(new java.awt.Color(255, 0, 0));
+        btnApagar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnApagar.setForeground(new java.awt.Color(255, 255, 255));
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(this::btnApagarActionPerformed);
 
-        btnEditar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(this::btnEditarActionPerformed);
-
-        btnNovo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnNovo.setBackground(new java.awt.Color(0, 204, 102));
+        btnNovo.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnNovo.setForeground(new java.awt.Color(15, 15, 15));
         btnNovo.setText("Novo");
         btnNovo.addActionListener(this::btnNovoActionPerformed);
 
@@ -106,8 +123,6 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlFooterLayout.createSequentialGroup()
                 .add(20, 20, 20)
                 .add(btnNovo)
-                .add(20, 20, 20)
-                .add(btnEditar)
                 .add(20, 20, 20)
                 .add(btnApagar)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,13 +136,13 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
                 .add(pnlFooterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnSair)
                     .add(btnApagar)
-                    .add(btnEditar)
                     .add(btnNovo))
                 .add(15, 15, 15))
         );
 
         pnlHeader.setBackground(new java.awt.Color(15, 15, 15));
 
+        txtProcurar.addActionListener(this::txtProcurarActionPerformed);
         txtProcurar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtProcurarKeyTyped(evt);
@@ -170,9 +185,9 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlFooter, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+            .add(pnlFooter, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .add(pnlHeader, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -186,16 +201,12 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        FormManager.getInstance().showForm("Cadastro de Veículo", new CadastroCarroGUI());
+        FormManager.getInstance().showForm("Cadastro de Seguradora", new CadastroSeguradoraGUI());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         Utils.sair(this);
     }//GEN-LAST:event_btnSairActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editar();
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
        apagar();
@@ -218,10 +229,13 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         atualizarFiltro();
     }//GEN-LAST:event_txtProcurarKeyTyped
 
+    private void txtProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcurarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProcurarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;

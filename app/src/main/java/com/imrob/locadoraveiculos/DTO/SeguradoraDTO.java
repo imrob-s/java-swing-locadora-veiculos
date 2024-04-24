@@ -6,19 +6,19 @@ public class SeguradoraDTO {
     private String cnpj;
     private String email;
     private double valor;
-    private Long endereco_id;
+    private Long enderecoId;
     private String telefone;
 
     public SeguradoraDTO() {
     }
 
-    public SeguradoraDTO(Long id, String nome, String cnpj, String email, double valor, Long endereco_id, String telefone) {
+    public SeguradoraDTO(Long id, String nome, String cnpj, String email, double valor, Long enderecoId, String telefone) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.email = email;
         this.valor = valor;
-        this.endereco_id = endereco_id;
+        this.enderecoId = enderecoId;
         this.telefone = telefone;
     }
 
@@ -71,11 +71,11 @@ public class SeguradoraDTO {
     }
 
     public Long getEnderecoId() {
-        return endereco_id;
+        return enderecoId;
     }
 
     public void setEnderecoId(Long endereco_id) {
-        this.endereco_id = endereco_id;
+        this.enderecoId = endereco_id;
     }
 
     public String getTelefone() {

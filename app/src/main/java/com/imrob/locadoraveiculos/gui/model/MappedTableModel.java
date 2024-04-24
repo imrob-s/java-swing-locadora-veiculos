@@ -1,9 +1,16 @@
 package com.imrob.locadoraveiculos.gui.model;
 
-import javax.swing.table.AbstractTableModel;
+import java.awt.Component;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  * Um modelo de tabela genérico para mapear entidades para uma tabela Swing.
@@ -17,6 +24,7 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     private List<ENTITY> lista;
     private String[] columnNames;
     private Method[] metodos;
+    private JTable table;
 
     /**
      * Constrói um modelo de tabela mapeado com as entidades fornecidas.
@@ -41,6 +49,13 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
         this.columnNames = getColumnNames();
         metodos = setMetodos();
         this.columnNames = columnNames;
+    }
+    
+    public MappedTableModel(List<ENTITY> entities, JTable table) {
+        lista = entities;
+        columnNames = getColumnNames();
+        metodos = setMetodos();
+        this.table = table;
     }
 
     /**
@@ -121,6 +136,52 @@ public class MappedTableModel<ENTITY> extends AbstractTableModel {
     public void setColumnNames(String[] columnNames){
         this.columnNames = columnNames;
     }
+    
+    /**
+     * Exclui uma ou várias colunas da tabela.
+     *
+     * @param columnsToExclude a lista de colunas a serem excluídas
+     */
+    public void excludeColumns(String[] columnsToExclude) {
+        List<String> newColumnNamesList = new ArrayList<>(Arrays.asList(columnNames));
+        List<Method> newMethodsList = new ArrayList<>(Arrays.asList(metodos));
+
+        for (String column : columnsToExclude) {
+            int columnIndex = newColumnNamesList.indexOf(column);
+            if (columnIndex != -1) {
+                newColumnNamesList.remove(column);
+                newMethodsList.remove(columnIndex);
+            }
+        }
+
+        columnNames = newColumnNamesList.toArray(new String[0]);
+        metodos = newMethodsList.toArray(new Method[0]);
+    }
+    
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
+    public void setPreferredColumnWidths() {
+        if (table == null) {
+            System.err.println("Você deve definir uma instância de JTable antes de chamar setPreferredColumnWidths.");
+            return;
+        }
+
+        TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < getColumnCount(); column++) {
+            int maxWidth = 0;
+            for (int row = 0; row < getRowCount(); row++) {
+                Object value = getValueAt(row, column);
+                TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
+                Component comp = cellRenderer.getTableCellRendererComponent(table, value, false, false, row, column);
+                maxWidth = Math.max(comp.getPreferredSize().width, maxWidth);
+            }
+            TableColumn tableColumn = columnModel.getColumn(column);
+            tableColumn.setPreferredWidth(maxWidth + 20);
+        }
+    }
+    
 
     /*
      * Coloca a primeira letra da string em maiusculo.

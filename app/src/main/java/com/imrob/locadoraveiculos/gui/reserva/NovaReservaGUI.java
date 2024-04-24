@@ -4,7 +4,7 @@
  */
 package com.imrob.locadoraveiculos.gui.reserva;
 
-import com.imrob.locadoraveiculos.gui.consultas.PesquisarCarroGUI;
+import com.imrob.locadoraveiculos.gui.gerenciar.PesquisarCarroGUI;
 import javax.swing.JFrame;
 
 /**

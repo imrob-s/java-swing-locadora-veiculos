@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package com.imrob.locadoraveiculos.gui.consultas;
+package com.imrob.locadoraveiculos.gui.gerenciar;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
@@ -44,7 +44,7 @@ public class PesquisarCarroGUI extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(tabela);
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {

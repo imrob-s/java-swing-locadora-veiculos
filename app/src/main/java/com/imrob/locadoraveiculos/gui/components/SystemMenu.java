@@ -3,12 +3,11 @@ package com.imrob.locadoraveiculos.gui.components;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroClienteGUI;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroFabricanteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroSeguradoraGUI;
-import com.imrob.locadoraveiculos.gui.consultas.ListaCarrosGUI;
-import com.imrob.locadoraveiculos.gui.consultas.ListaGenericaGUI;
+import com.imrob.locadoraveiculos.gui.gerenciar.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
+import com.imrob.locadoraveiculos.gui.gerenciar.ListaSeguradoraGUI;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import javax.swing.*;
@@ -154,11 +153,11 @@ public class SystemMenu extends BlurChild {
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Cadastro de Seguradora", new CadastroSeguradoraGUI());
                                 } else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Gerenciar Seguradoras", new CadastroFabricanteGUI());
+                                    FormManager.getInstance().showForm("Gerenciar Seguradoras", new ListaSeguradoraGUI());
                                 }
                             } else if(index==5){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Dados da Empresa", new ListaGenericaGUI());
+                                    FormManager.getInstance().showForm("Dados da Empresa", new CadastroCarroGUI());
                                 }else if(subIndex==1){
                                     FormManager.getInstance().showForm("Configuração do Usuário", new CadastroCarroGUI());
                                 }else if(subIndex==2){
