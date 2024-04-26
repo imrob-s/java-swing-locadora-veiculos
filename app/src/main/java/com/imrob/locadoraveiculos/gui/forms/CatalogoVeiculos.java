@@ -1,12 +1,13 @@
 
 package com.imrob.locadoraveiculos.gui.forms;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.gui.application.Application;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.components.CardCarro;
+import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.services.CarroService;
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
@@ -24,7 +25,9 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     public CatalogoVeiculos() {
         initComponents();
         carregarTela();
-        carregarCatalogoCarros();  
+        carregarCatalogoCarros();
+        txtProcurar.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon(getClass().getResource("/imgs/icons/procurar.svg")));
+        btnNovo.setIcon(new FlatSVGIcon(getClass().getResource("/imgs/icons/add.svg")));
     }
     
 //    public void carregarCatalogoCarros() {
@@ -36,7 +39,7 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
 //    }
     
     public void carregarCatalogoCarros() {
-    String filtro = txtPesquisar.getText();
+    String filtro = txtProcurar.getText();
     jpConteudo.removeAll();
 
     List<CarroDTO> carrosFiltrados = new CarroService().findAll().stream()
@@ -66,8 +69,8 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         add(scroll, java.awt.BorderLayout.CENTER); 
         
-        setPreferredSize(new Dimension(885, 1000));
-        GridLayout gridLayout = new GridLayout(0, 4, 15, 15); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
+        setPreferredSize(new Dimension(980, 685));
+        GridLayout gridLayout = new GridLayout(0, 5, 5, 5); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
         jpConteudo.setLayout(gridLayout);
         jpConteudo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
     }
@@ -82,36 +85,28 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
     private void initComponents() {
 
         pHeader = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtPesquisar = new javax.swing.JTextField();
-        btnAdicionar = new javax.swing.JButton();
+        txtProcurar = new javax.swing.JTextField();
+        btnNovo = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(15, 15, 15));
         setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel1.setText("Frota de Veículos");
-
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Pesquisar:");
-
-        txtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        txtProcurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesquisarActionPerformed(evt);
+                txtProcurarActionPerformed(evt);
             }
         });
-        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtProcurar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPesquisarKeyTyped(evt);
+                txtProcurarKeyTyped(evt);
             }
         });
 
-        btnAdicionar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        btnAdicionar.setText("Adicionar Novo");
-        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
@@ -120,53 +115,41 @@ public class CatalogoVeiculos extends javax.swing.JPanel {
         pHeaderLayout.setHorizontalGroup(
             pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pHeaderLayout.createSequentialGroup()
-                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pHeaderLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdicionar))
-                    .addGroup(pHeaderLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel1)))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE)
+                .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addComponent(btnNovo)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         pHeaderLayout.setVerticalGroup(
             pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pHeaderLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar)
-                    .addComponent(jLabel2))
-                .addContainerGap(70, Short.MAX_VALUE))
+                    .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo))
+                .addGap(20, 20, 20))
         );
 
         add(pHeader, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        new CadastroCarroGUI().setVisible(true);
-    }//GEN-LAST:event_btnAdicionarActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        FormManager.getInstance().showForm("Cadastro de Veículo", new CadastroCarroGUI());
+    }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void txtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarActionPerformed
+    private void txtProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcurarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisarActionPerformed
+    }//GEN-LAST:event_txtProcurarActionPerformed
 
-    private void txtPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyTyped
+    private void txtProcurarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarKeyTyped
         carregarCatalogoCarros();
-    }//GEN-LAST:event_txtPesquisarKeyTyped
+    }//GEN-LAST:event_txtProcurarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JPanel pHeader;
-    private javax.swing.JTextField txtPesquisar;
+    private javax.swing.JTextField txtProcurar;
     // End of variables declaration//GEN-END:variables
 }

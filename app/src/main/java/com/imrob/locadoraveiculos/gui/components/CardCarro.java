@@ -3,7 +3,6 @@ package com.imrob.locadoraveiculos.gui.components;
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
 import java.awt.Color;
 import java.net.URL;
-import javax.swing.ImageIcon;
 import raven.swing.AvatarIcon;
 
 public class CardCarro extends javax.swing.JPanel {
@@ -40,7 +39,7 @@ public class CardCarro extends javax.swing.JPanel {
         String imagePath = "/imgs/carro/" + carro.getModeloId() + ".png";
         URL imageURL = getClass().getResource(imagePath);
         if (imageURL != null) {
-            lblImg.setIcon(new AvatarIcon(imageURL, 180, 100, 10));
+            lblImg.setIcon(new AvatarIcon(imageURL, 150, 84, 10));
         } else {
             lblImg.setIcon(new AvatarIcon(getClass().getResource("/imgs/img_carrodefault.png"), 180, 100, 10));
         }
@@ -64,42 +63,41 @@ public class CardCarro extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(200, 250));
-        setMinimumSize(new java.awt.Dimension(200, 250));
+        setMaximumSize(new java.awt.Dimension(180, 248));
+        setMinimumSize(new java.awt.Dimension(180, 248));
+        setPreferredSize(new java.awt.Dimension(180, 248));
 
-        lblFabricante.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        lblFabricante.setForeground(new java.awt.Color(255, 255, 255));
+        lblFabricante.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         lblFabricante.setText("Fabricante");
 
-        lblModelo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        lblModelo.setForeground(new java.awt.Color(255, 255, 255));
+        lblModelo.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         lblModelo.setText("Modelo");
 
-        lblPlaca.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lblPlaca.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         lblPlaca.setForeground(new java.awt.Color(204, 204, 204));
         lblPlaca.setText("Placa");
 
-        lblAno.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lblAno.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         lblAno.setForeground(new java.awt.Color(204, 204, 204));
         lblAno.setText("Ano");
 
-        lblCor.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lblCor.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         lblCor.setForeground(new java.awt.Color(204, 204, 204));
         lblCor.setText("Cor");
 
-        txtAno.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        txtAno.setForeground(new java.awt.Color(255, 255, 255));
+        txtAno.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        txtAno.setForeground(new java.awt.Color(204, 204, 204));
         txtAno.setText("2023");
 
-        txtCor.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        txtCor.setForeground(new java.awt.Color(255, 255, 255));
+        txtCor.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        txtCor.setForeground(new java.awt.Color(204, 204, 204));
         txtCor.setText("Branco");
 
-        txtPlaca.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        txtPlaca.setForeground(new java.awt.Color(255, 255, 255));
+        txtPlaca.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        txtPlaca.setForeground(new java.awt.Color(204, 204, 204));
         txtPlaca.setText("ABC1234");
 
-        txtDisponivel.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        txtDisponivel.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         txtDisponivel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDisponivel.setText("Indisponivel");
         txtDisponivel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -110,59 +108,51 @@ public class CardCarro extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblModelo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(lblFabricante))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblAno)
+                                .addComponent(lblCor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblPlaca)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtPlaca))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lblCor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblAno, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAno, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCor, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(10, 10, 10))
+                                .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtAno, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtCor, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtPlaca, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblFabricante, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
+                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblModelo)
                     .addComponent(lblFabricante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAno)
                     .addComponent(txtAno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCor)
                     .addComponent(txtCor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlaca)
                     .addComponent(txtPlaca))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 

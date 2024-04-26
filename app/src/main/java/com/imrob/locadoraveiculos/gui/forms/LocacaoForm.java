@@ -8,12 +8,12 @@ package com.imrob.locadoraveiculos.gui.forms;
  *
  * @author Rob
  */
-public class ClientesForm extends javax.swing.JPanel {
+public class LocacaoForm extends javax.swing.JPanel {
 
     /**
-     * Creates new form ClientesForm
+     * Creates new form ReservasForm
      */
-    public ClientesForm() {
+    public LocacaoForm() {
         initComponents();
     }
 
