@@ -4,9 +4,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.imrob.locadoraveiculos.gui.components.MainForm;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class Application extends JFrame {
     

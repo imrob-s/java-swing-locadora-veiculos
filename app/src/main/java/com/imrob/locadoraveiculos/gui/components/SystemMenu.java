@@ -5,8 +5,8 @@ import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroClienteGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroModeloGUI;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroSeguradoraGUI;
-import com.imrob.locadoraveiculos.gui.gerenciar.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
+import com.imrob.locadoraveiculos.gui.gerenciar.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaClientesGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaSeguradoraGUI;
 import java.awt.*;
@@ -155,7 +155,7 @@ public class SystemMenu extends BlurChild {
                                 }
                             } else if(index==5){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Dados da Empresa", new CadastroCarroGUI());
+                                    FormManager.getInstance().showForm("Dados da Empresa", new CadastroClienteGUI());
                                 }else if(subIndex==1){
                                     FormManager.getInstance().showForm("Configuração do Usuário", new CadastroCarroGUI());
                                 }else if(subIndex==2){

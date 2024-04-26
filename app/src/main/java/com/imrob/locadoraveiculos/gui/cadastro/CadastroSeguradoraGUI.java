@@ -7,7 +7,6 @@ package com.imrob.locadoraveiculos.gui.cadastro;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
-import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.Utils.Validators;
 import com.imrob.locadoraveiculos.services.BrasilApiCNPJ;
 import com.imrob.locadoraveiculos.services.SeguradoraService;
@@ -143,217 +142,177 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        crazyPanel = new raven.crazypanel.CrazyPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtfCnpj = new javax.swing.JFormattedTextField();
+        btnConsultar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtfTelefone = new javax.swing.JFormattedTextField();
-        txtfCep = new javax.swing.JFormattedTextField();
-        txtRua = new javax.swing.JTextField();
-        txtNumero = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtRua = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
-        txtfCnpj = new javax.swing.JFormattedTextField();
-        btnSalvar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtfCep = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         txtfValor = new javax.swing.JFormattedTextField();
+        btnSalvar = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel1.setText("Nome");
+        crazyPanel.setFlatLafStyleComponent(new raven.crazypanel.FlatLafStyleComponent(
+            "",
+            new String[]{
+                "font:bold +10",
+                "font:bold +1"
+            }
+        ));
+        crazyPanel.setMigLayoutConstraints(new raven.crazypanel.MigLayoutConstraints(
+            "wrap 2,fillx,insets 25",
+            "[grow 0,trail]15[fill]",
+            "",
+            new String[]{
+                "wrap,al lead",
+                "wrap,al lead",
+                "wrap,al lead",
+                "",
+                "split 2",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "span 2,al trail"
+            }
+        ));
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel2.setText("Cnpj");
+        jLabel6.setText("Seguradora");
+        crazyPanel.add(jLabel6);
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel3.setText("Email");
+        jLabel7.setText("Cadastro");
+        crazyPanel.add(jLabel7);
 
-        jLabel4.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel4.setText("Telefone");
+        jLabel14.setText("Informações da empresa");
+        crazyPanel.add(jLabel14);
 
-        try {
-            txtfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        txtRua.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
-        txtNumero.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel8.setText("CEP");
-
-        jLabel9.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel9.setText("Rua");
-
-        jLabel10.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel10.setText("Numero");
-
-        jLabel12.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel12.setText("Bairro");
-
-        txtBairro.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
-        jLabel11.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel11.setText("Cidade");
-
-        jLabel13.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-        jLabel13.setText("Estado");
-
-        txtCidade.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
-
-        txtEstado.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        jLabel15.setText("CNPJ");
+        crazyPanel.add(jLabel15);
 
         try {
             txtfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+        crazyPanel.add(txtfCnpj);
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(this::btnConsultarActionPerformed);
+        crazyPanel.add(btnConsultar);
+
+        jLabel1.setText("Nome");
+        crazyPanel.add(jLabel1);
+        crazyPanel.add(txtNome);
+
+        jLabel3.setText("Email");
+        crazyPanel.add(jLabel3);
+        crazyPanel.add(txtEmail);
+
+        jLabel4.setText("Telefone");
+        crazyPanel.add(jLabel4);
+
+        try {
+            txtfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        crazyPanel.add(txtfTelefone);
+
+        jLabel9.setText("Rua");
+        crazyPanel.add(jLabel9);
+
+        txtRua.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        crazyPanel.add(txtRua);
+
+        jLabel10.setText("Numero");
+        crazyPanel.add(jLabel10);
+        crazyPanel.add(txtNumero);
+
+        jLabel12.setText("Bairro");
+        crazyPanel.add(jLabel12);
+
+        txtBairro.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        crazyPanel.add(txtBairro);
+
+        jLabel11.setText("Cidade");
+        crazyPanel.add(jLabel11);
+        crazyPanel.add(txtCidade);
+
+        jLabel13.setText("Estado");
+        crazyPanel.add(jLabel13);
+        crazyPanel.add(txtEstado);
+
+        jLabel8.setText("CEP");
+        crazyPanel.add(jLabel8);
+
+        try {
+            txtfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        crazyPanel.add(txtfCep);
 
         jLabel5.setText("Valor do seguro");
+        crazyPanel.add(jLabel5);
 
         txtfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        crazyPanel.add(txtfValor);
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
+        crazyPanel.add(btnSalvar);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(layout.createSequentialGroup()
-                        .add(btnCancelar)
-                        .add(18, 18, 18)
-                        .add(btnSalvar))
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(txtNome)
-                        .add(txtRua)
-                        .add(layout.createSequentialGroup()
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createSequentialGroup()
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jLabel10)
-                                        .add(jLabel11))
-                                    .add(49, 49, 49)
-                                    .add(jLabel12))
-                                .add(jLabel8)
-                                .add(jLabel9))
-                            .add(64, 64, 64)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createSequentialGroup()
-                                    .add(10, 10, 10)
-                                    .add(jLabel13))
-                                .add(layout.createSequentialGroup()
-                                    .add(22, 22, 22)
-                                    .add(jLabel5))))
-                        .add(jLabel2)
-                        .add(jLabel1)
-                        .add(layout.createSequentialGroup()
-                            .add(txtfCnpj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                            .add(btnConsultar))
-                        .add(layout.createSequentialGroup()
-                            .add(txtNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 76, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(18, 18, 18)
-                            .add(txtBairro))
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createSequentialGroup()
-                                    .add(jLabel3)
-                                    .add(0, 0, Short.MAX_VALUE))
-                                .add(txtEmail)
-                                .add(txtfCep))
-                            .add(20, 20, 20)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(jLabel4)
-                                .add(txtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, txtfValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(layout.createSequentialGroup()
-                            .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(20, 20, 20)
-                            .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap()
+                .add(crazyPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(40, 40, 40)
-                .add(jLabel2)
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtfCnpj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnConsultar))
-                .add(19, 19, 19)
-                .add(jLabel1)
-                .add(4, 4, 4)
-                .add(txtNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jLabel4))
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtfTelefone, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel8)
-                    .add(jLabel5))
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtfCep, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtfValor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20)
-                .add(jLabel9)
-                .add(4, 4, 4)
-                .add(txtRua, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel10)
-                    .add(jLabel12))
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtNumero, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtBairro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel11)
-                    .add(jLabel13))
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtCidade, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(txtEstado, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnSalvar)
-                    .add(btnCancelar))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap()
+                .add(crazyPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -394,24 +353,23 @@ public class CadastroSeguradoraGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Utils.sair(this);
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnSalvar;
+    private raven.crazypanel.CrazyPanel crazyPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtBairro;

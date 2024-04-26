@@ -1,14 +1,14 @@
 
 package com.imrob.locadoraveiculos.gui.gerenciar;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.imrob.locadoraveiculos.DTO.ClienteDTO;
-import com.imrob.locadoraveiculos.Utils.Utils;
 import com.imrob.locadoraveiculos.gui.cadastro.CadastroClienteGUI;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
 import com.imrob.locadoraveiculos.gui.editar.EditarClienteGUI;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.ClienteService;
-import com.imrob.locadoraveiculos.services.SeguradoraService;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.*;
@@ -19,6 +19,10 @@ public class ListaClientesGUI extends javax.swing.JPanel {
     public ListaClientesGUI() {
         initComponents();
         carregarTabela();
+        txtProcurar.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon(getClass().getResource("/imgs/icons/procurar.svg")));
+        btnNovo.setIcon(new FlatSVGIcon(getClass().getResource("/imgs/icons/add.svg")));
+        btnEditar.setIcon(new FlatSVGIcon(getClass().getResource("/imgs/icons/edit.svg")));
+        btnApagar.setIcon(new FlatSVGIcon(getClass().getResource("/imgs/icons/delete.svg")));
     }
     
     public void carregarTabela() {
@@ -34,12 +38,12 @@ public class ListaClientesGUI extends javax.swing.JPanel {
         if (linhaSelecionada != -1) {
             Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
             ClienteDTO cliente = new ClienteService().findById(id);
-            FormManager.getInstance().showForm("Editar Carro", new EditarClienteGUI(cliente));
+            FormManager.getInstance().showForm("Editar Cliente", new EditarClienteGUI(cliente));
 
             carregarTabela();
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para editar.",
-                    "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um cliente para editar.",
+                    "Nenhum cliente selecionado", JOptionPane.WARNING_MESSAGE);
         }
     }
     
@@ -67,7 +71,7 @@ public class ListaClientesGUI extends javax.swing.JPanel {
             carregarTabela();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um cliente para apagar.",
-                    "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
+                    "Nenhuma cliente selecionado", JOptionPane.WARNING_MESSAGE);
         }
             
     }
@@ -97,103 +101,63 @@ public class ListaClientesGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlFooter = new javax.swing.JPanel();
-        btnSair = new javax.swing.JButton();
-        btnApagar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
-        pnlHeader = new javax.swing.JPanel();
+        crazyPanel2 = new raven.crazypanel.CrazyPanel();
+        crazyPanel1 = new raven.crazypanel.CrazyPanel();
         txtProcurar = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(700, 610));
 
-        pnlFooter.setBackground(new java.awt.Color(15, 15, 15));
-        pnlFooter.setPreferredSize(new java.awt.Dimension(378, 43));
+        crazyPanel2.setMigLayoutConstraints(new raven.crazypanel.MigLayoutConstraints(
+            "wrap,fill,insets 15",
+            "[fill]",
+            "[grow 0][fill]",
+            null
+        ));
 
-        btnSair.setBackground(new java.awt.Color(0, 102, 204));
-        btnSair.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnSair.setForeground(new java.awt.Color(255, 255, 255));
-        btnSair.setText("Sair");
-        btnSair.addActionListener(this::btnSairActionPerformed);
-
-        btnApagar.setBackground(new java.awt.Color(255, 0, 0));
-        btnApagar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnApagar.setForeground(new java.awt.Color(255, 255, 255));
-        btnApagar.setText("Apagar");
-        btnApagar.addActionListener(this::btnApagarActionPerformed);
-
-        btnEditar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(this::btnEditarActionPerformed);
-
-        btnNovo.setBackground(new java.awt.Color(0, 204, 102));
-        btnNovo.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnNovo.setForeground(new java.awt.Color(15, 15, 15));
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(this::btnNovoActionPerformed);
-
-        org.jdesktop.layout.GroupLayout pnlFooterLayout = new org.jdesktop.layout.GroupLayout(pnlFooter);
-        pnlFooter.setLayout(pnlFooterLayout);
-        pnlFooterLayout.setHorizontalGroup(
-            pnlFooterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, pnlFooterLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(btnNovo)
-                .add(20, 20, 20)
-                .add(btnEditar)
-                .add(20, 20, 20)
-                .add(btnApagar)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(btnSair)
-                .add(20, 20, 20))
-        );
-        pnlFooterLayout.setVerticalGroup(
-            pnlFooterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlFooterLayout.createSequentialGroup()
-                .add(15, 15, 15)
-                .add(pnlFooterLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnSair)
-                    .add(btnApagar)
-                    .add(btnEditar)
-                    .add(btnNovo))
-                .add(15, 15, 15))
-        );
-
-        pnlHeader.setBackground(new java.awt.Color(15, 15, 15));
+        crazyPanel1.setFlatLafStyleComponent(new raven.crazypanel.FlatLafStyleComponent(
+            "",
+            new String[]{
+                "JTextField.placeholderText=Procurar;background:#1D272A",
+                "background:lighten(#1D272A,8%);borderWidth:1",
+                "background:lighten(#1D272A,8%);borderWidth:1",
+                "background:lighten(#1D272A,8%);borderWidth:1",
+                ""
+            }
+        ));
+        crazyPanel1.setMigLayoutConstraints(new raven.crazypanel.MigLayoutConstraints(
+            "",
+            "[]push[][]",
+            "",
+            new String[]{
+                "width 200"
+            }
+        ));
 
         txtProcurar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtProcurarKeyTyped(evt);
             }
         });
+        crazyPanel1.add(txtProcurar);
 
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Procurar:");
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(this::btnNovoActionPerformed);
+        crazyPanel1.add(btnNovo);
 
-        org.jdesktop.layout.GroupLayout pnlHeaderLayout = new org.jdesktop.layout.GroupLayout(pnlHeader);
-        pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(
-            pnlHeaderLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlHeaderLayout.createSequentialGroup()
-                .add(58, 58, 58)
-                .add(jLabel1)
-                .add(18, 18, 18)
-                .add(txtProcurar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 188, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlHeaderLayout.setVerticalGroup(
-            pnlHeaderLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlHeaderLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(pnlHeaderLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtProcurar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(this::btnEditarActionPerformed);
+        crazyPanel1.add(btnEditar);
+
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(this::btnApagarActionPerformed);
+        crazyPanel1.add(btnApagar);
+
+        crazyPanel2.add(crazyPanel1);
 
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,32 +166,23 @@ public class ListaClientesGUI extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
 
+        crazyPanel2.add(jScrollPane1);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pnlFooter, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-            .add(pnlHeader, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .add(crazyPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(pnlHeader, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, Short.MAX_VALUE)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                .add(0, 0, Short.MAX_VALUE)
-                .add(pnlFooter, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(crazyPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         FormManager.getInstance().showForm("Cadastro de Cliente", new CadastroClienteGUI());
     }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Utils.sair(this);
-    }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         editar();
@@ -250,11 +205,9 @@ public class ListaClientesGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnSair;
-    private javax.swing.JLabel jLabel1;
+    private raven.crazypanel.CrazyPanel crazyPanel1;
+    private raven.crazypanel.CrazyPanel crazyPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel pnlFooter;
-    private javax.swing.JPanel pnlHeader;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtProcurar;
     // End of variables declaration//GEN-END:variables
