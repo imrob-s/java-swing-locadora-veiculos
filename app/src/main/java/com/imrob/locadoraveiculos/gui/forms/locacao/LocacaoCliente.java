@@ -20,7 +20,7 @@ public class LocacaoCliente extends javax.swing.JPanel {
     public LocacaoCliente(JButton botaoProximo) {
         initComponents();
         pnlDadosCliente.setVisible(false);
-        botaoProximo.setEnabled(false);
+        botaoProximo.setEnabled(true);
         this.botaoProximo = botaoProximo;
     }
 

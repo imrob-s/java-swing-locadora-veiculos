@@ -22,12 +22,15 @@ public class LocacaoCarro extends javax.swing.JPanel {
     private JButton botaoProximo;
     private JPanel jpConteudo;
     private JScrollPane scroll;
-    private static CarroDTO carroSelecionado;
+    public static CarroDTO carroSelecionado;
+    public static Boolean isCarSelected;
     
     public LocacaoCarro(JButton botaoProximo) {
         initComponents();
+        jpConteudo = new javax.swing.JPanel();
         carregarTela();
         carregarCatalogoCarros();
+        setOpaque(false);
         this.botaoProximo = botaoProximo;
         txtProcurar.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon(getClass().getResource("/imgs/icons/procurar.svg")));
         txtProcurar.setHorizontalAlignment(JTextField.CENTER);
@@ -56,7 +59,7 @@ public class LocacaoCarro extends javax.swing.JPanel {
             .collect(Collectors.toList());
 
     for (CarroDTO c : carrosFiltrados) {
-        jpConteudo.add(new CardCarro(c)); 
+        jpConteudo.add(new CardCarro(c,this)); 
     }
 
     jpConteudo.revalidate();
@@ -65,7 +68,6 @@ public class LocacaoCarro extends javax.swing.JPanel {
 
     
     public void carregarTela() {
-        jpConteudo = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         scroll.setViewportView(jpConteudo);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -93,8 +95,10 @@ public class LocacaoCarro extends javax.swing.JPanel {
 
         pHeader = new javax.swing.JPanel();
         txtProcurar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(15, 15, 15));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setPreferredSize(new java.awt.Dimension(714, 476));
         setLayout(new java.awt.BorderLayout());
 
@@ -109,20 +113,26 @@ public class LocacaoCarro extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel1.setText("Escolha um carro para locação");
+
         javax.swing.GroupLayout pHeaderLayout = new javax.swing.GroupLayout(pHeader);
         pHeader.setLayout(pHeaderLayout);
         pHeaderLayout.setHorizontalGroup(
             pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pHeaderLayout.createSequentialGroup()
-                .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 368, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pHeaderLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pHeaderLayout.setVerticalGroup(
             pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pHeaderLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(pHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         add(pHeader, java.awt.BorderLayout.PAGE_START);
@@ -138,6 +148,7 @@ public class LocacaoCarro extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pHeader;
     private javax.swing.JTextField txtProcurar;
     // End of variables declaration//GEN-END:variables

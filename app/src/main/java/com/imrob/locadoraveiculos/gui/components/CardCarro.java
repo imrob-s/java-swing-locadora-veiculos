@@ -14,10 +14,20 @@ public class CardCarro extends javax.swing.JPanel {
     private CarroDTO carro;
     private Boolean selected;
     private static CardCarro selectedCard;
+    private LocacaoCarro locacaoCarro;
     
     public CardCarro() {
         initComponents();
         setOpaque(false);
+    }
+    
+    public CardCarro(CarroDTO carro, LocacaoCarro jpanel) {
+        initComponents();
+        setOpaque(false);
+        this.carro = carro;
+        setData(carro);
+        setSelected(false);
+        locacaoCarro = jpanel;
     }
     
     public CardCarro(CarroDTO carro) {
@@ -62,7 +72,7 @@ public class CardCarro extends javax.swing.JPanel {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-        repaint(); // Redesenha o painel para atualizar a aparência
+        repaint();
     }
 
     @Override
@@ -197,10 +207,10 @@ public class CardCarro extends javax.swing.JPanel {
                     selectedCard.setSelected(false); // Desmarca o card atualmente selecionado
                     selectedCard.repaint(); // Redesenha o card para atualizar a aparência
                 }
-
+                
                 setSelected(true); // Marca o novo card como selecionado
                 selectedCard = CardCarro.this; // Atualiza a referência ao card selecionado
-                repaint(); // Redesenha o card para atualizar a aparência
+                repaint();
     }//GEN-LAST:event_formMouseClicked
 
 

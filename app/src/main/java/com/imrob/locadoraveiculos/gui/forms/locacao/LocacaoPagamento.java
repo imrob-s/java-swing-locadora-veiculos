@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.gui.forms.locacao;
+
+import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
+import com.imrob.locadoraveiculos.services.SeguradoraService;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +17,31 @@ public class LocacaoPagamento extends javax.swing.JPanel {
      */
     public LocacaoPagamento() {
         initComponents();
+        pnlSeguradora.setVisible(false);
+        carregarCboSeguradora();
+    }
+    
+    public void carregarCboSeguradora() {
+        List<SeguradoraDTO> lista = new SeguradoraService().findAll();
+        
+        for (SeguradoraDTO f : lista) {
+            cboSeguradora.addItem(f.getNome());
+        }
+    }
+    
+    private SeguradoraDTO obterSeguradoraSelecionado() {
+        List<SeguradoraDTO> lista = new SeguradoraService().findAll();
+        
+        try {
+        String nomeFabricanteSelecionado = cboSeguradora.getSelectedItem().toString();
+        for (SeguradoraDTO fabricante : lista) {
+            if (fabricante.getNome().equals(nomeFabricanteSelecionado)) {
+                return fabricante;
+            }
+        }} catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao obter a seguradora selecionado. " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
 
     /**
@@ -26,32 +53,160 @@ public class LocacaoPagamento extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        rdoSim = new javax.swing.JRadioButton();
+        rdoNao = new javax.swing.JRadioButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        pnlSeguradora = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cboSeguradora = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Pagamento");
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jLabel2.setText("Opcionais");
+
+        jLabel1.setText("Deseja adicionar Seguro?");
+
+        buttonGroup1.add(rdoSim);
+        rdoSim.setText("Sim");
+        rdoSim.addActionListener(this::rdoSimActionPerformed);
+
+        buttonGroup1.add(rdoNao);
+        rdoNao.setText("Não");
+        rdoNao.addActionListener(this::rdoNaoActionPerformed);
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel4.setText("Pagamento");
+
+        jLabel3.setText("Selecione a seguradora desejada");
+
+        org.jdesktop.layout.GroupLayout pnlSeguradoraLayout = new org.jdesktop.layout.GroupLayout(pnlSeguradora);
+        pnlSeguradora.setLayout(pnlSeguradoraLayout);
+        pnlSeguradoraLayout.setHorizontalGroup(
+            pnlSeguradoraLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlSeguradoraLayout.createSequentialGroup()
+                .add(pnlSeguradoraLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel3)
+                    .add(cboSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(12, 12, 12))
+        );
+        pnlSeguradoraLayout.setVerticalGroup(
+            pnlSeguradoraLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(pnlSeguradoraLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cboSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLabel5.setText("Cupom");
+
+        jLabel6.setText("jLabel6");
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
+        jLabel7.setText("Periodo de locação");
+
+        jLabel8.setText("Selecione o periodo");
+
+        jLabel9.setText("Dias");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(20, 20, 20)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel7)
+                    .add(jLabel4)
+                    .add(layout.createSequentialGroup()
+                        .add(81, 81, 81)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel5)
+                            .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel6)))
+                    .add(jLabel2)
+                    .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 531, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(82, 82, 82)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(rdoSim)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(rdoNao))
+                            .add(jLabel1)
+                            .add(pnlSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel8)
+                            .add(jLabel9))))
+                .add(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jLabel7)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel8)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel9)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel1)
+                .add(4, 4, 4)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(rdoSim)
+                    .add(rdoNao))
+                .add(1, 1, 1)
+                .add(pnlSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel6)
+                .add(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rdoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoSimActionPerformed
+        pnlSeguradora.setVisible(true);
+    }//GEN-LAST:event_rdoSimActionPerformed
+
+    private void rdoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNaoActionPerformed
+        pnlSeguradora.setVisible(false);
+    }//GEN-LAST:event_rdoNaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cboSeguradora;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel pnlSeguradora;
+    private javax.swing.JRadioButton rdoNao;
+    private javax.swing.JRadioButton rdoSim;
     // End of variables declaration//GEN-END:variables
 }
