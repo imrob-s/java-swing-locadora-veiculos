@@ -22,6 +22,7 @@ public class LocacaoCarro extends javax.swing.JPanel {
     private JButton botaoProximo;
     private JPanel jpConteudo;
     private JScrollPane scroll;
+    private static CarroDTO carroSelecionado;
     
     public LocacaoCarro(JButton botaoProximo) {
         initComponents();
@@ -75,6 +76,10 @@ public class LocacaoCarro extends javax.swing.JPanel {
         GridLayout gridLayout = new GridLayout(0, 3, 5, 5); // 3 colunas, 10 pixels de espaçamento horizontal e vertical
         jpConteudo.setLayout(gridLayout);
         jpConteudo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
+    }
+    
+    public static void setCarroSelecionado(CarroDTO carro) {
+        carroSelecionado = carro;
     }
 
     /**

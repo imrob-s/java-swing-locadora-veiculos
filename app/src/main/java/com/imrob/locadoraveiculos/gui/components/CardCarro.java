@@ -1,11 +1,19 @@
 package com.imrob.locadoraveiculos.gui.components;
 
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoCarro;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.net.URL;
+import javax.swing.UIManager;
 import raven.swing.AvatarIcon;
 
 public class CardCarro extends javax.swing.JPanel {
+    private CarroDTO carro;
+    private Boolean selected;
+    private static CardCarro selectedCard;
     
     public CardCarro() {
         initComponents();
@@ -15,7 +23,9 @@ public class CardCarro extends javax.swing.JPanel {
     public CardCarro(CarroDTO carro) {
         initComponents();
         setOpaque(false);
+        this.carro = carro;
         setData(carro);
+        setSelected(false);
     }
     
     public void setData(CarroDTO carro) {
@@ -44,6 +54,29 @@ public class CardCarro extends javax.swing.JPanel {
             lblImg.setIcon(new AvatarIcon(getClass().getResource("/imgs/img_carrodefault.png"), 180, 100, 10));
         }
 
+    }
+    
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        repaint(); // Redesenha o painel para atualizar a aparência
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Se o painel estiver selecionado, desenha a borda de seleção
+        if (isSelected()) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setStroke(new BasicStroke(3)); // Largura da borda
+            g2d.setColor(UIManager.getColor("List.selectionBackground")); // Cor da seleção do tema
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // Desenha a borda ao redor do painel
+            g2d.dispose();
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -159,7 +192,15 @@ public class CardCarro extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
+        LocacaoCarro.setCarroSelecionado(carro);
+        if (selectedCard != null) {
+                    selectedCard.setSelected(false); // Desmarca o card atualmente selecionado
+                    selectedCard.repaint(); // Redesenha o card para atualizar a aparência
+                }
+
+                setSelected(true); // Marca o novo card como selecionado
+                selectedCard = CardCarro.this; // Atualiza a referência ao card selecionado
+                repaint(); // Redesenha o card para atualizar a aparência
     }//GEN-LAST:event_formMouseClicked
 
 
