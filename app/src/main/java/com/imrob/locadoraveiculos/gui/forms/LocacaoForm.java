@@ -1,20 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.gui.forms;
 
-/**
- *
- * @author Rob
- */
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoCarro;
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoCliente;
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoFinalizacao;
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoPagamento;
+import java.awt.Color;
+import java.awt.Component;
+
 public class LocacaoForm extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ReservasForm
-     */
     public LocacaoForm() {
         initComponents();
+        setBackground(Color.white);
+        Component[] components = new Component[]{new LocacaoCliente(btnProximo), new LocacaoCarro(btnProximo), new LocacaoPagamento(), new LocacaoFinalizacao()};
+        panelSlider.setSliderComponent(components);
+        progressIndicator.initSlider(panelSlider);
+        btnProximo.setEnabled(false);
     }
 
     /**
@@ -26,19 +28,81 @@ public class LocacaoForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        progressIndicator = new com.imrob.locadoraveiculos.gui.components.ProgressIndicator();
+        panelSlider = new com.imrob.locadoraveiculos.gui.components.PanelSlider();
+        btnAnterior = new javax.swing.JButton();
+        btnProximo = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setOpaque(false);
+
+        progressIndicator.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 80, 5, 80));
+        progressIndicator.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Cliente", "Carro", "Pagamento", "Finalização" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        progressIndicator.setOpaque(false);
+        progressIndicator.setProgress(0.0F);
+        progressIndicator.setProgressColorGradient(new java.awt.Color(0, 153, 0));
+
+        panelSlider.setOpaque(false);
+
+        btnAnterior.setText("Anterior");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+
+        btnProximo.setText("Próximo");
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(panelSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAnterior)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnProximo)
+                .addContainerGap())
+            .addComponent(progressIndicator, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(progressIndicator, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProximo))
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        progressIndicator.previous();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+        progressIndicator.next();
+    }//GEN-LAST:event_btnProximoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnProximo;
+    private com.imrob.locadoraveiculos.gui.components.PanelSlider panelSlider;
+    private com.imrob.locadoraveiculos.gui.components.ProgressIndicator progressIndicator;
     // End of variables declaration//GEN-END:variables
 }

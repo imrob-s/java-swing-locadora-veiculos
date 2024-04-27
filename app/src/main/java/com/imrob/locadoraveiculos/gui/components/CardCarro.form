@@ -18,6 +18,9 @@
       <Dimension value="[180, 248]"/>
     </Property>
   </Properties>
+  <Events>
+    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -37,29 +40,24 @@
               <EmptySpace pref="15" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="txtDisponivel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblAno" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCor" min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="lblPlaca" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblModelo" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtAno" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCor" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPlaca" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblFabricante" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblAno" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCor" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblPlaca" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblModelo" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="lblImg" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtAno" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCor" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPlaca" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFabricante" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <Component id="txtDisponivel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblImg" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

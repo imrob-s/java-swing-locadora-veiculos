@@ -20,6 +20,7 @@ import javax.swing.SwingWorker;
 
 public class EditarClienteGUI extends javax.swing.JPanel {
     private ClienteDTO cliente;
+    private EnderecoDTO endereco;
     private final ViaCEP viacep;
     
     public EditarClienteGUI(ClienteDTO cliente) {
@@ -32,7 +33,7 @@ public class EditarClienteGUI extends javax.swing.JPanel {
     }
     private void preencherFormulario(){
         Long idEndereco = cliente.getEnderecoId();
-        EnderecoDTO endereco = new EnderecoService().findById(idEndereco);
+        endereco = new EnderecoService().findById(idEndereco);
         cliente.setEndereco(endereco);
 
         txtNome.setText(cliente.getNome());
@@ -395,6 +396,7 @@ public class EditarClienteGUI extends javax.swing.JPanel {
 
         if (erros.isEmpty()) {
             EnderecoDTO endereco = new EnderecoDTO(
+                    this.endereco.getId(),
                     txtRua.getText(),
                     txtNumero.getText(),
                     txtBairro.getText(),

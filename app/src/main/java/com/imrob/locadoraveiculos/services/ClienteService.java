@@ -4,7 +4,6 @@ import com.imrob.locadoraveiculos.DTO.ClienteDTO;
 import com.imrob.locadoraveiculos.DTO.EnderecoDTO;
 import com.imrob.locadoraveiculos.entities.Cliente;
 import com.imrob.locadoraveiculos.repositories.ClienteRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +24,9 @@ public class ClienteService {
         return convertToDTO(repository.findById(id));
     }
 
-//    public ClienteDTO findByCPF(String cpf) {
-//        return convertToDTO(repository.findByCPF(cpf));
-//    }
+    public ClienteDTO findByCpf(String cpf) {
+        return convertToDTO(repository.findByCpf(cpf));
+    }
 
 //    public ClienteDTO findByName(String name) {
 //        return convertToDTO(repository.findByName(name));
@@ -52,6 +51,7 @@ public class ClienteService {
 
     public void update(ClienteDTO clienteDto) {
         Cliente cliente = convertToEntity(clienteDto);
+        enderecoService.update(clienteDto.getEndereco());
         repository.update(cliente);
     }
 
@@ -72,7 +72,7 @@ public class ClienteService {
                 dto.getDataVencimentoCNH(),
                 dto.getEmail(),
                 dto.getTelefone(),
-                dto.getEnderecoId()
+                dto.getEndereco().getId()
                 );
     }
 

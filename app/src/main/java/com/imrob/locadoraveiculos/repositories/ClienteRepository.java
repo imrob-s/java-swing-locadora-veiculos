@@ -52,6 +52,19 @@ public class ClienteRepository implements RobRepository<Cliente, Long> {
         }
     }
 
+    public Cliente findByCpf(String cpf) {
+        String sql = """
+                     SELECT * 
+                     FROM cliente 
+                     WHERE cpf = :cpf
+                     """;
+        return jdbcClient
+                .sql("SELECT * FROM cliente WHERE cpf = :cpf")
+                .param("cpf", cpf)
+                .query(Cliente.class)
+                .single();
+    }
+
     /**
      * Salva uma nova entidade no banco de dados.
      *
