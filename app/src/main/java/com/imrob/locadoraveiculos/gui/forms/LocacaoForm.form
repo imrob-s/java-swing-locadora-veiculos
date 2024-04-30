@@ -66,7 +66,7 @@
           <StringArray count="4">
             <StringItem index="0" value="Cliente"/>
             <StringItem index="1" value="Carro"/>
-            <StringItem index="2" value="Pagamento"/>
+            <StringItem index="2" value="Detalhes"/>
             <StringItem index="3" value="Finaliza&#xe7;&#xe3;o"/>
           </StringArray>
         </Property>

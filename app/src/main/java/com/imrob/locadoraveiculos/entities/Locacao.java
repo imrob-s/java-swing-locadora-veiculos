@@ -2,18 +2,17 @@
 package com.imrob.locadoraveiculos.entities;
 
 import com.imrob.locadoraveiculos.repositories.impl.Identifiable;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Locacao implements Identifiable<Long>, Serializable {
     private Long id;
     private Long seguradoraId;
     private Long carroId;
     private Long clientId;
-    private LocalDateTime datalocacao;
-    private LocalDateTime datadevolucao;
-    private LocalDateTime datadevolvida;
+    private LocalDate datalocacao;
+    private LocalDate datadevolucao;
+    private LocalDate datadevolvida;
     private Double valorDesconto;
     private Double valor;
     private Double valorTotal;
@@ -21,7 +20,7 @@ public class Locacao implements Identifiable<Long>, Serializable {
     public Locacao() {
     }
 
-    public Locacao(Long id, Long seguradoraId, Long carroId, Long clientId, LocalDateTime dataLocacao, LocalDateTime dataDevolucao, LocalDateTime dataDevolvida, Double valorDesconto, Double valor, Double valorTotal) {
+    public Locacao(Long id, Long seguradoraId, Long carroId, Long clientId, LocalDate dataLocacao, LocalDate dataDevolucao, LocalDate dataDevolvida, Double valorDesconto, Double valor, Double valorTotal) {
         this.id = id;
         this.seguradoraId = seguradoraId;
         this.carroId = carroId;
@@ -66,27 +65,27 @@ public class Locacao implements Identifiable<Long>, Serializable {
         this.clientId = clientId;
     }
 
-    public LocalDateTime getDatalocacao() {
+    public LocalDate getDatalocacao() {
         return datalocacao;
     }
 
-    public void setDatalocacao(LocalDateTime datalocacao) {
+    public void setDatalocacao(LocalDate datalocacao) {
         this.datalocacao = datalocacao;
     }
 
-    public LocalDateTime getDatadevolucao() {
+    public LocalDate getDatadevolucao() {
         return datadevolucao;
     }
 
-    public void setDatadevolucao(LocalDateTime datadevolucao) {
+    public void setDatadevolucao(LocalDate datadevolucao) {
         this.datadevolucao = datadevolucao;
     }
 
-    public LocalDateTime getDatadevolvida() {
+    public LocalDate getDatadevolvida() {
         return datadevolvida;
     }
 
-    public void setDatadevolvida(LocalDateTime datadevolvida) {
+    public void setDatadevolvida(LocalDate datadevolvida) {
         this.datadevolvida = datadevolvida;
     }
 

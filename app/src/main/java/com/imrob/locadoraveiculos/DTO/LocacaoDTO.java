@@ -1,15 +1,15 @@
 package com.imrob.locadoraveiculos.DTO;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class LocacaoDTO {
     private Long id;
     private Long seguradoraId;
     private Long carroId;
     private Long clientId;
-    private LocalDateTime dataLocacao;
-    private LocalDateTime dataDevolucao;
-    private LocalDateTime dataDevolvida;
+    private LocalDate dataLocacao;
+    private LocalDate dataDevolucao;
+    private LocalDate dataDevolvida;
     private double valorDesconto;
     private double valor;
     private double valorTotal;
@@ -17,7 +17,7 @@ public class LocacaoDTO {
     public LocacaoDTO() {
     }
 
-    public LocacaoDTO(Long id, Long seguradoraId, Long carroId, Long clientId, LocalDateTime dataLocacao, LocalDateTime dataDevolucao, LocalDateTime dataDevolvida, double valorDesconto, double valor, double valorTotal) {
+    public LocacaoDTO(Long id, Long seguradoraId, Long carroId, Long clientId, LocalDate dataLocacao, LocalDate dataDevolucao, LocalDate dataDevolvida, double valorDesconto, double valor, double valorTotal) {
         this.id = id;
         this.seguradoraId = seguradoraId;
         this.carroId = carroId;
@@ -62,27 +62,27 @@ public class LocacaoDTO {
         this.clientId = clientId;
     }
 
-    public LocalDateTime getDataLocacao() {
+    public LocalDate getDataLocacao() {
         return dataLocacao;
     }
 
-    public void setDataLocacao(LocalDateTime dataLocacao) {
+    public void setDataLocacao(LocalDate dataLocacao) {
         this.dataLocacao = dataLocacao;
     }
 
-    public LocalDateTime getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(LocalDateTime dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public LocalDateTime getDataDevolvida() {
+    public LocalDate getDataDevolvida() {
         return dataDevolvida;
     }
 
-    public void setDataDevolvida(LocalDateTime dataDevolvida) {
+    public void setDataDevolvida(LocalDate dataDevolvida) {
         this.dataDevolvida = dataDevolvida;
     }
 
@@ -109,4 +109,11 @@ public class LocacaoDTO {
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
+
+    @Override
+    public String toString() {
+        return "LocacaoDTO{" + "id=" + id + ", seguradoraId=" + seguradoraId + ", carroId=" + carroId + ", clientId=" + clientId + ", dataLocacao=" + dataLocacao + ", dataDevolucao=" + dataDevolucao + ", dataDevolvida=" + dataDevolvida + ", valorDesconto=" + valorDesconto + ", valor=" + valor + ", valorTotal=" + valorTotal + '}';
+    }
+    
+    
 }

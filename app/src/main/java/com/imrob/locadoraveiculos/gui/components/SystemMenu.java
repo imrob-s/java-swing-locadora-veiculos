@@ -128,7 +128,7 @@ public class SystemMenu extends BlurChild {
                             int subIndex=ints[1];
                             if(index==1){
                                 if(subIndex==0){
-                                    FormManager.getInstance().showForm("Nova Locação", new LocacaoForm());
+                                    FormManager.getInstance().showForm("Nova Locação", LocacaoForm.getInstance());
                                 }else if(subIndex==1){
                                     FormManager.getInstance().showForm("Visualizar Locações", new CadastroCarroGUI());
                                 }else if(subIndex==2){

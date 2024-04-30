@@ -2,23 +2,44 @@
 package com.imrob.locadoraveiculos.gui.forms.locacao;
 
 import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
+import com.imrob.locadoraveiculos.gui.forms.LocacaoForm;
 import com.imrob.locadoraveiculos.services.SeguradoraService;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
+import raven.datetime.component.date.DateEvent;
+import raven.datetime.component.date.DatePicker;
 
 /**
  *
  * @author Rob
  */
-public class LocacaoPagamento extends javax.swing.JPanel {
+public class LocacaoDetalhes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form LocacaoPagamento
-     */
-    public LocacaoPagamento() {
+    public LocacaoDetalhes() {
         initComponents();
         pnlSeguradora.setVisible(false);
         carregarCboSeguradora();
+        carregarCalendario();
+    }
+    
+    public void carregarCalendario() {
+        DatePicker datePicker = new DatePicker();
+        datePicker.setDateSelectionMode(DatePicker.DateSelectionMode.BETWEEN_DATE_SELECTED);
+        datePicker.setSeparator(" até ");
+        datePicker.setDateSelectionAble(localDate -> localDate.isAfter(LocalDate.now()));
+        datePicker.addDateSelectionListener((DateEvent de) -> {
+            LocalDate[] datas = datePicker.getSelectedDateRange();
+            LocacaoForm.getInstance().getLocacao().setDataLocacao(datas[0]);
+            LocacaoForm.getInstance().getLocacao().setDataDevolucao(datas[1]);
+            LocacaoForm.getInstance().getLocacao().setDataDevolvida(datas[1]);
+            if (datas != null) {
+                System.out.println(LocacaoForm.getInstance().getLocacao());
+            }
+        });
+        
+        datePicker.setEditor(txtfPeriodo);
+        
     }
     
     public void carregarCboSeguradora() {
@@ -67,8 +88,10 @@ public class LocacaoPagamento extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtfPeriodo = new javax.swing.JFormattedTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
         jLabel2.setText("Opcionais");
@@ -115,9 +138,26 @@ public class LocacaoPagamento extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel7.setText("Periodo de locação");
 
-        jLabel8.setText("Selecione o periodo");
-
         jLabel9.setText("Dias");
+
+        jLabel10.setText("Imagem Carro");
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -125,7 +165,8 @@ public class LocacaoPagamento extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(txtfPeriodo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 215, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel7)
                     .add(jLabel4)
                     .add(layout.createSequentialGroup()
@@ -145,29 +186,35 @@ public class LocacaoPagamento extends javax.swing.JPanel {
                                 .add(rdoNao))
                             .add(jLabel1)
                             .add(pnlSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel8)
-                            .add(jLabel9))))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel9)
+                                .add(131, 131, 131)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel7)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel8)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel9)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 37, Short.MAX_VALUE)
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel1)
-                .add(4, 4, 4)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(rdoSim)
-                    .add(rdoNao))
-                .add(1, 1, 1)
-                .add(pnlSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(txtfPeriodo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel9)
+                        .add(20, 20, 20)
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel1)
+                        .add(4, 4, 4)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(rdoSim)
+                            .add(rdoNao))
+                        .add(1, 1, 1)
+                        .add(pnlSeguradora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(18, 18, 18)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -178,7 +225,7 @@ public class LocacaoPagamento extends javax.swing.JPanel {
                 .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel6)
-                .add(26, 26, 26))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,18 +242,20 @@ public class LocacaoPagamento extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboSeguradora;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pnlSeguradora;
     private javax.swing.JRadioButton rdoNao;
     private javax.swing.JRadioButton rdoSim;
+    private javax.swing.JFormattedTextField txtfPeriodo;
     // End of variables declaration//GEN-END:variables
 }

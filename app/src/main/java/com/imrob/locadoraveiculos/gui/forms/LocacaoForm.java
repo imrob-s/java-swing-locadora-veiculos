@@ -1,23 +1,81 @@
 
 package com.imrob.locadoraveiculos.gui.forms;
 
+import com.imrob.locadoraveiculos.DTO.CarroDTO;
+import com.imrob.locadoraveiculos.DTO.ClienteDTO;
+import com.imrob.locadoraveiculos.DTO.LocacaoDTO;
+import com.imrob.locadoraveiculos.DTO.SeguradoraDTO;
 import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoCarro;
 import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoCliente;
+import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoDetalhes;
 import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoFinalizacao;
-import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoPagamento;
 import java.awt.Color;
 import java.awt.Component;
 
 public class LocacaoForm extends javax.swing.JPanel {
+    private static LocacaoForm instance;
+    private ClienteDTO cliente;
+    private CarroDTO carro;
+    private SeguradoraDTO seguradora;
+    private LocacaoDTO locacao = new LocacaoDTO();
 
-    public LocacaoForm() {
+    private LocacaoForm() {
         initComponents();
         setBackground(Color.white);
-        Component[] components = new Component[]{new LocacaoCliente(btnProximo), new LocacaoCarro(btnProximo), new LocacaoPagamento(), new LocacaoFinalizacao()};
+        Component[] components = new Component[]{new LocacaoCliente(btnProximo), new LocacaoCarro(btnProximo), new LocacaoDetalhes(), new LocacaoFinalizacao()};
         panelSlider.setSliderComponent(components);
         progressIndicator.initSlider(panelSlider);
         btnProximo.setEnabled(false);
     }
+    
+    public static LocacaoForm getInstance() {
+        if (instance == null) {
+            synchronized (LocacaoForm.class) {
+                if (instance == null) {
+                    instance = new LocacaoForm();
+                }
+            }
+        }
+        return instance;
+    }
+    
+    public static void closeInstance() {
+        instance = null;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    public CarroDTO getCarro() {
+        return carro;
+    }
+
+    public void setCarro(CarroDTO carro) {
+        this.carro = carro;
+    }
+
+    public SeguradoraDTO getSeguradora() {
+        return seguradora;
+    }
+
+    public void setSeguradora(SeguradoraDTO seguradora) {
+        this.seguradora = seguradora;
+    }
+
+    public LocacaoDTO getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(LocacaoDTO locacao) {
+        this.locacao = locacao;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +97,7 @@ public class LocacaoForm extends javax.swing.JPanel {
 
         progressIndicator.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 80, 5, 80));
         progressIndicator.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Cliente", "Carro", "Pagamento", "Finalização" };
+            String[] strings = { "Cliente", "Carro", "Detalhes", "Finalização" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
