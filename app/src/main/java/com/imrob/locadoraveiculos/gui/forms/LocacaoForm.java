@@ -14,10 +14,10 @@ import java.awt.Component;
 
 public class LocacaoForm extends javax.swing.JPanel {
     private static LocacaoForm instance;
-    private ClienteDTO cliente;
-    private CarroDTO carro;
-    private SeguradoraDTO seguradora;
-    private LocacaoDTO locacao = new LocacaoDTO();
+    private static ClienteDTO cliente;
+    private static CarroDTO carro;
+    private static SeguradoraDTO seguradora;
+    private static LocacaoDTO locacao = new LocacaoDTO();
 
     private LocacaoForm() {
         initComponents();
@@ -55,8 +55,8 @@ public class LocacaoForm extends javax.swing.JPanel {
         return carro;
     }
 
-    public void setCarro(CarroDTO carro) {
-        this.carro = carro;
+    public static void setCarro(CarroDTO carro) {
+        LocacaoForm.carro = carro;
     }
 
     public SeguradoraDTO getSeguradora() {

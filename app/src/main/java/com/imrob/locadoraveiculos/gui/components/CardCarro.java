@@ -63,6 +63,7 @@ public class CardCarro extends javax.swing.JPanel {
         } else {
             lblImg.setIcon(new AvatarIcon(getClass().getResource("/imgs/img_carrodefault.png"), 180, 100, 10));
         }
+        carro.setImagePath(imagePath);
 
     }
     
@@ -204,13 +205,13 @@ public class CardCarro extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         LocacaoCarro.setCarroSelecionado(carro);
         if (selectedCard != null) {
-                    selectedCard.setSelected(false); // Desmarca o card atualmente selecionado
-                    selectedCard.repaint(); // Redesenha o card para atualizar a aparência
+                    selectedCard.setSelected(false);
+                    selectedCard.repaint();
                 }
                 
-                setSelected(true); // Marca o novo card como selecionado
-                selectedCard = CardCarro.this; // Atualiza a referência ao card selecionado
-                repaint();
+        setSelected(true);
+        selectedCard = CardCarro.this;
+        repaint();
     }//GEN-LAST:event_formMouseClicked
 
 

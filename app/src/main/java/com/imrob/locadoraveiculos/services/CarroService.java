@@ -5,9 +5,6 @@ import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.repositories.CarroRepository;
 import com.imrob.locadoraveiculos.repositories.FabricanteRepository;
 import com.imrob.locadoraveiculos.repositories.ModeloRepository;
-import com.imrob.locadoraveiculos.repositories.cache.CachedRepository;
-import com.imrob.locadoraveiculos.repositories.impl.RobRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 

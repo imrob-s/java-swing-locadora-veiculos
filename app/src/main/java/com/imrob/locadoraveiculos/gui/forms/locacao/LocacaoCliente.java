@@ -3,6 +3,7 @@ package com.imrob.locadoraveiculos.gui.forms.locacao;
 
 import com.imrob.locadoraveiculos.DTO.ClienteDTO;
 import com.imrob.locadoraveiculos.Utils.Validators;
+import com.imrob.locadoraveiculos.gui.forms.LocacaoForm;
 import com.imrob.locadoraveiculos.services.ClienteService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,7 @@ public class LocacaoCliente extends javax.swing.JPanel {
     public LocacaoCliente(JButton botaoProximo) {
         initComponents();
         pnlDadosCliente.setVisible(false);
-        botaoProximo.setEnabled(true);
+        botaoProximo.setEnabled(false);
         this.botaoProximo = botaoProximo;
     }
 
@@ -205,6 +206,8 @@ public class LocacaoCliente extends javax.swing.JPanel {
                 lblVencimentoCnh.setText(cliente.getDataVencimentoCNH().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 lblTelefone.setText(cliente.getTelefone());
                 lblEmail.setText(cliente.getEmail());
+                
+                LocacaoForm.getInstance().setCliente(cliente);
                 pnlDadosCliente.setVisible(true);
                 if(cliente.getDataVencimentoCNH().isBefore(LocalDate.now())){
                     botaoProximo.setEnabled(false);

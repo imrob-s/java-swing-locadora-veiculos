@@ -1,13 +1,11 @@
 package com.imrob.locadoraveiculos.DTO;
 
-import javax.swing.Icon;
-
 public class CarroDTO {
     
     private Long id;
     private Long fabricanteId;
     private Long modeloId;
-    private Icon image;
+    private String imagePath;
     private String modelo;
     private String fabricante;
     private Integer ano;
@@ -19,11 +17,11 @@ public class CarroDTO {
     public CarroDTO() {
     }
 
-    public CarroDTO(Long Id, Long fabricanteId, Long modeloId, Icon image, String nome, String fabricante, Integer ano, String cor, String placa, Boolean disponivel, double valorLocacao) {
+    public CarroDTO(Long Id, Long fabricanteId, Long modeloId, String imagePath, String nome, String fabricante, Integer ano, String cor, String placa, Boolean disponivel, double valorLocacao) {
         this.id = Id;
         this.fabricanteId = fabricanteId;
         this.modeloId = modeloId;
-        this.image = image;
+        this.imagePath = imagePath;
         this.modelo = nome;
         this.fabricante = fabricante;
         this.ano = ano;
@@ -57,12 +55,12 @@ public class CarroDTO {
         this.modeloId = modeloId;
     }
 
-    public Icon getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(Icon image) {
-        this.image = image;
+    public void setImagePath(String image) {
+        this.imagePath = image;
     }
 
     public String getModelo() {
