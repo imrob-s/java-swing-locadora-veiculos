@@ -46,14 +46,14 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="pnlResumo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pnlResumo" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -88,7 +88,7 @@
                       <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -225,61 +225,51 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblImagem" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCarro" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCarro2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCarro3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCarro5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCarro6" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCarro1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblImagem" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblFabricanteECarro" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCliente" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblValorTotalDiarias" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblValorSeguro" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblValorDesconto" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTotal" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace pref="21" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblCarro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCarro1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCarro2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCarro3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCarro5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCarro6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblFabricanteECarro" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCliente" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblValorTotalDiarias" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblValorSeguro" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblValorDesconto" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblTotal" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblCarro4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="lblValorDiaria" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                                          <Component id="lblDias" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lblCarro4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lblValorDiaria" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                              <Component id="lblDias" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="lblImagem" min="-2" pref="84" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="lblImagem" min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCarro" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblFabricanteECarro" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -329,7 +319,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblImagem">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Imagem Carro"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[150, 84]"/>
             </Property>

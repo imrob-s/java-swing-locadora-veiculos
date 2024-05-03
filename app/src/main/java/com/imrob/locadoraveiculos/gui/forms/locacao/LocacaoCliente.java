@@ -208,6 +208,7 @@ public class LocacaoCliente extends javax.swing.JPanel {
                 lblEmail.setText(cliente.getEmail());
                 
                 LocacaoForm.getInstance().setCliente(cliente);
+                LocacaoForm.getInstance().getLocacao().setClientId(cliente.getId());
                 pnlDadosCliente.setVisible(true);
                 if(cliente.getDataVencimentoCNH().isBefore(LocalDate.now())){
                     botaoProximo.setEnabled(false);

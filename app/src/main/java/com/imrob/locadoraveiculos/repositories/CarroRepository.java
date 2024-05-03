@@ -4,9 +4,8 @@ import com.imrob.locadoraveiculos.config.DatabaseConfig;
 import com.imrob.locadoraveiculos.entities.Carro;
 import com.imrob.locadoraveiculos.repositories.cache.CachedRepository;
 import com.imrob.locadoraveiculos.repositories.impl.RobRepository;
-import org.springframework.jdbc.core.simple.JdbcClient;
-
 import java.util.List;
+import org.springframework.jdbc.core.simple.JdbcClient;
 
 public class CarroRepository implements RobRepository<Carro, Long> {
     private final JdbcClient jdbcClient;
@@ -77,6 +76,19 @@ public class CarroRepository implements RobRepository<Carro, Long> {
         RobRepository.super.update(carro);
         cachedCarro.update(carro);
     }
+    
+    public void updateStatus(Long id, Boolean disponivel) {
+        String sql = """
+                     UPDATE carro SET disponivel = ? 
+                     WHERE id = ?
+                     """;
+        jdbcClient
+          .sql(sql)
+          .params(disponivel, id)
+                .update();
+        Carro carro = RobRepository.super.findById(id);
+        cachedCarro.update(carro);
+  }
 
     /**
      * Exclui uma entidade do banco de dados com base no seu identificador único.

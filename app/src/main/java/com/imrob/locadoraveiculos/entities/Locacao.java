@@ -7,13 +7,13 @@ import java.time.LocalDate;
 
 public class Locacao implements Identifiable<Long>, Serializable {
     private Long id;
-    private Long seguradoraId;
-    private Long carroId;
-    private Long clientId;
+    private Long seguradora_id;
+    private Long carro_id;
+    private Long cliente_id;
     private LocalDate datalocacao;
     private LocalDate datadevolucao;
     private LocalDate datadevolvida;
-    private Double valorDesconto;
+    private Double valordesconto;
     private Double valor;
     private Double valorTotal;
 
@@ -22,13 +22,13 @@ public class Locacao implements Identifiable<Long>, Serializable {
 
     public Locacao(Long id, Long seguradoraId, Long carroId, Long clientId, LocalDate dataLocacao, LocalDate dataDevolucao, LocalDate dataDevolvida, Double valorDesconto, Double valor, Double valorTotal) {
         this.id = id;
-        this.seguradoraId = seguradoraId;
-        this.carroId = carroId;
-        this.clientId = clientId;
+        this.seguradora_id = seguradoraId;
+        this.carro_id = carroId;
+        this.cliente_id = clientId;
         this.datalocacao = dataLocacao;
         this.datadevolucao = dataDevolucao;
         this.datadevolvida = dataDevolvida;
-        this.valorDesconto = valorDesconto;
+        this.valordesconto = valorDesconto;
         this.valor = valor;
         this.valorTotal = valorTotal;
     }
@@ -41,28 +41,28 @@ public class Locacao implements Identifiable<Long>, Serializable {
         this.id = id;
     }
 
-    public Long getSeguradoraId() {
-        return seguradoraId;
+    public Long getSeguradora_id() {
+        return seguradora_id;
     }
 
-    public void setSeguradoraId(Long seguradoraId) {
-        this.seguradoraId = seguradoraId;
+    public void setSeguradora_id(Long seguradora_id) {
+        this.seguradora_id = seguradora_id;
     }
 
-    public Long getCarroId() {
-        return carroId;
+    public Long getCarro_id() {
+        return carro_id;
     }
 
-    public void setCarroId(Long carroId) {
-        this.carroId = carroId;
+    public void setCarro_id(Long carro_id) {
+        this.carro_id = carro_id;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Long getCliente_id() {
+        return cliente_id;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setCliente_id(Long cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public LocalDate getDatalocacao() {
@@ -89,12 +89,12 @@ public class Locacao implements Identifiable<Long>, Serializable {
         this.datadevolvida = datadevolvida;
     }
 
-    public Double getValorDesconto() {
-        return valorDesconto;
+    public Double getValordesconto() {
+        return valordesconto;
     }
 
-    public void setValorDesconto(Double valorDesconto) {
-        this.valorDesconto = valorDesconto;
+    public void setValordesconto(Double valordesconto) {
+        this.valordesconto = valordesconto;
     }
 
     public Double getValor() {

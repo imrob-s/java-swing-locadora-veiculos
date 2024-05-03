@@ -11,6 +11,7 @@ import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoDetalhes;
 import com.imrob.locadoraveiculos.gui.forms.locacao.LocacaoFinalizacao;
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JButton;
 
 public class LocacaoForm extends javax.swing.JPanel {
     private static LocacaoForm instance;
@@ -22,7 +23,7 @@ public class LocacaoForm extends javax.swing.JPanel {
     private LocacaoForm() {
         initComponents();
         setBackground(Color.white);
-        Component[] components = new Component[]{new LocacaoCliente(btnProximo), new LocacaoCarro(btnProximo), new LocacaoDetalhes(), new LocacaoFinalizacao()};
+        Component[] components = new Component[]{new LocacaoCliente(btnProximo), new LocacaoCarro(), new LocacaoDetalhes(), new LocacaoFinalizacao()};
         panelSlider.setSliderComponent(components);
         progressIndicator.initSlider(panelSlider);
         btnProximo.setEnabled(false);
@@ -74,7 +75,10 @@ public class LocacaoForm extends javax.swing.JPanel {
     public void setLocacao(LocacaoDTO locacao) {
         this.locacao = locacao;
     }
-    
+
+    public static JButton getBtnProximo() {
+        return btnProximo;
+    }
     
 
     /**
@@ -132,13 +136,13 @@ public class LocacaoForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnProximo)
                 .addContainerGap())
-            .addComponent(progressIndicator, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+            .addComponent(progressIndicator, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(progressIndicator, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(panelSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,12 +158,13 @@ public class LocacaoForm extends javax.swing.JPanel {
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
         progressIndicator.next();
+        btnProximo.setEnabled(false);
     }//GEN-LAST:event_btnProximoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;
-    private javax.swing.JButton btnProximo;
+    private static javax.swing.JButton btnProximo;
     private com.imrob.locadoraveiculos.gui.components.PanelSlider panelSlider;
     private com.imrob.locadoraveiculos.gui.components.ProgressIndicator progressIndicator;
     // End of variables declaration//GEN-END:variables

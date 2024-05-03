@@ -1,10 +1,8 @@
 package com.imrob.locadoraveiculos.services;
 
-import com.imrob.locadoraveiculos.repositories.deprecated.LocacaoRepository;
-import com.imrob.locadoraveiculos.entities.Locacao;
 import com.imrob.locadoraveiculos.DTO.LocacaoDTO;
-
-import java.time.LocalDateTime;
+import com.imrob.locadoraveiculos.entities.Locacao;
+import com.imrob.locadoraveiculos.repositories.LocacaoRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,31 +18,39 @@ public class LocacaoService {
         return convertToDTOs(locacoes);
     }
 
-    public LocacaoDTO findLocacaoById(Long id) {
-        Locacao locacao = locacaoRepository.findBy(id);
+    public LocacaoDTO findById(Long id) {
+        Locacao locacao = locacaoRepository.findById(id);
         return convertToDTO(locacao);
     }
 
-    public LocacaoDTO findByClientName(String name) {
-        Locacao locacao = locacaoRepository.findByClientName(name);
-        return convertToDTO(locacao);
-    }
+//    public LocacaoDTO findByClientName(String name) {
+//        Locacao locacao = locacaoRepository.findByClientName(name);
+//        return convertToDTO(locacao);
+//    }
 
-    public List<LocacaoDTO> findByEntreDatasLocacao(LocalDateTime dataInicio, LocalDateTime dataFinal) {
-        List<Locacao> locacoes = locacaoRepository.findByEntreDatas(dataInicio, dataFinal);
-        return convertToDTOs(locacoes);
-    }
+//    public List<LocacaoDTO> findByEntreDatasLocacao(LocalDateTime dataInicio, LocalDateTime dataFinal) {
+//        List<Locacao> locacoes = locacaoRepository.findByEntreDatas(dataInicio, dataFinal);
+//        return convertToDTOs(locacoes);
+//    }
 
-    public void saveLocacao(LocacaoDTO locacaoDTO) {
+    public void save(LocacaoDTO locacaoDTO) {
         Locacao locacao = convertToEntity(locacaoDTO);
-        locacaoRepository.save(locacao);
+        Long idLocacao = locacaoRepository.save(locacao);
+        Long idCarro = findById(idLocacao).getCarroId();
+        
+        if (idLocacao != null) {
+            new CarroService().updateStatus(idCarro, false);
+        }
     }
 
-    public void deleteLocacao(Long id) {
+    public void delete(Long id) {
+        LocacaoDTO locacao = findById(id);
+        new CarroService().updateStatus(locacao.getCarroId(), true);
         locacaoRepository.delete(id);
+        
     }
 
-    public void updateLocacao(LocacaoDTO locacaoDTO) {
+    public void update(LocacaoDTO locacaoDTO) {
         Locacao locacao = convertToEntity(locacaoDTO);
         locacaoRepository.update(locacao);
     }
@@ -52,13 +58,13 @@ public class LocacaoService {
     private LocacaoDTO convertToDTO(Locacao locacao) {
         LocacaoDTO dto = new LocacaoDTO();
         dto.setId(locacao.getId());
-        dto.setSeguradoraId(locacao.getSeguradoraId());
-        dto.setCarroId(locacao.getCarroId());
-        dto.setClientId(locacao.getClientId());
+        dto.setSeguradoraId(locacao.getSeguradora_id());
+        dto.setCarroId(locacao.getCarro_id());
+        dto.setClientId(locacao.getCliente_id());
         dto.setDataLocacao(locacao.getDatalocacao());
         dto.setDataDevolucao(locacao.getDatadevolucao());
         dto.setDataDevolvida(locacao.getDatadevolvida());
-        dto.setValorDesconto(locacao.getValorDesconto());
+        dto.setValorDesconto(locacao.getValordesconto());
         dto.setValor(locacao.getValor());
         dto.setValorTotal(locacao.getValorTotal());
         return dto;
@@ -75,13 +81,13 @@ public class LocacaoService {
     private Locacao convertToEntity(LocacaoDTO locacaoDTO) {
         Locacao locacao = new Locacao();
         locacao.setId(locacaoDTO.getId());
-        locacao.setSeguradoraId(locacaoDTO.getSeguradoraId());
-        locacao.setCarroId(locacaoDTO.getCarroId());
-        locacao.setClientId(locacaoDTO.getClientId());
+        locacao.setSeguradora_id(locacaoDTO.getSeguradoraId());
+        locacao.setCarro_id(locacaoDTO.getCarroId());
+        locacao.setCliente_id(locacaoDTO.getClientId());
         locacao.setDatalocacao(locacaoDTO.getDataLocacao());
         locacao.setDatadevolucao(locacaoDTO.getDataDevolucao());
         locacao.setDatadevolvida(locacaoDTO.getDataDevolvida());
-        locacao.setValorDesconto(locacaoDTO.getValorDesconto());
+        locacao.setValordesconto(locacaoDTO.getValorDesconto());
         locacao.setValor(locacaoDTO.getValor());
         locacao.setValorTotal(locacaoDTO.getValorTotal());
         return locacao;

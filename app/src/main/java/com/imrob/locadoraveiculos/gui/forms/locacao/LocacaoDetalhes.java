@@ -28,7 +28,7 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
     private CarroDTO carro;
     private SeguradoraDTO seguradora;
     private LocacaoDTO locacao;
-    private DecimalFormat df = new DecimalFormat("#.##");
+    private DecimalFormat df = new DecimalFormat("#0.00");
 
     public LocacaoDetalhes() {
         initComponents();
@@ -52,7 +52,9 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
             LocacaoForm.getInstance().getLocacao().setDataDevolucao(datas[1]);
             LocacaoForm.getInstance().getLocacao().setDataDevolvida(datas[1]);
             if (datas != null) {
-                System.out.println("teste");
+                LocacaoForm.getInstance().getLocacao().setDataLocacao(datas[0]);
+                LocacaoForm.getInstance().getLocacao().setDataDevolucao(datas[1]);
+                LocacaoForm.getInstance().getLocacao().setDataDevolvida(datas[1]);
                 int dias = datas[1].compareTo(datas[0]);
                 lblDias.setText(dias + " dias");
                 carregarResumo();
@@ -75,21 +77,24 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
         lblValorDiaria.setText(String.valueOf(df.format(carro.getValorLocacao())));
         lblValorSeguro.setText(String.valueOf(df.format(valorSeguro)));
         lblValorDesconto.setText(String.valueOf(df.format(valorDesconto)));
-        lblImagem.setIcon(new AvatarIcon(getClass().getResource(carro.getImagePath()), 150, 84, 10));
+        lblImagem.setIcon(new AvatarIcon(getClass().getResource(carro.getImagePath()), 213, 118, 10));
         atualizarTotal();
     }
     
     public void atualizarTotal() {
         valorTotal = (valorTotalDiaria + valorSeguro) - valorDesconto;
         lblTotal.setText("R$ " + String.valueOf(df.format(valorTotal)));
-    }
-    
-    public void finalizarLocacao() {
-        
+        locacao.setValor(valorTotalDiaria);
+        locacao.setValorTotal(valorTotal);
+        if (!LocacaoForm.getBtnProximo().isEnabled()){
+        LocacaoForm.getBtnProximo().setEnabled(true);
+        }
+        LocacaoFinalizacao.carregarPainel();
     }
     
     public void carregarCboSeguradora() {
         List<SeguradoraDTO> lista = new SeguradoraService().findAll();
+        cboSeguradora.addItem("SELECIONE");
         
         for (SeguradoraDTO f : lista) {
             cboSeguradora.addItem(f.getNome());
@@ -109,6 +114,16 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Erro ao obter a seguradora selecionado. " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return null;
+    }
+    
+    private void aplicarDesconto(Double porcentagemDesconto) {
+        valorDesconto = valorTotalDiaria * ( porcentagemDesconto/100 );
+        lblValorDesconto.setText(String.valueOf(df.format(valorDesconto)));
+        lblCupomMsg.setText("Cupom aplicado!");
+        lblCupomMsg.setForeground(Color.green);
+        lblCupomMsg.setVisible(true);
+        LocacaoForm.getInstance().getLocacao().setValorDesconto(valorDesconto);
+        atualizarTotal();
     }
 
     /**
@@ -208,7 +223,6 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel7.setText("Periodo de locação");
 
-        lblImagem.setText("Imagem Carro");
         lblImagem.setPreferredSize(new java.awt.Dimension(150, 84));
 
         lblCarro.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
@@ -267,48 +281,42 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
         pnlResumoLayout.setHorizontalGroup(
             pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlResumoLayout.createSequentialGroup()
-                .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(21, 21, 21)
+                .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblImagem, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(pnlResumoLayout.createSequentialGroup()
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(lblImagem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(pnlResumoLayout.createSequentialGroup()
-                        .addContainerGap(21, Short.MAX_VALUE)
-                        .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(pnlResumoLayout.createSequentialGroup()
-                                .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(lblCarro)
-                                    .add(lblCarro1)
-                                    .add(jLabel6)
-                                    .add(lblCarro2)
-                                    .add(lblCarro3)
-                                    .add(lblCarro5)
-                                    .add(lblCarro6))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblFabricanteECarro)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCliente)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorTotalDiarias)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorSeguro)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorDesconto)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, lblTotal)))
-                            .add(pnlResumoLayout.createSequentialGroup()
-                                .add(0, 0, Short.MAX_VALUE)
-                                .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(pnlResumoLayout.createSequentialGroup()
-                                        .add(lblCarro4)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(lblValorDiaria))
-                                    .add(pnlResumoLayout.createSequentialGroup()
-                                        .add(jLabel9)
-                                        .add(134, 134, 134)
-                                        .add(lblDias)))))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblCarro)
+                            .add(jLabel6)
+                            .add(lblCarro2)
+                            .add(lblCarro3)
+                            .add(lblCarro5)
+                            .add(lblCarro6)
+                            .add(lblCarro1))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblFabricanteECarro)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblCliente)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorTotalDiarias)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorSeguro)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblValorDesconto)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, lblTotal)))
+                    .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(pnlResumoLayout.createSequentialGroup()
+                            .add(lblCarro4)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(lblValorDiaria))
+                        .add(pnlResumoLayout.createSequentialGroup()
+                            .add(jLabel9)
+                            .add(134, 134, 134)
+                            .add(lblDias))))
+                .add(17, 17, 17))
         );
         pnlResumoLayout.setVerticalGroup(
             pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(pnlResumoLayout.createSequentialGroup()
-                .add(lblImagem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(15, 15, 15)
+                .add(lblImagem, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(pnlResumoLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblCarro)
                     .add(lblFabricanteECarro))
@@ -385,12 +393,12 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
                     .add(lblCupomMsg))
                 .add(18, 18, 18)
                 .add(pnlResumo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(pnlResumo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
@@ -421,7 +429,7 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
                         .add(jLabel8)
                         .add(4, 4, 4)
                         .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -436,33 +444,13 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
     private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
         if (!txtCupom.getText().isEmpty()) {
             switch (txtCupom.getText()) {
-                case "QUERO5" -> { 
-                    valorDesconto = valorTotalDiaria * 0.05;
-                    lblValorDesconto.setText(String.valueOf(df.format(valorDesconto)));
-                    lblCupomMsg.setText("Cupom aplicado!");
-                    lblCupomMsg.setForeground(Color.green);
-                    lblCupomMsg.setVisible(true);    
-                }
-                case "QUERO10" -> {
-                    valorDesconto = valorTotalDiaria * 0.1;
-                    lblValorDesconto.setText(String.valueOf(df.format(valorTotalDiaria * 0.1)));
-                    lblCupomMsg.setText("Cupom aplicado!");
-                    lblCupomMsg.setForeground(Color.green);
-                    lblCupomMsg.setVisible(true);   
-                }
-                case "QUERO15" -> {
-                    valorDesconto = valorTotalDiaria * 0.15;
-                    lblValorDesconto.setText(String.valueOf(df.format(valorTotalDiaria * 0.15)));
-                    lblCupomMsg.setText("Cupom aplicado!");
-                    lblCupomMsg.setForeground(Color.green);
-                    lblCupomMsg.setVisible(true);   
-                }
+                case "QUERO5" -> aplicarDesconto(5.0);
+                case "QUERO10" -> aplicarDesconto(10.0);
+                case "QUERO15" -> aplicarDesconto(15.0);
                 default -> {
-                    valorDesconto = 0.00;
-                    lblValorDesconto.setText(String.valueOf(df.format(0.0)));
+                    aplicarDesconto(0.0);
                     lblCupomMsg.setText("Cupom inválido!");
                     lblCupomMsg.setForeground(Color.red);
-                    lblCupomMsg.setVisible(true);
                 }
             }
         }
@@ -470,6 +458,7 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAplicarActionPerformed
 
     private void cboSeguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSeguradoraActionPerformed
+        if (cboSeguradora.getSelectedIndex() != 0) {
         if (rdoSim.isSelected()){
             seguradora = obterSeguradoraSelecionado();
             valorSeguro = seguradora.getValor();
@@ -479,6 +468,8 @@ public class LocacaoDetalhes extends javax.swing.JPanel {
             valorSeguro = 0.0;
         }
         atualizarTotal();
+        locacao.setSeguradoraId(seguradora.getId());
+        }
     }//GEN-LAST:event_cboSeguradoraActionPerformed
 
 

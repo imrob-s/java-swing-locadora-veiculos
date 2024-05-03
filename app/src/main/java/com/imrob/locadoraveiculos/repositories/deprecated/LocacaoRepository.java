@@ -46,13 +46,13 @@ public class LocacaoRepository {
                      """;
         jdbcClient
                 .sql(sql)
-                .param("seg", locacao.getSeguradoraId())
-                .param("car", locacao.getCarroId())
-                .param("client", locacao.getClientId())
+                .param("seg", locacao.getSeguradora_id())
+                .param("car", locacao.getCarro_id())
+                .param("client", locacao.getCliente_id())
                 .param("dataloca", locacao.getDatalocacao())
                 .param("datadevolucao", locacao.getDatadevolucao())
                 .param("datadevolvida", locacao.getDatadevolvida())
-                .param("vdesc", locacao.getValorDesconto())
+                .param("vdesc", locacao.getValordesconto())
                 .param("valor", locacao.getValor())
                 .param("vtotal", locacao.getValorTotal())
                 .update();
@@ -78,13 +78,13 @@ public class LocacaoRepository {
                      """;
         jdbcClient
                 .sql(sql)
-                .param("seg", locacao.getSeguradoraId())
-                .param("car", locacao.getCarroId())
-                .param("client", locacao.getClientId())
+                .param("seg", locacao.getSeguradora_id())
+                .param("car", locacao.getCarro_id())
+                .param("client", locacao.getCliente_id())
                 .param("dataloca", locacao.getDatalocacao())
                 .param("datadevolucao", locacao.getDatadevolucao())
                 .param("datadevolvida", locacao.getDatadevolvida())
-                .param("vdesc", locacao.getValorDesconto())
+                .param("vdesc", locacao.getValordesconto())
                 .param("valor", locacao.getValor())
                 .param("vtotal", locacao.getValorTotal())
                 .update();

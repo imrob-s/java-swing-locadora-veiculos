@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -20,19 +19,17 @@ import javax.swing.ScrollPaneConstants;
 
 public class LocacaoCarro extends javax.swing.JPanel {
     private CardCarro card;
-    private static JButton botaoProximo;
     private JPanel jpConteudo;
     private JScrollPane scroll;
     public static Boolean isCarSelected;
     
-    public LocacaoCarro(JButton botaoProximo) {
+    public LocacaoCarro() {
         initComponents();
         jpConteudo = new javax.swing.JPanel();
         carregarTela();
         carregarCatalogoCarros();
         setOpaque(false);
-        this.botaoProximo = botaoProximo;
-        botaoProximo.setEnabled(false);
+        isCarSelected = false;
         txtProcurar.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon(getClass().getResource("/imgs/icons/procurar.svg")));
         txtProcurar.setHorizontalAlignment(JTextField.CENTER);
     }
@@ -83,8 +80,10 @@ public class LocacaoCarro extends javax.swing.JPanel {
     
     public static void setCarroSelecionado(CarroDTO carro) {
         LocacaoForm.setCarro(carro);
-        LocacaoCarro.botaoProximo.setVisible(true);
+        LocacaoForm.getBtnProximo().setEnabled(true);
+        LocacaoForm.getInstance().getLocacao().setCarroId(carro.getId());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

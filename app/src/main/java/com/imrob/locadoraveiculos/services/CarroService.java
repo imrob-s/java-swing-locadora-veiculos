@@ -33,6 +33,10 @@ public class CarroService {
         repository.update(convertToEntity(dto));
     }
     
+    public void updateStatus(Long id, Boolean disponivel) {
+        repository.updateStatus(id, disponivel);
+    }
+    
     public void delete(Long id) {
         repository.delete(id);
     }

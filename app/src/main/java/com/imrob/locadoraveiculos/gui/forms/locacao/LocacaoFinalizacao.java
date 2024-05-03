@@ -1,20 +1,61 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.imrob.locadoraveiculos.gui.forms.locacao;
+
+import com.imrob.locadoraveiculos.DTO.LocacaoDTO;
+import com.imrob.locadoraveiculos.Utils.Utils;
+import com.imrob.locadoraveiculos.gui.forms.LocacaoForm;
+import com.imrob.locadoraveiculos.services.LocacaoService;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rob
  */
 public class LocacaoFinalizacao extends javax.swing.JPanel {
+    private static LocacaoForm locacaoForm;
 
-    /**
-     * Creates new form LocacaoFinalizacao
-     */
     public LocacaoFinalizacao() {
         initComponents();
+    }
+    
+    public static void carregarPainel() {
+        locacaoForm = LocacaoForm.getInstance();
+        String nomeCliente = locacaoForm.getCliente().getNome();
+        String modeloCarro = locacaoForm.getCarro().getModelo();
+        LocalDate dataLocacao = locacaoForm.getLocacao().getDataLocacao();
+        LocalDate dataDevolucao = locacaoForm.getLocacao().getDataDevolucao();
+        double valorTotal = locacaoForm.getLocacao().getValorTotal();
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        String texto = """
+            <html>
+                O cliente <b>%s</b> está alugando um carro modelo <b>%s</b><br>
+                para o período de <b>%s</b> a <b>%s</b> com o <br>
+                valor total de <b>R$%.2f</b>.
+            </html>
+            """.formatted(nomeCliente, modeloCarro, dataLocacao.format(formatacao),
+                    dataDevolucao.format(formatacao), valorTotal);
+
+        lblMensagem.setText(texto);
+    }
+    
+    public void salvarLocacao() {
+        LocacaoService service = new LocacaoService();
+        LocacaoDTO locacao = LocacaoForm.getInstance().getLocacao();
+        
+        try {
+            service.save(locacao);
+            
+            JOptionPane.showMessageDialog(null, "Locação efetuada com sucesso!",
+                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            Utils.sair(LocacaoForm.getInstance());
+            LocacaoForm.closeInstance();
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar a locação no sistema: \n" + ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
     }
 
     /**
@@ -26,32 +67,55 @@ public class LocacaoFinalizacao extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        lblMensagem = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Finalizacao");
+        jButton1.setBackground(new java.awt.Color(0, 255, 0));
+        jButton1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Realizar Locação");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        lblMensagem.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lblMensagem.setText("Texto");
+
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        jLabel1.setText("Clique no botão abaixo para efetuar a locação");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
+                    .add(lblMensagem)
+                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(lblMensagem)
+                .add(20, 20, 20)
+                .add(jLabel1)
+                .add(20, 20, 20)
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        salvarLocacao();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel lblMensagem;
     // End of variables declaration//GEN-END:variables
 }
