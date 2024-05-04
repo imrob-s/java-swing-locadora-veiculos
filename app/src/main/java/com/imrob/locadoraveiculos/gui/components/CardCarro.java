@@ -203,6 +203,7 @@ public class CardCarro extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        try {
         LocacaoCarro.setCarroSelecionado(carro);
         if (selectedCard != null) {
                     selectedCard.setSelected(false);
@@ -212,6 +213,9 @@ public class CardCarro extends javax.swing.JPanel {
         setSelected(true);
         selectedCard = CardCarro.this;
         repaint();
+        } catch (NullPointerException ex) {
+            System.out.println("Carro clicado na tela de catalogo");
+        }
     }//GEN-LAST:event_formMouseClicked
 
 

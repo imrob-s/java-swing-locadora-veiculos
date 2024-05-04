@@ -4,20 +4,27 @@ package com.imrob.locadoraveiculos.gui.gerenciar;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.imrob.locadoraveiculos.DTO.CarroDTO;
-import com.imrob.locadoraveiculos.gui.cadastro.CadastroCarroGUI;
+import com.imrob.locadoraveiculos.DTO.ClienteDTO;
+import com.imrob.locadoraveiculos.DTO.LocacaoDTO;
 import com.imrob.locadoraveiculos.gui.components.FormManager;
-import com.imrob.locadoraveiculos.gui.editar.EditarCarroGUI;
+import com.imrob.locadoraveiculos.gui.forms.LocacaoForm;
 import com.imrob.locadoraveiculos.gui.model.MappedTableModel;
 import com.imrob.locadoraveiculos.services.CarroService;
-import com.imrob.locadoraveiculos.services.SeguradoraService;
+import com.imrob.locadoraveiculos.services.ClienteService;
+import com.imrob.locadoraveiculos.services.LocacaoService;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
-public class ListaCarrosGUI extends javax.swing.JPanel {
+/**
+ *
+ * @author Rob
+ */
+public class ListaLocacoesGUI extends javax.swing.JPanel {
 
-    public ListaCarrosGUI() {
+    public ListaLocacoesGUI() {
         initComponents();
         carregarTabela();
         txtProcurar.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon(getClass().getResource("/imgs/icons/procurar.svg")));
@@ -27,50 +34,38 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     public void carregarTabela() {
-        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(
-                new CarroService().findAll(), tabela);
-        tableModel.excludeColumns(new String[]{"modeloId", "fabricanteId", "image"});
+        MappedTableModel<LocacaoDTO> tableModel = new MappedTableModel<>(
+                new LocacaoService().findAll(), tabela);
+        // tableModel.excludeColumns(new String[]{"modeloId", "fabricanteId", "image"});
         tabela.setModel(tableModel);
         tableModel.setPreferredColumnWidths();
-    }
-    
-    private void editar(){
-        int linhaSelecionada = tabela.getSelectedRow();
-        if (linhaSelecionada != -1) {
-            Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
-            CarroDTO carro = new CarroService().findById(id);
-            FormManager.getInstance().showForm("Editar Carro", new EditarCarroGUI(carro));
-
-            carregarTabela();
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione um carro para editar.",
-                    "Nenhuma carro selecionado", JOptionPane.WARNING_MESSAGE);
-        }
     }
     
     private void apagar() {
         int linhaSelecionada = tabela.getSelectedRow();
         if (linhaSelecionada != -1) {
-            Long id = (Long) tabela.getValueAt(linhaSelecionada, 0);
-            CarroDTO carro = new CarroService().findById(id);
+            Long idLocacao = (Long) tabela.getValueAt(linhaSelecionada, 0);
+            LocacaoDTO locacao = new LocacaoService().findById(idLocacao);
+            
+            ClienteDTO cliente = new ClienteService().findById(locacao.getClientId());
+            CarroDTO carro = new CarroService().findById(locacao.getCarroId());
+            
             String mensagem = """
-                              Tem certeza que deseja apagar o carro abaixo?
+                              Tem certeza que deseja apagar Locacao abaixo?
                               
-                              Fabricante: %s
-                              Modelo: %s
-                              Cor: %s
+                              Cliente: %s
+                              Carro: %s
                               Placa: %s
-                              """.formatted(carro.getFabricante(), 
+                              """.formatted(cliente.getNome(), 
                                       carro.getModelo(),
-                                      carro.getCor(),
                                       carro.getPlaca());
             int resposta = JOptionPane.showConfirmDialog(this, mensagem, "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 try {
-                    new SeguradoraService().delete(id);
-                    JOptionPane.showMessageDialog(null, "O carro selecionado foi apagado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    new LocacaoService().delete(idLocacao);
+                    JOptionPane.showMessageDialog(null, "A locacao selecionada foi apagada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Não foi possivel apagar o carro. Erro: " + e.getMessage(),
+                    JOptionPane.showMessageDialog(null, "Não foi possivel apagar a locacao. Erro: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -83,8 +78,8 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
     }
     
     private void atualizarFiltro() {
-        MappedTableModel<CarroDTO> tableModel = new MappedTableModel<>(new CarroService().findAll());
-        TableRowSorter<MappedTableModel<CarroDTO>> sorter = new TableRowSorter<>(tableModel);
+        MappedTableModel<LocacaoDTO> tableModel = new MappedTableModel<>(new LocacaoService().findAll());
+        TableRowSorter<MappedTableModel<LocacaoDTO>> sorter = new TableRowSorter<>(tableModel);
         tabela.setRowSorter(sorter);
         String texto = txtProcurar.getText();
         if (texto.isEmpty()) {
@@ -97,7 +92,6 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
             }
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,8 +109,6 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         btnApagar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-
-        setPreferredSize(new java.awt.Dimension(700, 610));
 
         crazyPanel2.setMigLayoutConstraints(new raven.crazypanel.MigLayoutConstraints(
             "wrap,fill,insets 15",
@@ -178,33 +170,37 @@ public class ListaCarrosGUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(crazyPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(crazyPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 706, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(crazyPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(crazyPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 635, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtProcurarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarKeyTyped
+        atualizarFiltro();
+    }//GEN-LAST:event_txtProcurarKeyTyped
+
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        FormManager.getInstance().showForm("Cadastro de Veículo", new CadastroCarroGUI());
+        FormManager.getInstance().showForm("Cadastro de Veículo", LocacaoForm.getInstance());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editar();
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-       apagar();
+        apagar();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
 
     }//GEN-LAST:event_tabelaMouseClicked
-
-    private void txtProcurarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarKeyTyped
-        atualizarFiltro();
-    }//GEN-LAST:event_txtProcurarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,6 +9,7 @@ import com.imrob.locadoraveiculos.gui.forms.CatalogoVeiculos;
 import com.imrob.locadoraveiculos.gui.forms.LocacaoForm;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaCarrosGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaClientesGUI;
+import com.imrob.locadoraveiculos.gui.gerenciar.ListaLocacoesGUI;
 import com.imrob.locadoraveiculos.gui.gerenciar.ListaSeguradoraGUI;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -77,8 +78,7 @@ public class SystemMenu extends BlurChild {
                 new Item.Label("GERAL"),
                 new Item("Locação", "ui.svg")
                         .subMenu("Nova Locação")
-                        .subMenu("Visualizar Locações")
-                        .subMenu("Relatório de Locações"),
+                        .subMenu("Gerenciar Locações"),
                 new Item("Veículos", "car.svg")
                         .subMenu("Catálogo")
                         .subMenu("Adicionar Novo")
@@ -130,9 +130,7 @@ public class SystemMenu extends BlurChild {
                                 if(subIndex==0){
                                     FormManager.getInstance().showForm("Nova Locação", LocacaoForm.getInstance());
                                 }else if(subIndex==1){
-                                    FormManager.getInstance().showForm("Visualizar Locações", new CadastroCarroGUI());
-                                }else if(subIndex==2){
-                                    FormManager.getInstance().showForm("Relatório de Locações", new CadastroCarroGUI());
+                                    FormManager.getInstance().showForm("Visualizar Locações", new ListaLocacoesGUI());
                                 }
                             } else if(index==2){
                                 if(subIndex==0){
